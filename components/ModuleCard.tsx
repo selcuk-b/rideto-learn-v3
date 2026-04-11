@@ -1,72 +1,112 @@
 import Link from "next/link";
-import { MapPin, ClipboardList, CheckSquare, Star, ChevronRight } from "lucide-react";
+import { MapPin, ClipboardList, CheckSquare, Star, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Module } from "@/lib/course-data";
 
 const iconMap: Record<string, React.ReactNode> = {
-  MapPin: <MapPin size={22} strokeWidth={1.75} />,
-  ClipboardList: <ClipboardList size={22} strokeWidth={1.75} />,
-  CheckSquare: <CheckSquare size={22} strokeWidth={1.75} />,
-  Star: <Star size={22} strokeWidth={1.75} />,
+  MapPin: <MapPin size={20} strokeWidth={1.75} />,
+  ClipboardList: <ClipboardList size={20} strokeWidth={1.75} />,
+  CheckSquare: <CheckSquare size={20} strokeWidth={1.75} />,
+  Star: <Star size={20} strokeWidth={1.75} />,
 };
 
 interface ModuleCardProps {
   module: Module;
   completedLessons?: number;
+  quizScore?: number | null;
+  index?: number;
 }
 
-export default function ModuleCard({ module, completedLessons = 0 }: ModuleCardProps) {
+export default function ModuleCard({
+  module,
+  completedLessons = 0,
+  quizScore = null,
+  index = 0,
+}: ModuleCardProps) {
   const total = module.lessons.length;
   const progressPct = total > 0 ? Math.round((completedLessons / total) * 100) : 0;
+  const isComplete = completedLessons === total;
+  const quizPassed = quizScore !== null && quizScore >= 70;
 
   return (
     <Link
-      href={`/modules/${module.id}`}
-      className="group block bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-[#2CCEAC] transition-all duration-200"
+      href={`/modules/${module.slug}`}
+      className="group block bg-white rounded-xl border border-gray-200/80 p-5 hover:border-[#2CCEAC]/50 hover:shadow-lg transition-all duration-200"
+      style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)" }}
     >
       <div className="flex items-start gap-4">
         {/* Icon badge */}
-        <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-[#2CCEAC]/10 text-[#2CCEAC] flex items-center justify-center">
+        <div
+          className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+            isComplete
+              ? "bg-[#2CCEAC]/15 text-[#2CCEAC]"
+              : "bg-gray-100 text-gray-500 group-hover:bg-[#2CCEAC]/10 group-hover:text-[#2CCEAC]"
+          }`}
+        >
           {iconMap[module.icon]}
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 mb-0.5">
             <span className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wide">
-              Module {module.number}
+              Module {index + 1}
             </span>
-            <span className="text-xs text-gray-400">{total} lessons</span>
+            {isComplete ? (
+              <span className="flex items-center gap-1 text-xs font-medium text-[#2CCEAC]">
+                <CheckCircle2 size={12} />
+                Complete
+              </span>
+            ) : (
+              <span className="text-xs text-gray-400">{total} lessons</span>
+            )}
           </div>
 
-          <h2 className="mt-0.5 text-base font-semibold text-gray-800 group-hover:text-[#2CCEAC] transition-colors leading-snug">
+          <h2 className="text-[15px] font-semibold text-gray-800 group-hover:text-[#2CCEAC] transition-colors leading-snug mb-1">
             {module.title}
           </h2>
 
-          <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-gray-500 leading-relaxed mb-3">
             {module.description}
           </p>
 
-          {/* Progress */}
-          <div className="mt-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-gray-400">
-                {completedLessons} of {total} completed
-              </span>
-              <span className="text-xs font-medium text-gray-500">{progressPct}%</span>
-            </div>
-            <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+          {/* Lesson progress */}
+          <div className="flex items-center gap-3 mb-2">
+            <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#2CCEAC] rounded-full transition-all duration-500"
-                style={{ width: `${progressPct}%` }}
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${progressPct}%`,
+                  background: isComplete
+                    ? "linear-gradient(90deg, #2CCEAC, #1fb896)"
+                    : "#2CCEAC",
+                }}
               />
             </div>
+            <span className="flex-shrink-0 text-xs text-gray-400 font-medium tabular-nums">
+              {completedLessons}/{total}
+            </span>
           </div>
+
+          {/* Quiz score badge */}
+          {quizScore !== null && (
+            <div className="flex items-center gap-1.5">
+              <span
+                className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                  quizPassed
+                    ? "bg-[#2CCEAC]/12 text-[#2CCEAC]"
+                    : "bg-amber-100 text-amber-600"
+                }`}
+              >
+                Quiz: {quizScore}%{quizPassed ? " ✓" : ""}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Arrow */}
         <ChevronRight
-          size={18}
-          className="flex-shrink-0 text-gray-300 group-hover:text-[#2CCEAC] transition-colors mt-1"
+          size={16}
+          className="flex-shrink-0 text-gray-300 group-hover:text-[#2CCEAC] group-hover:translate-x-0.5 transition-all mt-0.5"
         />
       </div>
     </Link>
