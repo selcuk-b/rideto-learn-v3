@@ -1090,3 +1090,106 @@ export const totalLessons = modules.reduce(
   (sum, m) => sum + m.lessons.length,
   0
 );
+
+// ─── Course Catalogue ─────────────────────────────────────────────────────────
+// All 7 courses from the PRD Rider Journey → Course Map.
+// V1 launches with Pre-CBT only; others are stubs for the catalogue page.
+
+export interface CatalogueCourse {
+  slug: string;
+  title: string;
+  tagline: string;
+  description: string;
+  stage: string;
+  phase: string;
+  moduleCount: number;
+  comingSoon: boolean;
+  icon: string; // lucide icon name
+}
+
+export const catalogue: CatalogueCourse[] = [
+  {
+    slug: "pre-cbt",
+    title: "Pre-CBT Training",
+    tagline: "I've booked my CBT. What do I need to know?",
+    description:
+      "Everything you need to know before your motorcycle training day — from Highway Code essentials to what to pack.",
+    stage: "Pre-CBT",
+    phase: "V1",
+    moduleCount: 5,
+    comingSoon: false,
+    icon: "Bike",
+  },
+  {
+    slug: "theory-test",
+    title: "Theory Test Preparation",
+    tagline: "I've done my CBT. Now I need to pass my theory test.",
+    description:
+      "Master the motorcycle theory test — 50 multiple choice questions and 14 hazard perception clips, mapped to all official DVSA categories.",
+    stage: "Post-CBT",
+    phase: "V2",
+    moduleCount: 5,
+    comingSoon: true,
+    icon: "BookCheck",
+  },
+  {
+    slug: "pre-full-licence",
+    title: "Pre-Full Licence (DAS/A2)",
+    tagline: "I've booked my DAS/A2. What's different from CBT?",
+    description:
+      "Prepare for your Mod 1 and Mod 2 tests — understand the format, practise the manoeuvres, and upgrade your riding from 125cc.",
+    stage: "Pre-Full Licence",
+    phase: "V2/V3",
+    moduleCount: 4,
+    comingSoon: true,
+    icon: "Award",
+  },
+  {
+    slug: "auto-to-manual",
+    title: "Auto to Manual Gear Conversion",
+    tagline: "I did CBT on a scooter. Now I want to ride a geared bike.",
+    description:
+      "Transition from automatic scooter to manual geared motorcycle — clutch control, gear shifting, and building confidence on a geared bike.",
+    stage: "Gear Transition",
+    phase: "V2",
+    moduleCount: 4,
+    comingSoon: true,
+    icon: "Settings",
+  },
+  {
+    slug: "english-for-riders",
+    title: "English for Motorcycle Training",
+    tagline: "English isn't my first language. Help me understand the training.",
+    description:
+      "Motorcycle-specific vocabulary, road sign language, instructor commands, and key Highway Code terms in simple English.",
+    stage: "Language Support",
+    phase: "V2",
+    moduleCount: 4,
+    comingSoon: true,
+    icon: "Languages",
+  },
+  {
+    slug: "gear-guide",
+    title: "Gear Guide",
+    tagline: "I've got my licence/CBT. What should I buy?",
+    description:
+      "Choose your first bike, understand essential riding gear, sort insurance and tax, and learn basic maintenance checks.",
+    stage: "Post-Licence",
+    phase: "V3",
+    moduleCount: 4,
+    comingSoon: true,
+    icon: "ShieldCheck",
+  },
+  {
+    slug: "advanced-riding",
+    title: "Advanced Riding Techniques",
+    tagline: "I want to become a better, safer rider.",
+    description:
+      "Advanced observation, cornering technique, group riding, and handling challenging weather and road conditions.",
+    stage: "Ongoing",
+    phase: "V3+",
+    moduleCount: 4,
+    comingSoon: true,
+    icon: "Gauge",
+  },
+];
