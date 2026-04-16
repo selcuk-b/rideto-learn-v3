@@ -11,6 +11,17 @@ interface Props {
   lessonIndex: number;
 }
 
+/** Render text with **bold** markdown as <strong> elements */
+function renderMarkdown(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
 export default function LessonContent({ courseModule, lessonIndex }: Props) {
   const lesson = courseModule.lessons[lessonIndex];
   const totalLessons = courseModule.lessons.length;
@@ -130,7 +141,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
                 key={i}
                 className="text-gray-700 leading-[1.8] text-[15px] mb-5 last:mb-0"
               >
-                {paragraph}
+                {renderMarkdown(paragraph)}
               </p>
             ))}
           </article>
