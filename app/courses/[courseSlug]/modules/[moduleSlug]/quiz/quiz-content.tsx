@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Module } from '@/lib/course-data';
+import { Module, COURSE_SLUG } from '@/lib/course-data';
 import { saveQuizScore, getBestScore } from '@/lib/quiz-progress';
 import {
   ChevronLeft, ChevronRight, CheckCircle2, XCircle,
@@ -13,14 +13,11 @@ interface Props {
   courseModule: Module;
 }
 
-const LETTERS = ['A', 'B', 'C', 'D'] as const;
-
 export default function QuizContent({ courseModule }: Props) {
   const { quiz } = courseModule;
-  const { questions } = quiz;
+  const { questions, passingScore } = quiz;
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  // Track each answer separately so we can compute score reliably
   const [answers, setAnswers] = useState<(number | null)[]>(
     () => new Array(questions.length).fill(null)
   );
@@ -38,12 +35,16 @@ export default function QuizContent({ courseModule }: Props) {
   const currentQuestion = questions[questionIndex];
   const isLastQuestion = questionIndex === questions.length - 1;
 
-  // Derived score (always up-to-date with current answers state)
   const correctCount = answers.filter(
-    (a, i) => a !== null && a === questions[i].correctIndex
+    (a, i) => a !== null && a === questions[i].correctAnswerIndex
   ).length;
   const scorePct = Math.round((correctCount / questions.length) * 100);
-  const passed = scorePct >= 70;
+  const passed = scorePct >= passingScore;
+
+  const basePath = `/courses/${COURSE_SLUG}/modules/${courseModule.slug}`;
+
+  // Generate letter labels dynamically based on number of options
+  const LETTERS = 'ABCDEFGH'.split('');
 
   function handleSelectAnswer(index: number) {
     if (isAnswered) return;
@@ -55,7 +56,6 @@ export default function QuizContent({ courseModule }: Props) {
   }
 
   const goToResults = useCallback(() => {
-    // scorePct is derived from current render's answers state
     const prev = getBestScore(courseModule.slug);
     saveQuizScore(courseModule.slug, scorePct);
     if (prev === null || scorePct > prev) {
@@ -88,7 +88,6 @@ export default function QuizContent({ courseModule }: Props) {
     }, 180);
   }
 
-  // ─── Answer button appearance ────────────────────────────────────────────
   function getButtonClass(optionIndex: number): string {
     const base =
       'relative w-full text-left flex items-center gap-4 px-4 py-4 rounded-xl border-2 transition-colors duration-200 focus:outline-none';
@@ -96,7 +95,7 @@ export default function QuizContent({ courseModule }: Props) {
     if (!isAnswered) {
       return `${base} bg-white border-gray-200 text-gray-800 hover:border-[#2CCEAC]/60 hover:bg-[#2CCEAC]/5 active:scale-[0.98] cursor-pointer`;
     }
-    if (optionIndex === currentQuestion.correctIndex) {
+    if (optionIndex === currentQuestion.correctAnswerIndex) {
       return `${base} bg-[#2CCEAC]/10 border-[#2CCEAC] text-[#2CCEAC] cursor-default`;
     }
     if (optionIndex === selectedIndex) {
@@ -109,7 +108,7 @@ export default function QuizContent({ courseModule }: Props) {
     const base =
       'flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-200';
     if (!isAnswered) return `${base} bg-gray-100 text-gray-500`;
-    if (optionIndex === currentQuestion.correctIndex) return `${base} bg-[#2CCEAC] text-white`;
+    if (optionIndex === currentQuestion.correctAnswerIndex) return `${base} bg-[#2CCEAC] text-white`;
     if (optionIndex === selectedIndex) return `${base} bg-red-400 text-white`;
     return `${base} bg-gray-100 text-gray-400`;
   }
@@ -123,16 +122,11 @@ export default function QuizContent({ courseModule }: Props) {
           style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}
         >
           {/* Score header */}
-          <div
-            className={`px-6 py-8 text-center ${
-              passed ? 'bg-[#434343]' : 'bg-[#434343]'
-            }`}
-          >
+          <div className="px-6 py-8 text-center bg-[#434343]">
             <p className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wider mb-4">
               {courseModule.title} · Quiz Results
             </p>
 
-            {/* Score circle */}
             <div
               className={`animate-score-reveal inline-flex items-center justify-center w-28 h-28 rounded-full text-4xl font-bold mb-3 ${
                 passed
@@ -164,7 +158,7 @@ export default function QuizContent({ courseModule }: Props) {
                     Nicely done — you passed!
                   </p>
                   <p className="text-sm text-gray-600 mt-0.5">
-                    You scored {scorePct}%, which is above the 70% pass mark.
+                    You scored {scorePct}%, which is above the {passingScore}% pass mark.
                     {bestScore !== null && !isNewBest && bestScore > scorePct
                       ? ` Your best is still ${bestScore}%.`
                       : ''}
@@ -176,7 +170,7 @@ export default function QuizContent({ courseModule }: Props) {
                 <BookOpen size={22} className="flex-shrink-0 text-amber-500 mt-0.5" />
                 <div>
                   <p className="font-semibold text-amber-700 leading-snug">
-                    Not quite — you need 70% to pass
+                    Not quite — you need {passingScore}% to pass
                   </p>
                   <p className="text-sm text-amber-600 mt-0.5">
                     You scored {scorePct}%. Review the lessons and have another go —
@@ -186,11 +180,11 @@ export default function QuizContent({ courseModule }: Props) {
               </div>
             )}
 
-            {/* Per-question review summary */}
+            {/* Per-question review */}
             <div className="flex flex-col gap-2 mb-6">
               {questions.map((q, i) => {
                 const userAnswer = answers[i];
-                const correct = userAnswer === q.correctIndex;
+                const correct = userAnswer === q.correctAnswerIndex;
                 return (
                   <div
                     key={i}
@@ -203,7 +197,7 @@ export default function QuizContent({ courseModule }: Props) {
                     ) : (
                       <XCircle size={15} className="flex-shrink-0" />
                     )}
-                    <span className="truncate text-gray-700 font-medium">{q.question}</span>
+                    <span className="truncate text-gray-700 font-medium">{q.questionText}</span>
                   </div>
                 );
               })}
@@ -219,7 +213,7 @@ export default function QuizContent({ courseModule }: Props) {
                 Retake Quiz
               </button>
               <Link
-                href={`/modules/${courseModule.slug}`}
+                href={basePath}
                 className="w-full inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold text-sm py-3 rounded-xl transition-colors duration-200"
               >
                 <ChevronLeft size={16} />
@@ -239,7 +233,7 @@ export default function QuizContent({ courseModule }: Props) {
     <div className="mx-auto max-w-[600px] px-4 py-8">
       {/* Back link */}
       <Link
-        href={`/modules/${courseModule.slug}`}
+        href={basePath}
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#2CCEAC] transition-colors mb-6"
       >
         <ChevronLeft size={15} />
@@ -256,7 +250,6 @@ export default function QuizContent({ courseModule }: Props) {
             {questionIndex + 1} / {questions.length}
           </span>
         </div>
-        {/* Progress bar */}
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
@@ -289,7 +282,7 @@ export default function QuizContent({ courseModule }: Props) {
               Question {questionIndex + 1}
             </p>
             <h2 className="text-[17px] font-bold text-[#434343] leading-snug">
-              {currentQuestion.question}
+              {currentQuestion.questionText}
             </h2>
           </div>
 
@@ -302,28 +295,23 @@ export default function QuizContent({ courseModule }: Props) {
                 disabled={isAnswered}
                 className={getButtonClass(i)}
               >
-                {/* Letter badge */}
                 <span className={getLetterClass(i)}>
-                  {isAnswered && i === currentQuestion.correctIndex ? (
+                  {isAnswered && i === currentQuestion.correctAnswerIndex ? (
                     <CheckCircle2 size={14} />
-                  ) : isAnswered && i === selectedIndex && i !== currentQuestion.correctIndex ? (
+                  ) : isAnswered && i === selectedIndex && i !== currentQuestion.correctAnswerIndex ? (
                     <XCircle size={14} />
                   ) : (
                     LETTERS[i]
                   )}
                 </span>
-
-                {/* Option text */}
                 <span className="flex-1 text-sm font-medium leading-snug">{option}</span>
-
-                {/* Right-side icon */}
-                {isAnswered && i === currentQuestion.correctIndex && (
+                {isAnswered && i === currentQuestion.correctAnswerIndex && (
                   <CheckCircle2
                     size={18}
                     className="flex-shrink-0 text-[#2CCEAC] animate-pop"
                   />
                 )}
-                {isAnswered && i === selectedIndex && i !== currentQuestion.correctIndex && (
+                {isAnswered && i === selectedIndex && i !== currentQuestion.correctAnswerIndex && (
                   <XCircle size={18} className="flex-shrink-0 text-red-400 animate-pop" />
                 )}
               </button>
@@ -335,17 +323,17 @@ export default function QuizContent({ courseModule }: Props) {
         {isAnswered && (
           <div
             className={`animate-fade-in rounded-xl px-5 py-4 mb-4 border ${
-              selectedIndex === currentQuestion.correctIndex
+              selectedIndex === currentQuestion.correctAnswerIndex
                 ? 'bg-[#2CCEAC]/8 border-[#2CCEAC]/20'
                 : 'bg-amber-50 border-amber-200'
             }`}
           >
             <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${
-              selectedIndex === currentQuestion.correctIndex
+              selectedIndex === currentQuestion.correctAnswerIndex
                 ? 'text-[#2CCEAC]'
                 : 'text-amber-600'
             }`}>
-              {selectedIndex === currentQuestion.correctIndex ? 'Correct!' : 'Not quite'}
+              {selectedIndex === currentQuestion.correctAnswerIndex ? 'Correct!' : 'Not quite'}
             </p>
             <p className="text-sm text-gray-700 leading-relaxed">
               {currentQuestion.explanation}

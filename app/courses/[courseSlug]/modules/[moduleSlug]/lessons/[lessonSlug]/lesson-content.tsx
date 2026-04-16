@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import Link from "next/link";
-import { Module } from "@/lib/course-data";
+import { Module, COURSE_SLUG } from "@/lib/course-data";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
-import { ChevronLeft, ChevronRight, Clock, CheckCircle2, BookOpen } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, CheckCircle2, BookOpen, Lightbulb } from "lucide-react";
 
 interface Props {
   courseModule: Module;
@@ -17,6 +17,8 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
   const prevLesson = lessonIndex > 0 ? courseModule.lessons[lessonIndex - 1] : null;
   const nextLesson = lessonIndex < totalLessons - 1 ? courseModule.lessons[lessonIndex + 1] : null;
   const progressPct = ((lessonIndex + 1) / totalLessons) * 100;
+
+  const basePath = `/courses/${COURSE_SLUG}/modules/${courseModule.slug}`;
 
   const [completed, setCompleted] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
@@ -40,7 +42,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         </Link>
         <ChevronRight size={13} className="text-gray-300" />
         <Link
-          href={`/modules/${courseModule.slug}`}
+          href={basePath}
           className="text-gray-400 hover:text-[#2CCEAC] transition-colors truncate max-w-[160px] sm:max-w-none"
         >
           {courseModule.title}
@@ -58,7 +60,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         <div className="px-6 pt-6 pb-5 border-b border-gray-100">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3 text-xs text-gray-400">
             <span className="font-semibold text-[#2CCEAC] uppercase tracking-wide">
-              Module {courseModule.number}
+              Module {courseModule.order}
             </span>
             <span>·</span>
             <span className="flex items-center gap-1">
@@ -68,7 +70,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
             <span>·</span>
             <span className="flex items-center gap-1">
               <Clock size={12} />
-              {lesson.estimatedMinutes} min read
+              {lesson.estimatedReadTime} read
             </span>
             {completed && (
               <>
@@ -105,6 +107,21 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           </div>
         </div>
 
+        {/* YouTube video embed */}
+        {lesson.youtubeVideoId && (
+          <div className="px-6 pt-6">
+            <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+              <iframe
+                src={`https://www.youtube.com/embed/${lesson.youtubeVideoId}`}
+                title={lesson.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        )}
+
         {/* Content */}
         <div className="px-6 py-6">
           <article>
@@ -117,6 +134,19 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
               </p>
             ))}
           </article>
+
+          {/* Key Takeaway */}
+          <div className="mt-6 bg-[#2CCEAC]/8 border border-[#2CCEAC]/20 rounded-xl p-4 flex items-start gap-3">
+            <Lightbulb size={18} className="flex-shrink-0 text-[#2CCEAC] mt-0.5" />
+            <div>
+              <p className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wide mb-1">
+                Key Takeaway
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                {lesson.keyTakeaway}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Mark complete footer */}
@@ -159,7 +189,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         {/* Previous */}
         {prevLesson ? (
           <Link
-            href={`/modules/${courseModule.slug}/lessons/${prevLesson.slug}`}
+            href={`${basePath}/lessons/${prevLesson.slug}`}
             className="group flex items-center gap-2 bg-white border border-gray-200/80 rounded-xl px-4 py-3 hover:border-gray-300 transition-all duration-200 min-w-0 flex-1 max-w-[48%]"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
           >
@@ -176,7 +206,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           </Link>
         ) : (
           <Link
-            href={`/modules/${courseModule.slug}`}
+            href={basePath}
             className="group flex items-center gap-2 bg-white border border-gray-200/80 rounded-xl px-4 py-3 hover:border-gray-300 transition-all duration-200"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
           >
@@ -194,7 +224,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         {/* Next */}
         {nextLesson ? (
           <Link
-            href={`/modules/${courseModule.slug}/lessons/${nextLesson.slug}`}
+            href={`${basePath}/lessons/${nextLesson.slug}`}
             className="group flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] rounded-xl px-4 py-3 transition-all duration-200 min-w-0 flex-1 max-w-[48%] justify-end text-right"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
           >
@@ -213,7 +243,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           </Link>
         ) : (
           <Link
-            href={`/modules/${courseModule.slug}`}
+            href={basePath}
             className="group flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] rounded-xl px-5 py-3 transition-all duration-200 justify-end"
             style={{ boxShadow: "0 1px 3px rgba(44,206,172,0.3)" }}
           >
