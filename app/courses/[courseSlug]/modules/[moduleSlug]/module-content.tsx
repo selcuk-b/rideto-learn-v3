@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from "next/link";
-import { Module } from "@/lib/course-data";
+import { Module, COURSE_SLUG } from "@/lib/course-data";
 import { isLessonComplete, getModuleProgress } from "@/lib/progress";
 import { getBestScore } from "@/lib/quiz-progress";
 import { ChevronLeft, ChevronRight, Clock, CheckCircle2, Trophy, HelpCircle } from "lucide-react";
@@ -32,7 +32,9 @@ export default function ModuleContent({ courseModule }: Props) {
   const nextLesson = courseModule.lessons.find((l) => !lessonStatus[l.slug]);
   const ctaLesson = nextLesson ?? courseModule.lessons[0];
 
-  const quizPassed = quizBestScore !== null && quizBestScore >= 70;
+  const quizPassed = quizBestScore !== null && quizBestScore >= courseModule.quiz.passingScore;
+
+  const basePath = `/courses/${COURSE_SLUG}/modules/${courseModule.slug}`;
 
   return (
     <div className="mx-auto max-w-[800px] px-4 py-8">
@@ -53,7 +55,7 @@ export default function ModuleContent({ courseModule }: Props) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <p className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wider mb-2">
-              Module {courseModule.number} · {courseModule.lessons.length} lessons
+              Module {courseModule.order} · {courseModule.lessons.length} lessons
             </p>
             <h1 className="text-xl sm:text-2xl font-bold mb-2 leading-snug">
               {courseModule.title}
@@ -90,7 +92,7 @@ export default function ModuleContent({ courseModule }: Props) {
             <p className="text-xs text-[#2CCEAC] mt-2 font-medium">All lessons complete!</p>
           ) : (
             <Link
-              href={`/modules/${courseModule.slug}/lessons/${ctaLesson.slug}`}
+              href={`${basePath}/lessons/${ctaLesson.slug}`}
               className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
             >
               {completedCount === 0 ? "Start Module" : "Continue"}
@@ -110,7 +112,7 @@ export default function ModuleContent({ courseModule }: Props) {
           return (
             <Link
               key={lesson.slug}
-              href={`/modules/${courseModule.slug}/lessons/${lesson.slug}`}
+              href={`${basePath}/lessons/${lesson.slug}`}
               className="group flex items-center gap-4 bg-white border border-gray-200/80 rounded-xl px-5 py-4 hover:border-[#2CCEAC]/50 hover:shadow-md transition-all duration-200"
               style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
             >
@@ -136,7 +138,7 @@ export default function ModuleContent({ courseModule }: Props) {
                 </p>
                 <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
                   <Clock size={11} />
-                  {lesson.estimatedMinutes} min read
+                  {lesson.estimatedReadTime} read
                 </p>
               </div>
 
@@ -172,7 +174,7 @@ export default function ModuleContent({ courseModule }: Props) {
                 Module Quiz
               </p>
               <p className="text-[15px] font-semibold text-gray-800 leading-snug">
-                Test your knowledge
+                {courseModule.quiz.title}
               </p>
               {quizBestScore !== null ? (
                 <p className="text-xs text-gray-500 mt-0.5">
@@ -180,17 +182,17 @@ export default function ModuleContent({ courseModule }: Props) {
                   <span className={`font-semibold ${quizPassed ? "text-[#2CCEAC]" : "text-amber-500"}`}>
                     {quizBestScore}%
                   </span>
-                  {quizPassed ? " · Passed ✓" : " — need 70% to pass"}
+                  {quizPassed ? " · Passed ✓" : ` — need ${courseModule.quiz.passingScore}% to pass`}
                 </p>
               ) : (
                 <p className="text-xs text-gray-500 mt-0.5">
-                  {courseModule.quiz.questions.length} questions · See how much you&apos;ve learned
+                  {courseModule.quiz.questions.length} questions · {courseModule.quiz.description}
                 </p>
               )}
             </div>
           </div>
           <Link
-            href={`/modules/${courseModule.slug}/quiz`}
+            href={`${basePath}/quiz`}
             className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors duration-200"
           >
             {quizBestScore !== null ? "Retake" : "Take Quiz"}

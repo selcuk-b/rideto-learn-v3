@@ -1,13 +1,32 @@
 import { modules } from './course-data';
 
 const STORAGE_KEY = 'rideto-learn-progress';
+const MIGRATION_KEY = 'rideto-learn-progress-migrated-v2';
 
 type ProgressData = Record<string, Record<string, boolean>>;
+
+function migrateProgressData(data: ProgressData): ProgressData {
+  // Rename "confidence" -> "common-mistakes" (module slug changed in PRD v3)
+  if (data["confidence"]) {
+    data["common-mistakes"] = { ...data["confidence"], ...data["common-mistakes"] };
+    delete data["confidence"];
+  }
+  return data;
+}
 
 function getProgress(): ProgressData {
   if (typeof window === 'undefined') return {};
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    let data: ProgressData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    // One-time migration
+    if (!localStorage.getItem(MIGRATION_KEY)) {
+      data = migrateProgressData(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(MIGRATION_KEY, '1');
+    }
+
+    return data;
   } catch {
     return {};
   }
@@ -71,4 +90,28 @@ export function getCourseCompletedCount(): number {
     }
   }
   return completed;
+}
+
+export function getLessonCompletionMap(): Record<string, Record<string, boolean>> {
+  const data = getProgress();
+  const result: Record<string, Record<string, boolean>> = {};
+  for (const courseModule of modules) {
+    result[courseModule.slug] = {};
+    for (const lesson of courseModule.lessons) {
+      result[courseModule.slug][lesson.slug] = data[courseModule.slug]?.[lesson.slug] === true;
+    }
+  }
+  return result;
+}
+
+export function getNextIncompleteLesson(): { moduleSlug: string; lessonSlug: string } | null {
+  const data = getProgress();
+  for (const courseModule of modules) {
+    for (const lesson of courseModule.lessons) {
+      if (!data[courseModule.slug]?.[lesson.slug]) {
+        return { moduleSlug: courseModule.slug, lessonSlug: lesson.slug };
+      }
+    }
+  }
+  return null;
 }

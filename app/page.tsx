@@ -1,25 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ModuleCard from "@/components/ModuleCard";
-import { modules, totalLessons } from "@/lib/course-data";
-import { getCourseCompletedCount, getModuleCompletedCount } from "@/lib/progress";
+import ModuleAccordion from "@/components/ModuleAccordion";
+import { course, modules, totalLessons } from "@/lib/course-data";
+import { getCourseCompletedCount, getLessonCompletionMap, getNextIncompleteLesson } from "@/lib/progress";
 import { getAllQuizScores } from "@/lib/quiz-progress";
-import { BookOpen, Trophy } from "lucide-react";
+import { BookOpen, Trophy, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { COURSE_SLUG } from "@/lib/course-data";
 
 export default function Home() {
   const [completedLessons, setCompletedLessons] = useState(0);
-  const [moduleCompletions, setModuleCompletions] = useState<Record<string, number>>({});
+  const [lessonMap, setLessonMap] = useState<Record<string, Record<string, boolean>>>({});
   const [quizScores, setQuizScores] = useState<Record<string, number>>({});
+  const [resumeTarget, setResumeTarget] = useState<{ moduleSlug: string; lessonSlug: string } | null>(null);
 
   useEffect(() => {
     setCompletedLessons(getCourseCompletedCount());
-    const counts: Record<string, number> = {};
-    for (const m of modules) {
-      counts[m.slug] = getModuleCompletedCount(m.slug);
-    }
-    setModuleCompletions(counts);
+    setLessonMap(getLessonCompletionMap());
     setQuizScores(getAllQuizScores());
+    setResumeTarget(getNextIncompleteLesson());
   }, []);
 
   const progressPct = Math.round((completedLessons / totalLessons) * 100);
@@ -38,10 +38,10 @@ export default function Home() {
         </div>
 
         <h1 className="text-2xl sm:text-[28px] font-bold leading-tight mb-2">
-          CBT Preparation Course
+          {course.title}
         </h1>
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-[480px]">
-          Everything you need to know before your motorcycle training day — from Highway Code essentials to what to pack.
+          {course.description}
         </p>
 
         <div className="flex items-center gap-4 mb-6">
@@ -54,7 +54,7 @@ export default function Home() {
           </div>
           <div className="w-1 h-1 rounded-full bg-gray-600" />
           <div className="flex items-center gap-1.5 text-sm text-gray-400">
-            <span className="font-semibold text-white">~45</span> min total
+            <span className="font-semibold text-white">{course.estimatedTime}</span> total
           </div>
         </div>
 
@@ -89,24 +89,37 @@ export default function Home() {
             </p>
           )}
         </div>
+
+        {/* Resume CTA */}
+        {resumeTarget && !isComplete && completedLessons > 0 && (
+          <Link
+            href={`/courses/${COURSE_SLUG}/modules/${resumeTarget.moduleSlug}/lessons/${resumeTarget.lessonSlug}`}
+            className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+          >
+            Resume where you left off
+            <ChevronRight size={15} />
+          </Link>
+        )}
       </section>
 
-      {/* Modules */}
+      {/* Course content — accordion modules */}
       <section className="pb-12">
         <div className="flex items-center justify-between mb-4 px-1">
           <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-            Course Modules
+            Course Content
           </h2>
-          <span className="text-xs text-gray-400">{modules.length} modules</span>
+          <span className="text-xs text-gray-400">
+            {modules.length} modules · {totalLessons} lessons
+          </span>
         </div>
         <div className="flex flex-col gap-3">
           {modules.map((module, index) => (
-            <ModuleCard
+            <ModuleAccordion
               key={module.slug}
               module={module}
-              completedLessons={moduleCompletions[module.slug] ?? 0}
+              lessonStatus={lessonMap[module.slug] ?? {}}
               quizScore={quizScores[module.slug] !== undefined ? quizScores[module.slug] : null}
-              index={index}
+              defaultOpen={index === 0}
             />
           ))}
         </div>
