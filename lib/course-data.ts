@@ -535,76 +535,77 @@ Road arrows guide your lane choice at junctions and roundabouts. Follow the arro
       slug: "cbt-day",
       title: "Your CBT Day — What to Expect",
       description:
-        "Walk through exactly what happens on your training day, element by element. The anxiety killer.",
+        "Walk through each stage of your Compulsory Basic Training, step by step.",
       order: 3,
-      estimatedTime: "~20 min",
+      estimatedTime: "~15 min",
       icon: "ClipboardList",
       lessons: [
         {
           id: "les-cd-1",
-          slug: "5-elements-overview",
-          title: "The 5 Elements of CBT (Overview)",
+          slug: "five-elements-of-cbt",
+          title: "The 5 Elements of CBT",
           order: 1,
-          estimatedReadTime: "7 min",
+          estimatedReadTime: "10 min",
+          youtubeVideoId: "z2e37kjPW-E",
           keyTakeaway:
-            "CBT is structured training, not a test. It has 5 elements (A–E), takes 5–8 hours, and most riders complete it in one day.",
-          content: `CBT (Compulsory Basic Training) is structured into five distinct elements. These aren't tests — they're a training programme designed to ensure you can ride safely on public roads. You must complete all five elements on the same day with the same approved training body (ATB).
+            "CBT is training, not a test — your instructor's job is to get you road-ready, and most people complete everything in a single day.",
+          content: `Here's the thing most people get wrong about CBT: it's not a test. You can't "fail" your CBT the way you fail a driving test. It's Compulsory Basic Training — a structured day of learning that takes you from complete beginner to safe enough to ride on the road. Your instructor wants you to succeed, and they'll work with you until you're ready.
 
-Element A is the introduction: your instructor explains what the day involves, checks your eyesight, and makes sure you understand the basics. Element B covers practical on-site training — learning the controls of the bike while it's stationary. Element C is on-site riding, where you practise low-speed manoeuvres in a safe environment. Element D is theory — covering road safety and the rules you need to know. Element E is the on-road riding, where you ride on public roads accompanied by your instructor.
+The day typically takes 6 to 8 hours and follows five elements, labelled A through E. You work through them in order, and you move to the next one when your instructor is satisfied you've got the skills down. Most people complete everything in one day, but if you need a bit more time, that's completely normal — you just come back for another session.
 
-There's no pass or fail grade — your instructor will tell you when they're satisfied you can ride safely. If you're not ready for the on-road element by the end of the day, your training can continue on another day. Most riders complete CBT in a single session of around 5–8 hours.
+Here's what each element looks like.
 
-What 'completion' means: once your instructor is satisfied with all five elements, they will issue your DL196 certificate. This allows you to ride on public roads on a provisional licence, with L-plates displayed, for up to two years. It is not a full licence — it is confirmation that you have been trained in the basics.`,
-        },
-        {
-          id: "les-cd-2",
-          slug: "element-a-b",
-          title: "Element A & B — Introduction, Eyesight Test & Controls",
-          order: 2,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "The eyesight test requires you to read a number plate at 20.5 metres. Element B teaches you the bike controls while stationary — throttle, clutch, brakes, gears, and indicators.",
-          content: `When you arrive at the training centre, your instructor will begin with Element A: introductions and administration. They will explain the structure of the day, check your provisional licence, and carry out the eyesight check. You will be asked to read a standard number plate at a distance of 20.5 metres (about 20 car lengths). If you need glasses or contact lenses to do this, you must wear them whenever you ride — this will be noted on your CBT certificate.
+**Element A — Introduction & Eyesight Test**
 
-The instructor ratio is important: there should be no more than two students per instructor for on-road riding (Element E), though on-site elements can have up to four students per instructor. Smaller groups mean more personal attention.
+This is the gentle start. Your instructor will introduce themselves, go through the paperwork, and explain how the day works. You'll meet the other learners in your group — there can be up to four of you with one instructor for the on-site parts.
 
-Element B is where you first interact with the motorcycle. Your instructor will walk you through every control: the throttle (right hand twist grip), clutch lever (left hand), front brake (right hand lever), rear brake (right foot pedal), gear lever (left foot), indicators, horn, lights, and kill switch. You will learn how to mount and dismount safely, how to use the stand, and how to push the bike while walking alongside it.
+The one thing you do need to pass here is the **eyesight test**. You'll be asked to read a number plate from 20 metres away (roughly five car lengths). If you wear glasses or contact lenses, that's fine — just make sure you bring them. If you can't read the plate, you won't be able to continue that day.
 
-This element happens with the engine off at first, then progressing to engine running. Take your time to understand where every control is — you will be using them all simultaneously very soon. Ask your instructor to repeat anything that is not clear. There are no silly questions at this stage.`,
-        },
-        {
-          id: "les-cd-3",
-          slug: "element-c-d",
-          title: "Element C & D — Off-Road Riding & Road Safety Briefing",
-          order: 3,
-          estimatedReadTime: "6 min",
-          keyTakeaway:
-            "Element C teaches low-speed bike control in a safe area — figure of 8, U-turns, emergency stops. Element D covers road safety theory through structured discussion.",
-          content: `Element C is where riding begins. In a private training area with no traffic, you will practise the fundamental skills of motorcycle control. Your instructor will guide you through a progression of exercises designed to build confidence and competence.
+That's it for Element A. No riding yet, just getting settled in.
 
-The exercises typically include: riding in a straight line and stopping, figure-of-eight circuits, U-turns, slalom (weaving between cones), and emergency stops. All of these are done at low speed — the focus is on control and balance, not speed. The most common sticking point for new riders is slow-speed balance, particularly during U-turns and figure-of-eights. The trick is to use a little more throttle than feels comfortable, slip the clutch to control speed, and look where you want to go — not at the ground.
+**Element B — Getting to Know the Controls**
 
-Your instructor will not move you to the road until they are satisfied with your control. This is for your safety. If you need extra time on a particular exercise, that is completely normal.
+Now you'll get hands-on with the motorcycle or scooter. Your instructor will walk you through every control on the bike:
 
-Element D is the theory and road safety briefing, usually delivered during a natural break in the day. Your instructor will cover: the importance of protective clothing, basic road positioning, observation skills, the dangers of drink and drug riding, and what to do in an emergency. This is not a formal written test — it is a structured conversation. Having studied the Highway Code basics before your CBT (which you are doing right now) means you will feel confident contributing to this discussion.`,
-        },
-        {
-          id: "les-cd-4",
-          slug: "element-e-on-road",
-          title: "Element E — On-Road Riding",
-          order: 4,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "You will ride on public roads for at least 2 hours with radio-linked instructor guidance. Completing Element E earns you your DL196 certificate.",
-          content: `Element E is the final — and most exciting — part of CBT. You will ride on public roads for a minimum of two hours, accompanied by your instructor who follows on their own motorcycle. Communication is usually via a radio earpiece fitted inside your helmet, so your instructor can give you directions and coaching in real time.
+On the **handlebars**: throttle (right hand), front brake lever (right hand), clutch lever (left hand, if you're on a geared bike). On the **foot controls**: rear brake pedal (right foot), gear lever (left foot, geared bikes only). Plus the **switches**: indicators, horn, lights, and the kill switch.
 
-The route is chosen by your instructor and typically covers a mix of road types: residential streets, A-roads, junctions, roundabouts, and sometimes dual carriageways. They will choose routes appropriate to your ability, starting with quieter roads and gradually introducing busier junctions and more complex traffic situations.
+You don't need to memorise any of this beforehand — the instructor will show you everything and give you time to practise with the engine off. The goal is to feel comfortable with where everything is before you start riding.
 
-During the road ride, you will be expected to: observe and comply with all traffic signals and signs, position yourself correctly on the road, signal clearly and in good time, check mirrors before every manoeuvre, carry out lifesaver checks (looking over your shoulder before turning or changing lane), and ride at an appropriate speed for the conditions.
+**Element C — Off-Road Riding**
 
-If at any point you feel unsafe or overwhelmed, you can pull over safely and speak to your instructor. The session is designed to build your confidence, not test you under pressure. Most riders finish the on-road element feeling surprised at how natural it felt — especially after the groundwork laid by the earlier elements.
+This is where it starts to get exciting. You'll ride the bike around the training area — a car park or purpose-built compound — and practise the basics:
 
-Once your instructor is satisfied that you can ride safely and independently on the road, they will issue your DL196 certificate: your CBT completion card. This allows you to ride any motorcycle or scooter up to 125cc with L-plates on public roads (except motorways) for up to two years.`,
+Starting and stopping smoothly. Riding in a straight line. Slow-speed manoeuvres like the **figure of 8** and **U-turns**. Using your indicators. An **emergency stop** — your instructor will explain the technique and you'll practise it a few times.
+
+If you're on a geared bike, this is where you'll get used to the clutch and changing gears. If you're on an automatic, you'll focus on throttle control and braking.
+
+Don't worry if you wobble at first — everyone does. Slow-speed riding is actually harder than going faster, because the bike has less natural balance. Your instructor knows this and will give you plenty of time to practise.
+
+**Element D — Road Safety Briefing**
+
+Before heading onto real roads, your instructor will sit down with you and cover the theory you need for safe riding. This includes:
+
+Basic **Highway Code rules** relevant to your ride — junctions, roundabouts, road signs. **Hazard awareness** — what to look out for and how to ride defensively. How the on-road session will work — they'll communicate with you via a **radio earpiece**, telling you where to go and giving feedback as you ride.
+
+This element is a conversation, not a classroom exam. Your instructor will check you understand the basics, and if anything needs brushing up, they'll explain it there and then. Having reviewed the Highway Code beforehand (which is exactly what the other modules on RideTo Learn are for) will make this part feel easy.
+
+**Element E — On-Road Riding**
+
+This is the big one — and honestly, for most people, the best part of the day. You'll head out onto real roads with your instructor following behind on their own bike, connected to you by radio. You'll ride for a **minimum of 2 hours**.
+
+During Element E, the group size drops to just **2 learners per instructor**. Your instructor will guide you through the ride, telling you which way to turn and giving you real-time feedback through the earpiece. You'll encounter real junctions, roundabouts, traffic lights, and other road users.
+
+**What your instructor is looking for:** safe riding, not perfection. They want to see that you can check your mirrors, signal properly, position yourself on the road, and deal with junctions and roundabouts without putting yourself or others at risk. Nobody expects you to ride like you've been doing it for years.
+
+If your instructor feels you need more time on any element — including Element E — they'll let you know. Some people need a second session, and that's absolutely fine. It doesn't mean you've "failed." It just means you need a bit more practice to be safe on your own.
+
+**What Happens When You're Done**
+
+Once your instructor is satisfied you've completed all five elements to a safe standard, you'll receive your **DL196 certificate**. This is your CBT completion certificate, and it means you can legally ride on the road.
+
+With your DL196, you can ride a **125cc motorcycle** (or 50cc moped if you're 16) on public roads with **L plates displayed**. Your certificate is valid for **2 years**. During that time, you can practise on the road, take your theory test, and work towards your full motorcycle licence.
+
+Two restrictions to remember: you **cannot carry passengers**, and you **cannot ride on motorways** with just a CBT certificate.`,
         },
       ],
       quiz: {
@@ -616,76 +617,44 @@ Once your instructor is satisfied that you can ride safely and independently on 
         questions: [
           {
             id: "q-cd-1",
-            questionText: "What does CBT stand for?",
+            questionText: "What is CBT?",
             options: [
-              "Competency Based Training",
-              "Compulsory Basic Training",
-              "Certified Bike Test",
-              "Core Bike Training",
+              "A motorcycle driving test",
+              "A day of structured training to prepare you for road riding",
+              "An online theory exam",
+              "A one-hour introduction to motorcycles",
             ],
             correctAnswerIndex: 1,
             explanation:
-              "CBT stands for Compulsory Basic Training. It is a mandatory training programme for anyone who wants to ride a motorcycle or moped on public roads in the UK on a provisional licence.",
+              "CBT stands for Compulsory Basic Training. It's a training course, not a test — you can't technically fail, but you must complete all five elements to your instructor's satisfaction.",
           },
           {
             id: "q-cd-2",
-            questionText: "How many elements does CBT consist of?",
-            options: [
-              "3 elements",
-              "4 elements",
-              "5 elements",
-              "6 elements",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "CBT has 5 elements: A (Introduction and eyesight check), B (Practical on-site training), C (On-site riding), D (Theory and road safety), and E (On-road riding).",
-          },
-          {
-            id: "q-cd-3",
             questionText:
-              "At what distance must you read a number plate for the CBT eyesight check?",
+              "How far away must you be able to read a number plate during the eyesight test?",
             options: [
+              "10 metres",
               "15 metres",
               "20 metres",
-              "20.5 metres",
               "25 metres",
             ],
             correctAnswerIndex: 2,
             explanation:
-              "You must read a standard number plate at 20.5 metres (approximately 20 car lengths). If you need glasses or contact lenses, you must always wear them when riding.",
+              "You need to read a number plate from 20 metres (about 5 car lengths). You can wear glasses or contact lenses for this.",
+          },
+          {
+            id: "q-cd-3",
+            questionText:
+              "What is the maximum number of learners per instructor during the on-road riding element?",
+            options: ["1", "2", "3", "4"],
+            correctAnswerIndex: 1,
+            explanation:
+              "During the on-road element (Element E), the ratio drops to a maximum of 2 learners per instructor. For on-site elements, it can be up to 4.",
           },
           {
             id: "q-cd-4",
             questionText:
-              "Which element of CBT covers on-site riding manoeuvres such as U-turns and figure-of-eights?",
-            options: [
-              "Element B",
-              "Element C",
-              "Element D",
-              "Element E",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Element C is on-site riding, where you practise manoeuvres including figure-of-eights, U-turns, slalom, and emergency stops in a private area away from traffic.",
-          },
-          {
-            id: "q-cd-5",
-            questionText:
-              "What document do you receive after successfully completing CBT?",
-            options: [
-              "A provisional motorcycle licence upgrade",
-              "Form DL196",
-              "A full A1 category licence",
-              "A theory test exemption certificate",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "You receive Form DL196 — the CBT certificate. It allows you to ride a motorcycle up to 125cc displaying L-plates on public roads (except motorways). It is valid for two years.",
-          },
-          {
-            id: "q-cd-6",
-            questionText:
-              "What is the minimum on-road riding time required for Element E?",
+              "What is the minimum amount of on-road riding time required during CBT?",
             options: [
               "30 minutes",
               "1 hour",
@@ -694,34 +663,62 @@ Once your instructor is satisfied that you can ride safely and independently on 
             ],
             correctAnswerIndex: 2,
             explanation:
-              "Element E requires a minimum of two hours of riding on public roads. Your instructor follows on a motorcycle and communicates via a radio earpiece.",
+              "Element E requires a minimum of 2 hours of on-road riding. Some schools do more, but 2 hours is the legal minimum set by the DVSA.",
           },
           {
-            id: "q-cd-7",
-            questionText: "Can you carry a pillion passenger after completing CBT?",
+            id: "q-cd-5",
+            questionText:
+              "How does your instructor communicate with you during the on-road ride?",
             options: [
-              "Yes, if the passenger also holds a CBT certificate",
-              "Yes, after riding for six months",
-              "No — carrying passengers requires a full licence",
-              "Yes, with no restrictions",
+              "Hand signals only",
+              "They ride next to you and shout instructions",
+              "A radio earpiece",
+              "They don't — you ride independently",
             ],
             correctAnswerIndex: 2,
             explanation:
-              "After CBT you cannot carry passengers, cannot use motorways, and must display L-plates. Pillion passengers are only permitted once you hold a full motorcycle licence.",
+              "Your instructor follows behind on their own motorcycle and guides you via a radio earpiece. They'll tell you where to turn and give you feedback as you ride.",
+          },
+          {
+            id: "q-cd-6",
+            questionText:
+              "What certificate do you receive when you complete CBT?",
+            options: [
+              "A full motorcycle licence",
+              "A DL196 certificate",
+              "A theory test pass certificate",
+              "A provisional licence upgrade",
+            ],
+            correctAnswerIndex: 1,
+            explanation:
+              "You receive a DL196 certificate, which is valid for 2 years. It allows you to ride on public roads with L plates while you work towards your full licence.",
+          },
+          {
+            id: "q-cd-7",
+            questionText: "How long is a CBT certificate valid for?",
+            options: [
+              "6 months",
+              "1 year",
+              "2 years",
+              "5 years",
+            ],
+            correctAnswerIndex: 2,
+            explanation:
+              "Your DL196 is valid for 2 years. If you haven't passed your full motorcycle test by then, you'll need to complete CBT again to continue riding.",
           },
           {
             id: "q-cd-8",
             questionText:
-              "How long does a typical CBT day last from start to finish?",
+              "If you don't complete all five elements in one day, what happens?",
             options: [
-              "2–3 hours",
-              "3–4 hours",
-              "5–8 hours",
-              "Exactly 8 hours",
+              "You fail your CBT and have to start again from scratch",
+              "You receive a partial certificate",
+              "You come back for another session to continue where you left off",
+              "You are banned from retaking CBT for 6 months",
             ],
             correctAnswerIndex: 2,
             explanation:
-              "CBT typically takes 5–8 hours. The duration depends on how quickly each student progresses. If you are not ready for on-road riding, training can continue on a subsequent day.",
+              "If you need more time, you simply book another session to continue. This is completely normal and doesn't mean you've failed — some people just need a bit more practice.",
           },
         ],
       },
