@@ -48,8 +48,8 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
     <div className="mx-auto max-w-[800px] px-4 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-sm mb-6 flex-wrap">
-        <Link href="/" className="text-gray-400 hover:text-[#2CCEAC] transition-colors">
-          Course
+        <Link href={`/courses/${COURSE_SLUG}`} className="text-gray-400 hover:text-[#2CCEAC] transition-colors">
+          Learning
         </Link>
         <ChevronRight size={13} className="text-gray-300" />
         <Link
@@ -71,7 +71,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         <div className="px-6 pt-6 pb-5 border-b border-gray-100">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3 text-xs text-gray-400">
             <span className="font-semibold text-[#2CCEAC] uppercase tracking-wide">
-              Module {courseModule.order}
+              {courseModule.title}
             </span>
             <span>·</span>
             <span className="flex items-center gap-1">

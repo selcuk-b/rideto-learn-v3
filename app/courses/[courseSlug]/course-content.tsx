@@ -3,29 +3,31 @@
 import { useEffect, useState } from 'react';
 import ModuleAccordion from "@/components/ModuleAccordion";
 import { course, modules, totalLessons, COURSE_SLUG } from "@/lib/course-data";
-import { getCourseCompletedCount, getLessonCompletionMap, getNextIncompleteLesson } from "@/lib/progress";
-import { getAllQuizScores } from "@/lib/quiz-progress";
-import { Trophy, ChevronRight, ArrowLeft } from "lucide-react";
+import { getCourseCompletedCount, getLessonCompletionMap } from "@/lib/progress";
+import { getBestScore } from "@/lib/quiz-progress";
+import { Trophy, ChevronRight, ArrowLeft, BookOpen, HelpCircle, Clock } from "lucide-react";
 import Link from "next/link";
+
+const SUBSECTION_LABELS = ['a', 'b', 'c', 'd', 'e'];
 
 export default function CourseContent() {
   const [completedLessons, setCompletedLessons] = useState(0);
   const [lessonMap, setLessonMap] = useState<Record<string, Record<string, boolean>>>({});
-  const [quizScores, setQuizScores] = useState<Record<string, number>>({});
-  const [resumeTarget, setResumeTarget] = useState<{ moduleSlug: string; lessonSlug: string } | null>(null);
+  const [quizScore, setQuizScore] = useState<number | null>(null);
 
   useEffect(() => {
     setCompletedLessons(getCourseCompletedCount());
     setLessonMap(getLessonCompletionMap());
-    setQuizScores(getAllQuizScores());
-    setResumeTarget(getNextIncompleteLesson());
+    setQuizScore(getBestScore(COURSE_SLUG));
   }, []);
 
   const progressPct = Math.round((completedLessons / totalLessons) * 100);
-  const isComplete = completedLessons === totalLessons && totalLessons > 0;
+  const allLessonsComplete = completedLessons === totalLessons && totalLessons > 0;
+  const hasQuiz = course.quiz != null && course.quiz.questions.length > 0;
+  const quizPassed = hasQuiz && quizScore !== null && course.quiz != null && quizScore >= course.quiz.passingScore;
 
   return (
-    <div className="mx-auto max-w-[800px] px-4">
+    <div className="mx-auto max-w-[800px] px-4 pb-12">
       {/* Back link */}
       <Link
         href="/"
@@ -37,7 +39,7 @@ export default function CourseContent() {
 
       {/* Hero */}
       <section
-        className="bg-[#434343] rounded-2xl px-6 pt-8 pb-10 mb-8 text-white"
+        className="bg-[#434343] rounded-2xl px-6 pt-8 pb-8 mb-8 text-white"
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}
       >
         <h1 className="text-2xl sm:text-[28px] font-bold leading-tight mb-2">
@@ -46,10 +48,9 @@ export default function CourseContent() {
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-[480px]">
           {course.description}
         </p>
-
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-sm text-gray-400">
-            <span className="font-semibold text-white">{modules.length}</span> modules
+            <span className="font-semibold text-white">{modules.length}</span> subsections
           </div>
           <div className="w-1 h-1 rounded-full bg-gray-600" />
           <div className="flex items-center gap-1.5 text-sm text-gray-400">
@@ -60,24 +61,26 @@ export default function CourseContent() {
             <span className="font-semibold text-white">{course.estimatedTime}</span> total
           </div>
         </div>
+      </section>
 
-        {/* Progress card */}
-        <div className="bg-white/8 border border-white/10 rounded-xl p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide font-medium">
-                Your progress
-              </p>
-              <p className="text-sm font-semibold text-white">
-                {completedLessons} of {totalLessons} lessons completed
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              {isComplete && <Trophy size={16} className="text-[#2CCEAC]" />}
-              <span className="text-3xl font-bold text-[#2CCEAC]">{progressPct}%</span>
-            </div>
+      {/* ── SECTION 1: Learning ─────────────────────────────────────────── */}
+      <section className="mb-8">
+        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-1">
+          Section 1
+        </p>
+        <div className="flex items-center justify-between mb-4 px-1">
+          <div className="flex items-center gap-2">
+            <BookOpen size={18} className="text-[#434343]" />
+            <h2 className="text-lg font-bold text-[#434343]">Learning</h2>
           </div>
-          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+          <span className="text-xs text-gray-400">
+            {completedLessons} / {totalLessons} lessons
+          </span>
+        </div>
+
+        {/* Progress bar */}
+        <div className="mb-5 px-1">
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{
@@ -86,45 +89,106 @@ export default function CourseContent() {
               }}
             />
           </div>
-          {isComplete && (
-            <p className="text-xs text-[#2CCEAC] mt-2 font-medium">
-              Course complete! You&apos;re ready for your CBT.
+          {allLessonsComplete && (
+            <p className="text-xs text-[#2CCEAC] mt-1.5 font-medium flex items-center gap-1">
+              <Trophy size={12} />
+              All lessons complete!
             </p>
           )}
         </div>
 
-        {/* Resume CTA */}
-        {resumeTarget && !isComplete && completedLessons > 0 && (
-          <Link
-            href={`/courses/${COURSE_SLUG}/modules/${resumeTarget.moduleSlug}/lessons/${resumeTarget.lessonSlug}`}
-            className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
-          >
-            Resume where you left off
-            <ChevronRight size={15} />
-          </Link>
-        )}
-      </section>
-
-      {/* Course content — accordion modules */}
-      <section className="pb-12">
-        <div className="flex items-center justify-between mb-4 px-1">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-            Course Content
-          </h2>
-          <span className="text-xs text-gray-400">
-            {modules.length} modules · {totalLessons} lessons
-          </span>
-        </div>
+        {/* Subsection accordions */}
         <div className="flex flex-col gap-3">
           {modules.map((module, index) => (
-            <ModuleAccordion
-              key={module.slug}
-              module={module}
-              lessonStatus={lessonMap[module.slug] ?? {}}
-              quizScore={quizScores[module.slug] !== undefined ? quizScores[module.slug] : null}
-              defaultOpen={index === 0}
-            />
+            <div key={module.slug}>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 px-1">
+                {SUBSECTION_LABELS[index]})
+              </p>
+              <ModuleAccordion
+                module={module}
+                lessonStatus={lessonMap[module.slug] ?? {}}
+                quizScore={null}
+                showQuiz={false}
+                defaultOpen={index === 0}
+              />
+            </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 2: Pre-CBT Quiz ──────────────────────────────────────── */}
+      <section>
+        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-1">
+          Section 2
+        </p>
+        <div className="flex items-center gap-2 mb-4 px-1">
+          <HelpCircle size={18} className="text-[#434343]" />
+          <h2 className="text-lg font-bold text-[#434343]">Pre-CBT Quiz</h2>
+        </div>
+
+        <div
+          className="bg-white border border-gray-200/80 rounded-xl p-5"
+          style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
+        >
+          {hasQuiz ? (
+            /* Quiz available */
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-start gap-3 min-w-0">
+                <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
+                  quizPassed ? "bg-[#2CCEAC]/15 text-[#2CCEAC]" : "bg-gray-100 text-gray-500"
+                }`}>
+                  {quizPassed ? <Trophy size={18} /> : <HelpCircle size={18} />}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[15px] font-semibold text-gray-800 leading-snug">
+                    Pre-CBT Quiz
+                  </p>
+                  {quizScore !== null ? (
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      Best score:{" "}
+                      <span className={`font-semibold ${quizPassed ? "text-[#2CCEAC]" : "text-amber-500"}`}>
+                        {quizScore}%
+                      </span>
+                      {quizPassed ? " · Passed ✓" : ` — need ${course.quiz!.passingScore}% to pass`}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {course.quiz!.questions.length} questions · Test your knowledge across all topics
+                    </p>
+                  )}
+                </div>
+              </div>
+              <Link
+                href={`/courses/${COURSE_SLUG}/quiz`}
+                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors duration-200"
+              >
+                {quizScore !== null ? "Retake" : "Start Quiz"}
+                <ChevronRight size={15} />
+              </Link>
+            </div>
+          ) : (
+            /* Coming soon */
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-start gap-3 min-w-0">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-gray-100 text-gray-400">
+                  <Clock size={18} />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="text-[15px] font-semibold text-gray-800 leading-snug">
+                      Pre-CBT Quiz
+                    </p>
+                    <span className="text-[10px] font-bold bg-[#2CCEAC]/10 text-[#2CCEAC] uppercase tracking-widest px-2 py-0.5 rounded-full">
+                      Coming Soon
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    A comprehensive quiz covering all five topics — questions arriving soon.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

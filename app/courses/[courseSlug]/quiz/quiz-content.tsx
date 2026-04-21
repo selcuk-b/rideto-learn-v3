@@ -2,20 +2,66 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Module, COURSE_SLUG } from '@/lib/course-data';
+import { Quiz, COURSE_SLUG } from '@/lib/course-data';
 import { saveQuizScore, getBestScore } from '@/lib/quiz-progress';
 import {
   ChevronLeft, ChevronRight, CheckCircle2, XCircle,
-  Trophy, RotateCcw, BookOpen,
+  Trophy, RotateCcw, BookOpen, Clock,
 } from 'lucide-react';
 
 interface Props {
-  courseModule: Module;
+  quiz: Quiz | undefined;
 }
 
-export default function QuizContent({ courseModule }: Props) {
-  const { quiz } = courseModule;
+export default function QuizContent({ quiz }: Props) {
+  const basePath = `/courses/${COURSE_SLUG}`;
+
+  // ─── Coming-soon state ────────────────────────────────────────────────────
+  if (!quiz || quiz.questions.length === 0) {
+    return (
+      <div className="mx-auto max-w-[600px] px-4 py-16 text-center">
+        <Link
+          href={basePath}
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#2CCEAC] transition-colors mb-10"
+        >
+          <ChevronLeft size={15} />
+          Back to Course
+        </Link>
+
+        <div
+          className="bg-white rounded-2xl border border-gray-200/80 p-10"
+          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}
+        >
+          <div className="w-16 h-16 bg-[#2CCEAC]/10 rounded-full flex items-center justify-center mx-auto mb-5">
+            <Clock size={28} className="text-[#2CCEAC]" />
+          </div>
+          <span className="inline-block bg-[#2CCEAC]/10 text-[#2CCEAC] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+            Coming Soon
+          </span>
+          <h1 className="text-2xl font-bold text-[#434343] mb-3">Pre-CBT Quiz</h1>
+          <p className="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto">
+            A comprehensive quiz covering all five topics will be available here shortly.
+            Complete the lessons in the meantime to prepare.
+          </p>
+          <Link
+            href={basePath}
+            className="mt-8 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors duration-200"
+          >
+            Back to Learning
+            <ChevronRight size={15} />
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Full quiz UI (rendered once questions exist) ─────────────────────────
+  return <ActiveQuiz quiz={quiz} basePath={basePath} />;
+}
+
+function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
   const { questions, passingScore } = quiz;
+  const QUIZ_KEY = COURSE_SLUG;
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
@@ -27,8 +73,8 @@ export default function QuizContent({ courseModule }: Props) {
   const [isNewBest, setIsNewBest] = useState(false);
 
   useEffect(() => {
-    setBestScore(getBestScore(courseModule.slug));
-  }, [courseModule.slug]);
+    setBestScore(getBestScore(QUIZ_KEY));
+  }, [QUIZ_KEY]);
 
   const selectedIndex = answers[questionIndex];
   const isAnswered = selectedIndex !== null;
@@ -41,9 +87,6 @@ export default function QuizContent({ courseModule }: Props) {
   const scorePct = Math.round((correctCount / questions.length) * 100);
   const passed = scorePct >= passingScore;
 
-  const basePath = `/courses/${COURSE_SLUG}/modules/${courseModule.slug}`;
-
-  // Generate letter labels dynamically based on number of options
   const LETTERS = 'ABCDEFGH'.split('');
 
   function handleSelectAnswer(index: number) {
@@ -56,14 +99,14 @@ export default function QuizContent({ courseModule }: Props) {
   }
 
   const goToResults = useCallback(() => {
-    const prev = getBestScore(courseModule.slug);
-    saveQuizScore(courseModule.slug, scorePct);
+    const prev = getBestScore(QUIZ_KEY);
+    saveQuizScore(QUIZ_KEY, scorePct);
     if (prev === null || scorePct > prev) {
       setIsNewBest(true);
       setBestScore(scorePct);
     }
     setPhase('results');
-  }, [courseModule.slug, scorePct]);
+  }, [QUIZ_KEY, scorePct]);
 
   function handleNext() {
     setVisible(false);
@@ -91,7 +134,6 @@ export default function QuizContent({ courseModule }: Props) {
   function getButtonClass(optionIndex: number): string {
     const base =
       'relative w-full text-left flex items-center gap-4 px-4 py-4 rounded-xl border-2 transition-colors duration-200 focus:outline-none';
-
     if (!isAnswered) {
       return `${base} bg-white border-gray-200 text-gray-800 hover:border-[#2CCEAC]/60 hover:bg-[#2CCEAC]/5 active:scale-[0.98] cursor-pointer`;
     }
@@ -121,26 +163,20 @@ export default function QuizContent({ courseModule }: Props) {
           className="animate-fade-slide-up bg-white rounded-2xl border border-gray-200/80 overflow-hidden"
           style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}
         >
-          {/* Score header */}
           <div className="px-6 py-8 text-center bg-[#434343]">
             <p className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wider mb-4">
-              {courseModule.title} · Quiz Results
+              Pre-CBT Quiz · Results
             </p>
-
             <div
               className={`animate-score-reveal inline-flex items-center justify-center w-28 h-28 rounded-full text-4xl font-bold mb-3 ${
-                passed
-                  ? 'bg-[#2CCEAC]/15 text-[#2CCEAC]'
-                  : 'bg-red-400/15 text-red-400'
+                passed ? 'bg-[#2CCEAC]/15 text-[#2CCEAC]' : 'bg-red-400/15 text-red-400'
               }`}
             >
               {scorePct}%
             </div>
-
             <p className="text-white font-semibold text-lg">
               {correctCount} of {questions.length} correct
             </p>
-
             {isNewBest && (
               <p className="text-[#2CCEAC] text-xs font-semibold mt-1 animate-fade-in">
                 ★ New best score!
@@ -148,7 +184,6 @@ export default function QuizContent({ courseModule }: Props) {
             )}
           </div>
 
-          {/* Pass / fail message */}
           <div className="px-6 py-6">
             {passed ? (
               <div className="flex items-start gap-3 bg-[#2CCEAC]/10 border border-[#2CCEAC]/25 rounded-xl p-4 mb-6 animate-fade-in">
@@ -158,7 +193,7 @@ export default function QuizContent({ courseModule }: Props) {
                     Nicely done — you passed!
                   </p>
                   <p className="text-sm text-gray-600 mt-0.5">
-                    You scored {scorePct}%, which is above the {passingScore}% pass mark.
+                    You scored {scorePct}%, above the {passingScore}% pass mark.
                     {bestScore !== null && !isNewBest && bestScore > scorePct
                       ? ` Your best is still ${bestScore}%.`
                       : ''}
@@ -173,14 +208,12 @@ export default function QuizContent({ courseModule }: Props) {
                     Not quite — you need {passingScore}% to pass
                   </p>
                   <p className="text-sm text-amber-600 mt-0.5">
-                    You scored {scorePct}%. Review the lessons and have another go —
-                    you&apos;re closer than you think.
+                    You scored {scorePct}%. Review the lessons and have another go.
                   </p>
                 </div>
               </div>
             )}
 
-            {/* Per-question review */}
             <div className="flex flex-col gap-2 mb-6">
               {questions.map((q, i) => {
                 const userAnswer = answers[i];
@@ -203,7 +236,6 @@ export default function QuizContent({ courseModule }: Props) {
               })}
             </div>
 
-            {/* Action buttons */}
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleRetake}
@@ -217,7 +249,7 @@ export default function QuizContent({ courseModule }: Props) {
                 className="w-full inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold text-sm py-3 rounded-xl transition-colors duration-200"
               >
                 <ChevronLeft size={16} />
-                Back to Module
+                Back to Course
               </Link>
             </div>
           </div>
@@ -231,20 +263,18 @@ export default function QuizContent({ courseModule }: Props) {
 
   return (
     <div className="mx-auto max-w-[600px] px-4 py-8">
-      {/* Back link */}
       <Link
         href={basePath}
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#2CCEAC] transition-colors mb-6"
       >
         <ChevronLeft size={15} />
-        Back to Module
+        Back to Course
       </Link>
 
-      {/* Header */}
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wider">
-            {courseModule.title} · Quiz
+            Pre-CBT Quiz
           </span>
           <span className="text-xs font-semibold text-gray-500 tabular-nums">
             {questionIndex + 1} / {questions.length}
@@ -266,7 +296,6 @@ export default function QuizContent({ courseModule }: Props) {
         )}
       </div>
 
-      {/* Question card */}
       <div
         key={questionIndex}
         className="animate-fade-slide-up"
@@ -276,7 +305,6 @@ export default function QuizContent({ courseModule }: Props) {
           className="bg-white rounded-2xl border border-gray-200/80 overflow-hidden mb-4"
           style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
         >
-          {/* Question */}
           <div className="px-6 py-6 border-b border-gray-100">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
               Question {questionIndex + 1}
@@ -286,7 +314,6 @@ export default function QuizContent({ courseModule }: Props) {
             </h2>
           </div>
 
-          {/* Options */}
           <div className="px-4 py-4 flex flex-col gap-2.5">
             {currentQuestion.options.map((option, i) => (
               <button
@@ -306,10 +333,7 @@ export default function QuizContent({ courseModule }: Props) {
                 </span>
                 <span className="flex-1 text-sm font-medium leading-snug">{option}</span>
                 {isAnswered && i === currentQuestion.correctAnswerIndex && (
-                  <CheckCircle2
-                    size={18}
-                    className="flex-shrink-0 text-[#2CCEAC] animate-pop"
-                  />
+                  <CheckCircle2 size={18} className="flex-shrink-0 text-[#2CCEAC] animate-pop" />
                 )}
                 {isAnswered && i === selectedIndex && i !== currentQuestion.correctAnswerIndex && (
                   <XCircle size={18} className="flex-shrink-0 text-red-400 animate-pop" />
@@ -319,7 +343,6 @@ export default function QuizContent({ courseModule }: Props) {
           </div>
         </div>
 
-        {/* Explanation */}
         {isAnswered && (
           <div
             className={`animate-fade-in rounded-xl px-5 py-4 mb-4 border ${
@@ -341,7 +364,6 @@ export default function QuizContent({ courseModule }: Props) {
           </div>
         )}
 
-        {/* Next / Finish button */}
         {isAnswered && (
           <button
             onClick={handleNext}
