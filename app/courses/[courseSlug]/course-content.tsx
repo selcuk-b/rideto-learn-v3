@@ -8,8 +8,6 @@ import { getBestScore } from "@/lib/quiz-progress";
 import { Trophy, ChevronRight, ArrowLeft, BookOpen, HelpCircle, Clock } from "lucide-react";
 import Link from "next/link";
 
-const SUBSECTION_LABELS = ['a', 'b', 'c', 'd', 'e'];
-
 export default function CourseContent() {
   const [completedLessons, setCompletedLessons] = useState(0);
   const [lessonMap, setLessonMap] = useState<Record<string, Record<string, boolean>>>({});
