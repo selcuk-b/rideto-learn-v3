@@ -309,6 +309,24 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
               Question {questionIndex + 1}
             </p>
+            {currentQuestion.image && (
+              currentQuestion.image.startsWith('[IMAGE:') ? (
+                <div className="mb-4 rounded-xl bg-gray-100 border border-gray-200 px-4 py-5 flex items-center justify-center text-center">
+                  <p className="text-xs text-gray-400 italic">
+                    {currentQuestion.image.slice(1, -1)}
+                  </p>
+                </div>
+              ) : (
+                <div className="mb-4 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={currentQuestion.image}
+                    alt="Road sign"
+                    className="max-h-40 object-contain"
+                  />
+                </div>
+              )
+            )}
             <h2 className="text-[17px] font-bold text-[#434343] leading-snug">
               {currentQuestion.questionText}
             </h2>
