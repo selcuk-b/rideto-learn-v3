@@ -136,7 +136,7 @@ export const course: Course = {
       {
         id: "q-7",
         questionText: "What are red circular signs used for?",
-        image: "[IMAGE: no-motor-vehicles sign — red circle with car and motorcycle silhouette]",
+        image: "/images/quiz/q07-no-motor-vehicles.png",
         options: ["Informational sign", "Warning sign", "Mandatory order", "Directional sign"],
         correctAnswerIndex: 2,
         explanation: "Red circular signs are used to give mandatory information you must follow.",
@@ -144,7 +144,7 @@ export const course: Course = {
       {
         id: "q-8",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: no-motor-vehicles sign — red circle with car and motorcycle silhouette]",
+        image: "/images/quiz/q07-no-motor-vehicles.png",
         options: [
           "Only cars and motorbikes allowed",
           "Warning motorcycle jumping over a car ahead",
@@ -157,7 +157,7 @@ export const course: Course = {
       {
         id: "q-9",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: ahead only sign — blue circle with white upward arrow]",
+        image: "/images/quiz/q09-ahead-only.png",
         options: ["Stop and allow traffic to pass", "Ride in a straight line", "Look up", "Ahead only"],
         correctAnswerIndex: 3,
         explanation: "The sign means you must ride ahead only.",
@@ -165,7 +165,7 @@ export const course: Course = {
       {
         id: "q-10",
         questionText: "What is a red triangular sign like this used for?",
-        image: "[IMAGE: red triangular warning sign — triangle with diagonal line/merge symbol]",
+        image: "/images/quiz/q10-warning-triangle.jpg",
         options: ["Directional sign", "Warning sign", "Mandatory order", "Informational sign"],
         correctAnswerIndex: 1,
         explanation: "Red triangular signs are used as warning signs to alert road users to various hazards and changes in the road.",
@@ -173,7 +173,7 @@ export const course: Course = {
       {
         id: "q-11",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: give way sign — inverted red triangle with GIVE WAY text]",
+        image: "/images/quiz/q11-give-way.jpg",
         options: [
           "Traffic lights ahead",
           "Stop sign",
@@ -186,7 +186,7 @@ export const course: Course = {
       {
         id: "q-12",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: national speed limit sign — white circle with black diagonal stripe]",
+        image: "/images/quiz/q12-national-speed-limit.jpg",
         options: [
           "60 mph limit",
           "50 mph limit",
@@ -199,7 +199,7 @@ export const course: Course = {
       {
         id: "q-13",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: 30 mph speed limit sign — red circle with number 30]",
+        image: "/images/quiz/q13-30mph.jpg",
         options: ["Minimum speed limit", "Maximum speed limit", "Recommended speed limit", "No speed limit"],
         correctAnswerIndex: 1,
         explanation: "This sign tells you the maximum speed, in miles per hour, at which traffic may travel, if it is safe to do so.",
@@ -207,7 +207,7 @@ export const course: Course = {
       {
         id: "q-14",
         questionText: "What does this sign indicate?",
-        image: "[IMAGE: humps warning sign — red triangle with hump symbol, plate reading \"Humps for 1/2 mile\"]",
+        image: "/images/quiz/q14-humps.jpg",
         options: ["Smooth road ahead", "Speed bump ahead", "Pedestrian crossing", "End of road works"],
         correctAnswerIndex: 1,
         explanation: "This sign indicates road humps ahead. These signs warn road users that they must slow their speed due to a speed hump ahead. These are positioned in places where traffic needs to slow down for safety purposes.",
@@ -215,7 +215,7 @@ export const course: Course = {
       {
         id: "q-15",
         questionText: "What does this sign indicate?",
-        image: "[IMAGE: no right turn sign — red circle with black right-turn arrow crossed out]",
+        image: "/images/quiz/q15-no-right-turn.jpg",
         options: ["Warning corner ahead", "No U-turns", "End of speed limit", "Banned right turn"],
         correctAnswerIndex: 3,
         explanation: "This sign means banned right turn. In this case you must not make a right turn.",
@@ -223,7 +223,7 @@ export const course: Course = {
       {
         id: "q-16",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: no entry sign — red circle with white horizontal bar]",
+        image: "/images/quiz/q16-no-entry.jpg",
         options: ["No parking", "No entry", "No stopping", "No overtaking"],
         correctAnswerIndex: 1,
         explanation: "This sign indicates no entry. No vehicle of any type is allowed beyond the point of this road sign.",
@@ -231,7 +231,7 @@ export const course: Course = {
       {
         id: "q-17",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: keep left sign — blue circle with white downward-left arrow]",
+        image: "/images/quiz/q17-keep-left.jpg",
         options: ["Stop", "Watch out for hazard in road", "Keep right", "Keep left"],
         correctAnswerIndex: 3,
         explanation: "This sign means keep left. This is commonly seen as you approach traffic islands. You must keep to the left-hand side of the sign as you pass it.",
@@ -239,7 +239,7 @@ export const course: Course = {
       {
         id: "q-18",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: slippery road sign — red triangle with skidding car symbol]",
+        image: "/images/quiz/q18-slippery-road.jpg",
         options: ["Smooth road", "Road narrows", "Slippery road", "Road works ahead"],
         correctAnswerIndex: 2,
         explanation: "This sign means slippery roads ahead. This sign warns road users to be cautious and take extra care as there is either water, ice or snow on the road ahead.",
@@ -247,7 +247,7 @@ export const course: Course = {
       {
         id: "q-19",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: no U-turns sign — red circle with U-turn arrow crossed out]",
+        image: "/images/quiz/q19-no-u-turn.jpg",
         options: ["Roundabout ahead", "U-turn permitted", "End of tunnel", "No U-turn"],
         correctAnswerIndex: 3,
         explanation: "This sign indicates no U-turns allowed. These signs are posted at junctions and tell road users that it is illegal to make U-turns in that area.",
@@ -256,7 +256,7 @@ export const course: Course = {
       {
         id: "q-20",
         questionText: "What does this sign mean?",
-        image: "[IMAGE: roundabout ahead sign — red triangle with circular arrows symbol]",
+        image: "/images/quiz/q20-roundabout-ahead.jpg",
         options: ["No entry", "Hole in road", "Roundabout ahead", "Junction ahead"],
         correctAnswerIndex: 2,
         explanation: "This sign indicates a roundabout is ahead. Warns to proceed with caution as there is a roundabout approaching.",
@@ -276,7 +276,7 @@ export const course: Course = {
       {
         id: "q-22",
         questionText: "What is the correct procedure when travelling straight ahead at a roundabout?",
-        image: "[IMAGE: roundabout diagram showing straight-ahead path with blue arrow]",
+        image: "/images/quiz/q22-roundabout-straight.png",
         options: [
           "Signal left on approach, keep right",
           "No signal on approach, keep left, signal left as you pass the road before yours, lifesaver check and proceed when safe",
@@ -289,7 +289,7 @@ export const course: Course = {
       {
         id: "q-23",
         questionText: "Who has the right of way at a roundabout?",
-        image: "[IMAGE: roundabout diagram showing straight-ahead path]",
+        image: "/images/quiz/q23-roundabout-right-of-way.png",
         options: ["Vehicles from the left", "Pedestrians", "Oncoming traffic from the right", "Bicycles only"],
         correctAnswerIndex: 2,
         explanation: "Oncoming traffic from the right has right of way at a roundabout. At a roundabout, you MUST give way to oncoming traffic, which will always be approaching from the right.",
@@ -297,7 +297,7 @@ export const course: Course = {
       {
         id: "q-24",
         questionText: "When should you signal right at a roundabout?",
-        image: "[IMAGE: roundabout diagram showing right-turn path]",
+        image: "/images/quiz/q24-roundabout-right-turn.png",
         options: [
           "When turning left",
           "When travelling straight ahead",
@@ -310,7 +310,6 @@ export const course: Course = {
       {
         id: "q-25",
         questionText: "What is the first step when approaching a roundabout to turn right?",
-        image: "[IMAGE: roundabout diagram showing right-turn approach]",
         options: ["Move to the right lane", "Signal right", "Check mirrors", "Move to the left lane"],
         correctAnswerIndex: 2,
         explanation: "The first step when approaching a roundabout is to check your mirrors.",

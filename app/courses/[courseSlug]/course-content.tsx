@@ -101,9 +101,6 @@ export default function CourseContent() {
         <div className="flex flex-col gap-3">
           {modules.map((module, index) => (
             <div key={module.slug}>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 px-1">
-                {SUBSECTION_LABELS[index]})
-              </p>
               <ModuleAccordion
                 module={module}
                 lessonStatus={lessonMap[module.slug] ?? {}}
