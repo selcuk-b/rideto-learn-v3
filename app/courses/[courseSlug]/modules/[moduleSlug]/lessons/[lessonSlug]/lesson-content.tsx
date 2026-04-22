@@ -48,8 +48,8 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
     <div className="mx-auto max-w-[800px] px-4 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-sm mb-6 flex-wrap">
-        <Link href="/" className="text-gray-400 hover:text-[#2CCEAC] transition-colors">
-          Course
+        <Link href={`/courses/${COURSE_SLUG}`} className="text-gray-400 hover:text-[#2CCEAC] transition-colors">
+          Learning
         </Link>
         <ChevronRight size={13} className="text-gray-300" />
         <Link
@@ -70,8 +70,8 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
         {/* Header */}
         <div className="px-6 pt-6 pb-5 border-b border-gray-100">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3 text-xs text-gray-400">
-            <span className="font-semibold text-[#2CCEAC] uppercase tracking-wide">
-              Module {courseModule.order}
+            <span className="font-body font-bold text-type-tag text-[#2CCEAC] uppercase tracking-[0.06em]">
+              {courseModule.title}
             </span>
             <span>·</span>
             <span className="flex items-center gap-1">
@@ -94,7 +94,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
             )}
           </div>
 
-          <h1 className="text-xl sm:text-2xl font-bold text-[#434343] leading-tight">
+          <h1 className="font-heading text-type-h4 uppercase text-[#434343]">
             {lesson.title}
           </h1>
 
@@ -139,7 +139,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
             {lesson.content.split('\n\n').map((paragraph, i) => (
               <p
                 key={i}
-                className="text-gray-700 leading-[1.8] text-[15px] mb-5 last:mb-0"
+                className="font-body text-type-body text-gray-700 mb-5 last:mb-0"
               >
                 {renderMarkdown(paragraph)}
               </p>
@@ -150,10 +150,10 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           <div className="mt-6 bg-[#2CCEAC]/8 border border-[#2CCEAC]/20 rounded-xl p-4 flex items-start gap-3">
             <Lightbulb size={18} className="flex-shrink-0 text-[#2CCEAC] mt-0.5" />
             <div>
-              <p className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wide mb-1">
+              <p className="font-body text-type-tag font-bold text-[#2CCEAC] uppercase tracking-[0.06em] mb-1">
                 Key Takeaway
               </p>
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="font-body text-type-small text-gray-700">
                 {lesson.keyTakeaway}
               </p>
             </div>
@@ -185,7 +185,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
               </p>
               <button
                 onClick={handleMarkComplete}
-                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] active:scale-95 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
+                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] active:scale-95 text-white font-heading text-type-button uppercase tracking-[0.05em] px-5 py-2.5 rounded-lg transition-all duration-150 cursor-pointer"
               >
                 <CheckCircle2 size={16} />
                 Mark Complete

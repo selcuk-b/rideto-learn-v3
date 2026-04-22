@@ -24,7 +24,7 @@ export default function ModuleCard({
   const total = module.lessons.length;
   const progressPct = total > 0 ? Math.round((completedLessons / total) * 100) : 0;
   const isComplete = completedLessons === total;
-  const quizPassed = quizScore !== null && quizScore >= module.quiz.passingScore;
+  const quizPassed = quizScore !== null && module.quiz != null && quizScore >= module.quiz.passingScore;
 
   return (
     <Link

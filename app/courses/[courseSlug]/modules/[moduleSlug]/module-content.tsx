@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { Module, COURSE_SLUG } from "@/lib/course-data";
 import { isLessonComplete, getModuleProgress } from "@/lib/progress";
-import { getBestScore } from "@/lib/quiz-progress";
-import { ChevronLeft, ChevronRight, Clock, CheckCircle2, Trophy, HelpCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, CheckCircle2, Trophy } from "lucide-react";
 
 interface Props {
   courseModule: Module;
@@ -14,7 +13,6 @@ interface Props {
 export default function ModuleContent({ courseModule }: Props) {
   const [lessonStatus, setLessonStatus] = useState<Record<string, boolean>>({});
   const [progressPct, setProgressPct] = useState(0);
-  const [quizBestScore, setQuizBestScore] = useState<number | null>(null);
 
   useEffect(() => {
     const status: Record<string, boolean> = {};
@@ -23,7 +21,6 @@ export default function ModuleContent({ courseModule }: Props) {
     }
     setLessonStatus(status);
     setProgressPct(getModuleProgress(courseModule.slug));
-    setQuizBestScore(getBestScore(courseModule.slug));
   }, [courseModule]);
 
   const completedCount = Object.values(lessonStatus).filter(Boolean).length;
@@ -32,15 +29,13 @@ export default function ModuleContent({ courseModule }: Props) {
   const nextLesson = courseModule.lessons.find((l) => !lessonStatus[l.slug]);
   const ctaLesson = nextLesson ?? courseModule.lessons[0];
 
-  const quizPassed = quizBestScore !== null && quizBestScore >= courseModule.quiz.passingScore;
-
   const basePath = `/courses/${COURSE_SLUG}/modules/${courseModule.slug}`;
 
   return (
     <div className="mx-auto max-w-[800px] px-4 py-8">
       {/* Back */}
       <Link
-        href="/"
+        href={`/courses/${COURSE_SLUG}`}
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#2CCEAC] transition-colors mb-6"
       >
         <ChevronLeft size={15} />
@@ -54,13 +49,13 @@ export default function ModuleContent({ courseModule }: Props) {
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <p className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wider mb-2">
-              Module {courseModule.order} · {courseModule.lessons.length} lessons
+            <p className="font-body text-type-tag font-bold text-[#2CCEAC] uppercase tracking-[0.06em] mb-2">
+              Subsection · {courseModule.lessons.length} {courseModule.lessons.length === 1 ? 'lesson' : 'lessons'}
             </p>
-            <h1 className="text-xl sm:text-2xl font-bold mb-2 leading-snug">
+            <h1 className="font-heading text-type-h3 uppercase mb-2">
               {courseModule.title}
             </h1>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="font-body text-type-body text-gray-300">
               {courseModule.description}
             </p>
           </div>
@@ -74,10 +69,10 @@ export default function ModuleContent({ courseModule }: Props) {
         {/* Progress */}
         <div className="mt-6 pt-5 border-t border-white/10">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-400 font-medium">
+            <span className="font-body text-type-caption text-gray-400">
               {completedCount} of {courseModule.lessons.length} completed
             </span>
-            <span className="text-sm font-bold text-[#2CCEAC]">{progressPct}%</span>
+            <span className="font-body text-type-small font-bold text-[#2CCEAC]">{progressPct}%</span>
           </div>
           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
             <div
@@ -93,7 +88,7 @@ export default function ModuleContent({ courseModule }: Props) {
           ) : (
             <Link
               href={`${basePath}/lessons/${ctaLesson.slug}`}
-              className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+              className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white font-heading text-type-button uppercase tracking-[0.05em] px-4 py-2 rounded-lg transition-colors"
             >
               {completedCount === 0 ? "Start Module" : "Continue"}
               <ChevronRight size={15} />
@@ -103,7 +98,7 @@ export default function ModuleContent({ courseModule }: Props) {
       </div>
 
       {/* Lessons list */}
-      <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
+      <h2 className="font-body text-type-tag font-bold text-gray-400 uppercase tracking-[0.06em] mb-3 px-1">
         Lessons
       </h2>
       <div className="flex flex-col gap-2 mb-6">
@@ -128,7 +123,7 @@ export default function ModuleContent({ courseModule }: Props) {
 
               <div className="flex-1 min-w-0">
                 <p
-                  className={`text-sm font-semibold leading-snug transition-colors ${
+                  className={`font-body text-type-small font-semibold leading-snug transition-colors ${
                     done
                       ? "text-gray-400 line-through decoration-gray-300"
                       : "text-gray-800 group-hover:text-[#2CCEAC]"
@@ -136,7 +131,7 @@ export default function ModuleContent({ courseModule }: Props) {
                 >
                   {lesson.title}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
+                <p className="font-body text-type-caption text-gray-400 mt-0.5 flex items-center gap-1">
                   <Clock size={11} />
                   {lesson.estimatedReadTime} read
                 </p>
@@ -157,49 +152,6 @@ export default function ModuleContent({ courseModule }: Props) {
         })}
       </div>
 
-      {/* Quiz CTA */}
-      <div
-        className="bg-white border border-gray-200/80 rounded-xl p-5"
-        style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
-      >
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-start gap-3 min-w-0">
-            <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
-              quizPassed ? "bg-[#2CCEAC]/15 text-[#2CCEAC]" : "bg-gray-100 text-gray-500"
-            }`}>
-              {quizPassed ? <Trophy size={18} /> : <HelpCircle size={18} />}
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wide mb-0.5">
-                Module Quiz
-              </p>
-              <p className="text-[15px] font-semibold text-gray-800 leading-snug">
-                {courseModule.quiz.title}
-              </p>
-              {quizBestScore !== null ? (
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Best score:{" "}
-                  <span className={`font-semibold ${quizPassed ? "text-[#2CCEAC]" : "text-amber-500"}`}>
-                    {quizBestScore}%
-                  </span>
-                  {quizPassed ? " · Passed ✓" : ` — need ${courseModule.quiz.passingScore}% to pass`}
-                </p>
-              ) : (
-                <p className="text-xs text-gray-500 mt-0.5">
-                  {courseModule.quiz.questions.length} questions · {courseModule.quiz.description}
-                </p>
-              )}
-            </div>
-          </div>
-          <Link
-            href={`${basePath}/quiz`}
-            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors duration-200"
-          >
-            {quizBestScore !== null ? "Retake" : "Take Quiz"}
-            <ChevronRight size={15} />
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

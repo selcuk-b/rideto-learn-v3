@@ -36,13 +36,13 @@ export default function CourseCard({ course, progress }: Props) {
     return (
       <div className="relative bg-white border border-gray-200 rounded-xl p-5 opacity-60 cursor-default select-none">
         {/* Coming Soon badge */}
-        <div className="absolute top-4 right-4 flex items-center gap-1 bg-gray-100 text-gray-500 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
+        <div className="absolute top-4 right-4 flex items-center gap-1 bg-gray-100 text-gray-500 font-body text-type-tag font-bold uppercase tracking-[0.06em] px-2.5 py-1 rounded-full">
           <Lock size={10} strokeWidth={2.5} />
           Coming Soon
         </div>
 
         {/* Stage label */}
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2 block">
+        <span className="font-body text-type-tag font-bold uppercase tracking-[0.06em] text-gray-400 mb-2 block">
           {course.stage}
         </span>
 
@@ -52,15 +52,15 @@ export default function CourseCard({ course, progress }: Props) {
             <Icon size={18} strokeWidth={1.75} className="text-gray-400" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-700 text-[15px] leading-snug">{course.title}</h3>
-            <p className="text-xs text-gray-400 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
+            <h3 className="font-heading text-type-h6 uppercase text-gray-700 leading-none">{course.title}</h3>
+            <p className="font-body text-type-caption text-gray-400 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
           </div>
         </div>
 
-        <p className="text-xs text-gray-400 leading-relaxed mt-2 line-clamp-2">{course.description}</p>
+        <p className="font-body text-type-caption text-gray-400 mt-2 line-clamp-2">{course.description}</p>
 
         {/* Meta */}
-        <div className="flex items-center gap-3 mt-3 text-[11px] text-gray-400">
+        <div className="flex items-center gap-3 mt-3 font-body text-type-caption text-gray-400">
           <span>{course.moduleCount} modules</span>
           <span className="w-0.5 h-0.5 rounded-full bg-gray-300" />
           <span>{course.phase}</span>
@@ -76,12 +76,12 @@ export default function CourseCard({ course, progress }: Props) {
       className="group relative bg-white border border-gray-200 hover:border-[#2CCEAC]/40 rounded-xl p-5 transition-all hover:shadow-md"
     >
       {/* Active badge */}
-      <div className="absolute top-4 right-4 flex items-center gap-1 bg-[#2CCEAC]/10 text-[#2CCEAC] text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
+      <div className="absolute top-4 right-4 flex items-center gap-1 bg-[#2CCEAC]/10 text-[#2CCEAC] font-body text-type-tag font-bold uppercase tracking-[0.06em] px-2.5 py-1 rounded-full">
         Available Now
       </div>
 
       {/* Stage label */}
-      <span className="text-[10px] font-semibold uppercase tracking-wider text-[#2CCEAC] mb-2 block">
+      <span className="font-body text-type-tag font-bold uppercase tracking-[0.06em] text-[#2CCEAC] mb-2 block">
         {course.stage}
       </span>
 
@@ -91,17 +91,17 @@ export default function CourseCard({ course, progress }: Props) {
           <Icon size={18} strokeWidth={1.75} className="text-[#2CCEAC]" />
         </div>
         <div>
-          <h3 className="font-bold text-gray-800 text-[15px] leading-snug group-hover:text-[#2CCEAC] transition-colors">
+          <h3 className="font-heading text-type-h6 uppercase text-gray-800 leading-none group-hover:text-[#2CCEAC] transition-colors">
             {course.title}
           </h3>
-          <p className="text-xs text-gray-500 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
+          <p className="font-body text-type-caption text-gray-500 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 leading-relaxed mt-2 line-clamp-2">{course.description}</p>
+      <p className="font-body text-type-caption text-gray-500 mt-2 line-clamp-2">{course.description}</p>
 
       {/* Meta */}
-      <div className="flex items-center gap-3 mt-3 text-[11px] text-gray-500">
+      <div className="flex items-center gap-3 mt-3 font-body text-type-caption text-gray-500">
         <span>{course.moduleCount} modules</span>
         <span className="w-0.5 h-0.5 rounded-full bg-gray-300" />
         <span>Free</span>
@@ -110,11 +110,11 @@ export default function CourseCard({ course, progress }: Props) {
       {/* Progress bar (if user has started) */}
       {progress && progress.completed > 0 && (
         <div className="mt-3 pt-3 border-t border-gray-100">
-          <div className="flex items-center justify-between text-[11px] mb-1.5">
+          <div className="flex items-center justify-between font-body text-type-caption mb-1.5">
             <span className="text-gray-500">
               {progress.completed}/{progress.total} lessons
             </span>
-            <span className="font-semibold text-[#2CCEAC]">{progressPct}%</span>
+            <span className="font-bold text-[#2CCEAC]">{progressPct}%</span>
           </div>
           <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
             <div

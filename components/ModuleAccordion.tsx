@@ -22,6 +22,7 @@ interface ModuleAccordionProps {
   lessonStatus: Record<string, boolean>;
   quizScore: number | null;
   defaultOpen?: boolean;
+  showQuiz?: boolean;
 }
 
 export default function ModuleAccordion({
@@ -29,13 +30,14 @@ export default function ModuleAccordion({
   lessonStatus,
   quizScore,
   defaultOpen = false,
+  showQuiz = true,
 }: ModuleAccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const total = module.lessons.length;
   const completedCount = module.lessons.filter((l) => lessonStatus[l.slug]).length;
   const isModuleComplete = completedCount === total && total > 0;
-  const quizPassed = quizScore !== null && quizScore >= module.quiz.passingScore;
+  const quizPassed = quizScore !== null && module.quiz != null && quizScore >= module.quiz.passingScore;
 
   const basePath = `/courses/${COURSE_SLUG}/modules/${module.slug}`;
 
@@ -69,13 +71,15 @@ export default function ModuleAccordion({
 
         {/* Title + meta */}
         <div className="flex-1 min-w-0">
-          <h2 className="text-[15px] font-semibold text-gray-800 leading-snug">
-            <span className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wide mr-2">
-              Module {module.order}:
-            </span>
+          <h2 className="font-heading text-type-h6 uppercase text-gray-800 leading-none">
+            {showQuiz && (
+              <span className="text-[#2CCEAC] mr-2">
+                Module {module.order}:
+              </span>
+            )}
             {module.title}
           </h2>
-          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+          <div className="flex items-center gap-3 mt-1 font-body text-type-caption text-gray-400">
             <span>
               {completedCount} / {total}
               {isModuleComplete && (
@@ -87,7 +91,7 @@ export default function ModuleAccordion({
               <Clock size={10} />
               {module.estimatedTime}
             </span>
-            {quizScore !== null && (
+            {showQuiz && quizScore !== null && (
               <>
                 <span className="w-0.5 h-0.5 rounded-full bg-gray-300" />
                 <span className={`font-semibold ${quizPassed ? 'text-[#2CCEAC]' : 'text-amber-500'}`}>
@@ -139,7 +143,7 @@ export default function ModuleAccordion({
                 {/* Lesson info */}
                 <div className="flex-1 min-w-0">
                   <p
-                    className={`text-sm leading-snug transition-colors ${
+                    className={`font-body text-type-small leading-snug transition-colors ${
                       done
                         ? 'text-gray-400 line-through decoration-gray-300'
                         : 'text-gray-700 group-hover:text-[#2CCEAC] font-medium'
@@ -159,26 +163,28 @@ export default function ModuleAccordion({
           })}
 
           {/* Quiz row */}
-          <Link
-            href={`${basePath}/quiz`}
-            className="group flex items-center gap-3 px-5 py-3 bg-gray-50/50 hover:bg-[#2CCEAC]/5 transition-colors"
-          >
-            <div className="flex-shrink-0">
-              {quizPassed ? (
-                <Trophy size={18} className="text-[#2CCEAC]" />
-              ) : (
-                <HelpCircle size={18} className="text-gray-400" />
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className={`text-sm font-medium leading-snug ${quizPassed ? 'text-[#2CCEAC]' : 'text-gray-700 group-hover:text-[#2CCEAC]'}`}>
-                {module.quiz.title}
-              </p>
-            </div>
-            <span className="flex-shrink-0 text-xs text-gray-400">
-              {module.quiz.questions.length} questions
-            </span>
-          </Link>
+          {showQuiz && module.quiz && (
+            <Link
+              href={`${basePath}/quiz`}
+              className="group flex items-center gap-3 px-5 py-3 bg-gray-50/50 hover:bg-[#2CCEAC]/5 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                {quizPassed ? (
+                  <Trophy size={18} className="text-[#2CCEAC]" />
+                ) : (
+                  <HelpCircle size={18} className="text-gray-400" />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className={`text-sm font-medium leading-snug ${quizPassed ? 'text-[#2CCEAC]' : 'text-gray-700 group-hover:text-[#2CCEAC]'}`}>
+                  {module.quiz.title}
+                </p>
+              </div>
+              <span className="flex-shrink-0 text-xs text-gray-400">
+                {module.quiz.questions.length} questions
+              </span>
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -36,7 +36,7 @@ export interface Module {
   description: string;
   order: number;
   lessons: Lesson[];
-  quiz: Quiz;
+  quiz?: Quiz;
   estimatedTime: string;
   icon?: string;
 }
@@ -48,6 +48,7 @@ export interface Course {
   slug: string;
   trainingType: string;
   modules: Module[];
+  quiz?: Quiz;
   estimatedTime: string;
   status: "draft" | "published" | "archived";
 }
@@ -67,9 +68,504 @@ export const course: Course = {
   trainingType: "cbt",
   estimatedTime: "~75 min",
   status: "published",
+  quiz: {
+    id: "quiz-pre-cbt-comprehensive",
+    title: "Pre-CBT Quiz",
+    description: "Test your knowledge across all Pre-CBT topics.",
+    passingScore: 70,
+    questions: [
+      // ── Section 1: Pre-Training Basics ──────────────────────────────────
+      {
+        id: "q-1",
+        questionText: "What type of licence must you bring for your CBT training?",
+        options: [
+          "Full UK driving licence",
+          "Valid UK provisional licence",
+          "EU licence with verified D9 form",
+          "Any of the above",
+        ],
+        correctAnswerIndex: 3,
+        explanation: "Any of these licences are accepted but only the physical card. Photos or photocopies are not accepted!",
+      },
+      {
+        id: "q-2",
+        questionText: "What type of footwear must you wear for CBT training?",
+        options: ["Trainers", "Boots", "Sturdy shoes", "Flip Flops"],
+        correctAnswerIndex: 1,
+        explanation: "Only sturdy boots which protect your feet and ankles are accepted for motorcycle training.",
+      },
+      {
+        id: "q-3",
+        questionText: "What sort of clothing must you wear on your legs?",
+        options: ["A skirt", "Tracksuit bottoms", "Jeans", "Shorts"],
+        correctAnswerIndex: 2,
+        explanation: "Only strong jeans (with no rips) or CE approved motorcycle trousers which protect you are accepted for motorcycle training.",
+      },
+      {
+        id: "q-4",
+        questionText: "What should you do if you are running late for your CBT training?",
+        options: [
+          "Inform the instructor",
+          "Rush to the location",
+          "You cannot be late; you will not be allowed to train",
+          "Call to reschedule",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "You cannot be late for motorcycle training. Even two minutes late to the start of the course could mean you are not allowed to start and will have to book and pay for another day.",
+      },
+      {
+        id: "q-5",
+        questionText: "Which code should you revise before attending CBT training?",
+        options: ["Road Code", "Highway Code", "Motorcycle Code", "Safety Code"],
+        correctAnswerIndex: 1,
+        explanation: "You must have read and understand the Highway Code in order to be prepared for your CBT. Understanding the Highway Code is a legal requirement you agreed to when applying for your licence from the DVSA.",
+      },
+      {
+        id: "q-6",
+        questionText: "What must you demonstrate you are able to do during the CBT?",
+        options: [
+          "Repairing a motorcycle",
+          "Reading a number plate from 20 metres away",
+          "Riding without hands",
+          "Performing stunts",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "You must be able to read a number plate from 20 metres away before you are allowed to begin the CBT. If you need to wear glasses or contact lenses please ensure you bring them.",
+      },
+      // ── Section 2: Road Signs ────────────────────────────────────────────
+      {
+        id: "q-7",
+        questionText: "What are red circular signs used for?",
+        image: "/images/quiz/q07-no-motor-vehicles.png",
+        options: ["Informational sign", "Warning sign", "Mandatory order", "Directional sign"],
+        correctAnswerIndex: 2,
+        explanation: "Red circular signs are used to give mandatory information you must follow.",
+      },
+      {
+        id: "q-8",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q07-no-motor-vehicles.png",
+        options: [
+          "Only cars and motorbikes allowed",
+          "Warning motorcycle jumping over a car ahead",
+          "No motor vehicles are permitted",
+          "No cars only motorbikes allowed",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "It instructs road users that no motor vehicles (including motorcycles) are permitted beyond this point.",
+      },
+      {
+        id: "q-9",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q09-ahead-only.png",
+        options: ["Stop and allow traffic to pass", "Ride in a straight line", "Look up", "Ahead only"],
+        correctAnswerIndex: 3,
+        explanation: "The sign means you must ride ahead only.",
+      },
+      {
+        id: "q-10",
+        questionText: "What is a red triangular sign like this used for?",
+        image: "/images/quiz/q10-warning-triangle.jpg",
+        options: ["Directional sign", "Warning sign", "Mandatory order", "Informational sign"],
+        correctAnswerIndex: 1,
+        explanation: "Red triangular signs are used as warning signs to alert road users to various hazards and changes in the road.",
+      },
+      {
+        id: "q-11",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q11-give-way.jpg",
+        options: [
+          "Traffic lights ahead",
+          "Stop sign",
+          "You have right of way over minor road traffic",
+          "You must give way to traffic on the major road",
+        ],
+        correctAnswerIndex: 3,
+        explanation: "The GIVE WAY sign and road markings means you must give way to traffic on the major road. The sign might not be used at junctions where there is relatively little traffic but you must still give way where you see these road markings.",
+      },
+      {
+        id: "q-12",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q12-national-speed-limit.jpg",
+        options: [
+          "60 mph limit",
+          "50 mph limit",
+          "The national speed limit for the type of road applies",
+          "No speed limit",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "This sign means the national speed limit for the type of road and class of traffic applies, which typically will vary as a motorcyclist from single carriageways (60 mph) to dual carriageways (70 mph).",
+      },
+      {
+        id: "q-13",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q13-30mph.jpg",
+        options: ["Minimum speed limit", "Maximum speed limit", "Recommended speed limit", "No speed limit"],
+        correctAnswerIndex: 1,
+        explanation: "This sign tells you the maximum speed, in miles per hour, at which traffic may travel, if it is safe to do so.",
+      },
+      {
+        id: "q-14",
+        questionText: "What does this sign indicate?",
+        image: "/images/quiz/q14-humps.jpg",
+        options: ["Smooth road ahead", "Speed bump ahead", "Pedestrian crossing", "End of road works"],
+        correctAnswerIndex: 1,
+        explanation: "This sign indicates road humps ahead. These signs warn road users that they must slow their speed due to a speed hump ahead. These are positioned in places where traffic needs to slow down for safety purposes.",
+      },
+      {
+        id: "q-15",
+        questionText: "What does this sign indicate?",
+        image: "/images/quiz/q15-no-right-turn.jpg",
+        options: ["Warning corner ahead", "No U-turns", "End of speed limit", "Banned right turn"],
+        correctAnswerIndex: 3,
+        explanation: "This sign means banned right turn. In this case you must not make a right turn.",
+      },
+      {
+        id: "q-16",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q16-no-entry.jpg",
+        options: ["No parking", "No entry", "No stopping", "No overtaking"],
+        correctAnswerIndex: 1,
+        explanation: "This sign indicates no entry. No vehicle of any type is allowed beyond the point of this road sign.",
+      },
+      {
+        id: "q-17",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q17-keep-left.jpg",
+        options: ["Stop", "Watch out for hazard in road", "Keep right", "Keep left"],
+        correctAnswerIndex: 3,
+        explanation: "This sign means keep left. This is commonly seen as you approach traffic islands. You must keep to the left-hand side of the sign as you pass it.",
+      },
+      {
+        id: "q-18",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q18-slippery-road.jpg",
+        options: ["Smooth road", "Road narrows", "Slippery road", "Road works ahead"],
+        correctAnswerIndex: 2,
+        explanation: "This sign means slippery roads ahead. This sign warns road users to be cautious and take extra care as there is either water, ice or snow on the road ahead.",
+      },
+      {
+        id: "q-19",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q19-no-u-turn.jpg",
+        options: ["Roundabout ahead", "U-turn permitted", "End of tunnel", "No U-turn"],
+        correctAnswerIndex: 3,
+        explanation: "This sign indicates no U-turns allowed. These signs are posted at junctions and tell road users that it is illegal to make U-turns in that area.",
+      },
+      // ── Section 3: Roundabouts ───────────────────────────────────────────
+      {
+        id: "q-20",
+        questionText: "What does this sign mean?",
+        image: "/images/quiz/q20-roundabout-ahead.jpg",
+        options: ["No entry", "Hole in road", "Roundabout ahead", "Junction ahead"],
+        correctAnswerIndex: 2,
+        explanation: "This sign indicates a roundabout is ahead. Warns to proceed with caution as there is a roundabout approaching.",
+      },
+      {
+        id: "q-21",
+        questionText: "What should you do when turning left at a roundabout?",
+        options: [
+          "Signal right, move to the right lane",
+          "Check mirrors, signal left, check left shoulder, move left lane, give way, proceed when safe",
+          "No signal, keep right",
+          "Signal left, move to the right lane",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "Check mirrors, signal left, check left shoulder, move left lane, give way, proceed when safe.",
+      },
+      {
+        id: "q-22",
+        questionText: "What is the correct procedure when travelling straight ahead at a roundabout?",
+        image: "/images/quiz/q22-roundabout-straight.png",
+        options: [
+          "Signal left on approach, keep right",
+          "No signal on approach, keep left, signal left as you pass the road before yours, lifesaver check and proceed when safe",
+          "Signal right on approach, keep left",
+          "Signal left, move to the left lane",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "No signal on approach, keep left, signal left as you pass the road before yours, lifesaver check and proceed when safe.",
+      },
+      {
+        id: "q-23",
+        questionText: "Who has the right of way at a roundabout?",
+        image: "/images/quiz/q23-roundabout-right-of-way.png",
+        options: ["Vehicles from the left", "Pedestrians", "Oncoming traffic from the right", "Bicycles only"],
+        correctAnswerIndex: 2,
+        explanation: "Oncoming traffic from the right has right of way at a roundabout. At a roundabout, you MUST give way to oncoming traffic, which will always be approaching from the right.",
+      },
+      {
+        id: "q-24",
+        questionText: "When should you signal right at a roundabout?",
+        image: "/images/quiz/q24-roundabout-right-turn.png",
+        options: [
+          "When turning left",
+          "When travelling straight ahead",
+          "When turning right or going full circle",
+          "Never signal right",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "You signal right at a roundabout when turning right or going full circle.",
+      },
+      {
+        id: "q-25",
+        questionText: "What is the first step when approaching a roundabout to turn right?",
+        options: ["Move to the right lane", "Signal right", "Check mirrors", "Move to the left lane"],
+        correctAnswerIndex: 2,
+        explanation: "The first step when approaching a roundabout is to check your mirrors.",
+      },
+      // ── Section 4: Traffic Lights & Moving Off ───────────────────────────
+      {
+        id: "q-26",
+        questionText: "What does a red traffic light mean?",
+        options: ["Slow down", "Yield", "Stop", "Proceed with caution"],
+        correctAnswerIndex: 2,
+        explanation: "A red traffic light means you must stop and wait behind the stop line on the road.",
+      },
+      {
+        id: "q-27",
+        questionText: "What should you do when you see a yellow traffic light?",
+        options: [
+          "Get ready to go",
+          "Speed up to cross the junction",
+          "Stop if it is safe to do so",
+          "Proceed without caution",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "A yellow traffic light means stop before the stop line. Drive ahead only if the yellow light appears after you have crossed the stop line or are so close to it that pulling up might cause an accident.",
+      },
+      {
+        id: "q-28",
+        questionText: "What does the red and yellow traffic light combination indicate?",
+        options: ["Prepare to stop", "Proceed with caution", "Stop and wait for the green light", "Slow down"],
+        correctAnswerIndex: 2,
+        explanation: "Red and yellow traffic lights also mean stop. Wait behind the stop line and do not pass through or start until the green light shows.",
+      },
+      {
+        id: "q-29",
+        questionText: "What steps must you take before moving off?",
+        options: [
+          "Signal, then move off immediately",
+          "Look around, check mirrors, signal, and take a final look",
+          "Check mirrors, then move off",
+          "Honk the horn to alert others",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "Before moving off you should always look around, check mirrors, signal, and take a final look.",
+      },
+      {
+        id: "q-30",
+        questionText: "When your handlebars are not straight or the bike is leaning, which brake should you avoid using?",
+        options: ["Rear brake", "Front brake", "Both brakes", "No brakes"],
+        correctAnswerIndex: 1,
+        explanation: "You should avoid using the front brake. Using the front brake in this situation can cause the bike to tip over or lose balance, especially at low speeds.",
+      },
+      // ── Section 5: Road Safety & Riding ─────────────────────────────────
+      {
+        id: "q-31",
+        questionText: "What should you do when a vehicle approaching from the right signals left while you are waiting to pull out of a junction?",
+        options: [
+          "Pull out immediately",
+          "Wait and be sure the vehicle is turning before pulling out",
+          "Ignore the signal and proceed",
+          "Honk to get their attention",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "You should wait and be sure the vehicle is turning before pulling out. Never assume that the vehicle will make the turn.",
+      },
+      {
+        id: "q-32",
+        questionText: "Why is overtaking a vehicle at a side junction dangerous?",
+        options: [
+          "Another vehicle might turn out of the side road",
+          "It is not dangerous",
+          "The vehicle ahead might speed up",
+          "It is the best time to overtake",
+        ],
+        correctAnswerIndex: 0,
+        explanation: "The vehicle in front may stop to allow a vehicle to turn out of the side road or turn into the side road suddenly. They are unlikely to be expecting the motorcycle to be overtaking them. Stay where you are.",
+      },
+      {
+        id: "q-33",
+        questionText: "What is a 'lifesaver' and how do you do one?",
+        options: [
+          "A first aid technique used during emergencies",
+          "A type of defensive riding manoeuvre used only at junctions",
+          "A quick glance over the shoulder to check blind spots before changing direction",
+          "A method of checking mirrors repeatedly before turning",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "A lifesaver is a quick glance over the shoulder to check blind spots before changing direction. It is a crucial safety manoeuvre for motorcyclists to check their blind spot for vehicles mirrors cannot show, helping avoid collisions with overtaking vehicles.",
+      },
+      {
+        id: "q-34",
+        questionText: "What four steps should you follow before making a turn?",
+        options: [
+          "Signal, check mirrors, honk, manoeuvre",
+          "Mirror, signal, lifesaver, manoeuvre",
+          "Signal, manoeuvre, check mirrors, lifesaver",
+          "Lifesaver, manoeuvre, signal, check mirrors",
+        ],
+        correctAnswerIndex: 1,
+        explanation: "Before making a turn you should follow the process: Mirror, signal, lifesaver, manoeuvre.",
+      },
+      {
+        id: "q-35",
+        questionText: "What should you do if you intend to turn left at a junction but are stuck behind a slow-moving vehicle?",
+        options: [
+          "Overtake the vehicle quickly",
+          "Undertake the vehicle",
+          "Stay back and wait",
+          "Use your horn to alert the driver",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "You should stay back and wait. Never undertake or overtake a vehicle just before you turn left. Always let the junction clear first to avoid any risk of collision.",
+      },
+      {
+        id: "q-36",
+        questionText: "Who has priority when a pedestrian is crossing a road into which you are turning?",
+        options: ["You", "The pedestrian", "The vehicle behind you", "It depends on the situation"],
+        correctAnswerIndex: 1,
+        explanation: "The pedestrian has priority so give way and wait for them to cross.",
+      },
+      {
+        id: "q-37",
+        questionText: "Are motorcycles allowed in bus lanes?",
+        options: ["No, never", "Yes, always", "Only on red routes", "It depends on the bus lane signs"],
+        correctAnswerIndex: 3,
+        explanation: "It depends on the bus lane signs. Bus lane rules for motorcycles vary around London and the country. A good way to confirm is to look for a motorcycle symbol on the sign at the start of the bus lane.",
+      },
+      {
+        id: "q-38",
+        questionText: "What is the recommended minimum following distance behind other vehicles in good, dry conditions?",
+        options: ["1 second", "2 seconds", "3 seconds", "4 seconds"],
+        correctAnswerIndex: 1,
+        explanation: "In good, dry conditions you should keep a minimum gap of 2 seconds. In wet weather leave at least a 4-second gap. You can count this gap using stationary objects as the vehicle in front passes until you pass that same object.",
+      },
+      {
+        id: "q-39",
+        questionText: "Is filtering through traffic allowed for motorcycles?",
+        options: [
+          "Only on single carriageways",
+          "Yes, always",
+          "Yes, but with caution for hazards and road rules",
+          "No, never",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "Filtering is allowed where safe, apart from these scenarios: passing over a solid white line, passing the wrong side of a Keep Left sign, where overtaking is illegal, or where there are zigzag lines on the approach to a pedestrian crossing.",
+      },
+      {
+        id: "q-40",
+        questionText: "Which of the following is NOT one of the top three factors in motorcycle collisions?",
+        options: [
+          "Excessive speed",
+          "Poor road positioning",
+          "Bad weather",
+          "Not enough distance between the motorcycle and vehicle in front",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "The top three factors responsible for motorcycle collisions are rider errors: excessive speed, poor road positioning, and not enough distance between the motorcycle and vehicle in front. Bad weather is not one of the top three.",
+      },
+      {
+        id: "q-41",
+        questionText: "Which of the following is the most important attitude for a new rider to have before heading out on a motorcycle?",
+        options: [
+          "Confidence in their ability to handle any situation",
+          "A sense of urgency to keep up with more experienced riders",
+          "A willingness to learn and prioritise safety over speed",
+          "A desire to show off their riding skills",
+        ],
+        correctAnswerIndex: 2,
+        explanation: "A willingness to learn and prioritise safety over speed is the most important attitude a new rider can have. New riders should focus on learning and safety to build good habits and become skilled, responsible motorcyclists. A good rule of thumb is to ride within 80% of your maximum ability.",
+      },
+    ],
+  },
   modules: [
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // MODULE 1: Highway Code for CBT Riders
+    // SUBSECTION A: Your CBT Day — What to Expect
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    {
+      id: "mod-cbt-day",
+      slug: "cbt-day",
+      title: "Your CBT Day — What to Expect",
+      description:
+        "Walk through each stage of your Compulsory Basic Training, step by step.",
+      order: 1,
+      estimatedTime: "~15 min",
+      icon: "ClipboardList",
+      lessons: [
+        {
+          id: "les-cd-1",
+          slug: "five-elements-of-cbt",
+          title: "The 5 Elements of CBT",
+          order: 1,
+          estimatedReadTime: "10 min",
+          youtubeVideoId: "z2e37kjPW-E",
+          keyTakeaway:
+            "CBT is training, not a test — your instructor's job is to get you road-ready, and most people complete everything in a single day.",
+          content: `Here's the thing most people get wrong about CBT: it's not a test. You can't "fail" your CBT the way you fail a driving test. It's Compulsory Basic Training — a structured day of learning that takes you from complete beginner to safe enough to ride on the road. Your instructor wants you to succeed, and they'll work with you until you're ready.
+
+The day typically takes 6 to 8 hours and follows five elements, labelled A through E. You work through them in order, and you move to the next one when your instructor is satisfied you've got the skills down. Most people complete everything in one day, but if you need a bit more time, that's completely normal — you just come back for another session.
+
+Here's what each element looks like.
+
+**Element A — Introduction & Eyesight Test**
+
+This is the gentle start. Your instructor will introduce themselves, go through the paperwork, and explain how the day works. You'll meet the other learners in your group — there can be up to four of you with one instructor for the on-site parts.
+
+The one thing you do need to pass here is the **eyesight test**. You'll be asked to read a number plate from 20 metres away (roughly five car lengths). If you wear glasses or contact lenses, that's fine — just make sure you bring them. If you can't read the plate, you won't be able to continue that day.
+
+That's it for Element A. No riding yet, just getting settled in.
+
+**Element B — Getting to Know the Controls**
+
+Now you'll get hands-on with the motorcycle or scooter. Your instructor will walk you through every control on the bike:
+
+On the **handlebars**: throttle (right hand), front brake lever (right hand), clutch lever (left hand, if you're on a geared bike). On the **foot controls**: rear brake pedal (right foot), gear lever (left foot, geared bikes only). Plus the **switches**: indicators, horn, lights, and the kill switch.
+
+You don't need to memorise any of this beforehand — the instructor will show you everything and give you time to practise with the engine off. The goal is to feel comfortable with where everything is before you start riding.
+
+**Element C — Off-Road Riding**
+
+This is where it starts to get exciting. You'll ride the bike around the training area — a car park or purpose-built compound — and practise the basics:
+
+Starting and stopping smoothly. Riding in a straight line. Slow-speed manoeuvres like the **figure of 8** and **U-turns**. Using your indicators. An **emergency stop** — your instructor will explain the technique and you'll practise it a few times.
+
+If you're on a geared bike, this is where you'll get used to the clutch and changing gears. If you're on an automatic, you'll focus on throttle control and braking.
+
+Don't worry if you wobble at first — everyone does. Slow-speed riding is actually harder than going faster, because the bike has less natural balance. Your instructor knows this and will give you plenty of time to practise.
+
+**Element D — Road Safety Briefing**
+
+Before heading onto real roads, your instructor will sit down with you and cover the theory you need for safe riding. This includes:
+
+Basic **Highway Code rules** relevant to your ride — junctions, roundabouts, road signs. **Hazard awareness** — what to look out for and how to ride defensively. How the on-road session will work — they'll communicate with you via a **radio earpiece**, telling you where to go and giving feedback as you ride.
+
+This element is a conversation, not a classroom exam. Your instructor will check you understand the basics, and if anything needs brushing up, they'll explain it there and then. Having reviewed the Highway Code beforehand (which is exactly what the other modules on RideTo Learn are for) will make this part feel easy.
+
+**Element E — On-Road Riding**
+
+This is the big one — and honestly, for most people, the best part of the day. You'll head out onto real roads with your instructor following behind on their own bike, connected to you by radio. You'll ride for a **minimum of 2 hours**.
+
+During Element E, the group size drops to just **2 learners per instructor**. Your instructor will guide you through the ride, telling you which way to turn and giving you real-time feedback through the earpiece. You'll encounter real junctions, roundabouts, traffic lights, and other road users.
+
+**What your instructor is looking for:** safe riding, not perfection. They want to see that you can check your mirrors, signal properly, position yourself on the road, and deal with junctions and roundabouts without putting yourself or others at risk. Nobody expects you to ride like you've been doing it for years.
+
+If your instructor feels you need more time on any element — including Element E — they'll let you know. Some people need a second session, and that's absolutely fine. It doesn't mean you've "failed." It just means you need a bit more practice to be safe on your own.
+
+**What Happens When You're Done**
+
+Once your instructor is satisfied you've completed all five elements to a safe standard, you'll receive your **DL196 certificate**. This is your CBT completion certificate, and it means you can legally ride on the road.
+
+With your DL196, you can ride a **125cc motorcycle** (or 50cc moped if you're 16) on public roads with **L plates displayed**. Your certificate is valid for **2 years**. During that time, you can practise on the road, take your theory test, and work towards your full motorcycle licence.
+
+Two restrictions to remember: you **cannot carry passengers**, and you **cannot ride on motorways** with just a CBT certificate.`,
+        },
+      ],
+    },
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SUBSECTION B: Highway Code for CBT Riders
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       id: "mod-highway-code",
@@ -77,7 +573,7 @@ export const course: Course = {
       title: "Highway Code for CBT Riders",
       description:
         "The road rules you'll actually encounter during your CBT road ride. Not the full Highway Code — just what matters for a new rider on a 125cc.",
-      order: 1,
+      order: 2,
       estimatedTime: "~20 min",
       icon: "MapPin",
       lessons: [
@@ -146,158 +642,10 @@ A pelican crossing is signal-controlled with traffic lights. After the red light
 Beyond crossings, be alert for hazards involving vulnerable road users. Cyclists may wobble or swerve to avoid potholes. Children near schools are unpredictable. Horse riders may need extra passing space — slow down and pass wide and slow. During your CBT road ride, your instructor will expect you to demonstrate awareness of these hazards by adjusting your speed and position in good time.`,
         },
       ],
-      quiz: {
-        id: "quiz-highway-code",
-        title: "Highway Code Quiz",
-        description:
-          "Test your knowledge of right of way, junction rules, roundabout positioning, and crossing rules.",
-        passingScore: 70,
-        questions: [
-          {
-            id: "q-hc-1",
-            questionText: "At a roundabout, which vehicles have priority?",
-            options: [
-              "Vehicles approaching from your left",
-              "The largest vehicle at the roundabout",
-              "Traffic already on the roundabout, coming from your right",
-              "The first vehicle to reach the roundabout",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "At roundabouts you must give way to traffic already on the roundabout, which comes from your right. Always check for motorcycles and cyclists who can be difficult to spot.",
-          },
-          {
-            id: "q-hc-2",
-            questionText:
-              "What does a give way sign (inverted triangle) require you to do?",
-            options: [
-              "Stop completely, then proceed",
-              "Be prepared to stop and give priority to traffic on the main road",
-              "Slow down but you always have priority",
-              "Flash your headlights to signal your intention",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A give way sign means you must be prepared to stop and let traffic on the main road pass before you proceed. Unlike a stop sign, you do not have to stop if the road is clear.",
-          },
-          {
-            id: "q-hc-3",
-            questionText:
-              "At an unmarked crossroads with no signs, who has priority?",
-            options: [
-              "The vehicle travelling fastest",
-              "Traffic approaching from your left",
-              "No one has automatic priority — give way to traffic from the right and proceed with caution",
-              "The vehicle that arrived first",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "At unmarked crossroads, the convention is to give way to traffic from the right, but no one has automatic legal priority. Always proceed with extreme caution and make eye contact where possible.",
-          },
-          {
-            id: "q-hc-4",
-            questionText:
-              "When turning right at a T-junction, where should you position your motorcycle?",
-            options: [
-              "Close to the left kerb",
-              "In the centre of your lane",
-              "Just left of the centre line",
-              "On the centre line itself",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "When turning right, position just left of the centre line. This makes your intention clear to other road users and protects you from oncoming traffic. Signal clearly and well in advance.",
-          },
-          {
-            id: "q-hc-5",
-            questionText:
-              "What is the MSM routine you should follow at every junction?",
-            options: [
-              "Move, Steer, Merge",
-              "Mirror, Signal, Manoeuvre",
-              "Mirror, Speed, Move",
-              "Monitor, Signal, Merge",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "MSM stands for Mirror, Signal, Manoeuvre. Check your mirrors to see what is behind you, signal your intention in good time, then carry out the manoeuvre when it is safe to do so.",
-          },
-          {
-            id: "q-hc-6",
-            questionText:
-              "What must you do at a zebra crossing when a pedestrian has stepped onto the stripes?",
-            options: [
-              "Sound your horn to warn them",
-              "Give way — the pedestrian has priority",
-              "Proceed if you can safely pass behind them",
-              "Flash your headlights to let them know you have seen them",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "At a zebra crossing, pedestrians have priority once they have stepped onto the crossing. You must stop and wait for them to finish crossing before proceeding.",
-          },
-          {
-            id: "q-hc-7",
-            questionText:
-              "During a flashing amber light at a pelican crossing, what should you do?",
-            options: [
-              "Stop regardless of whether pedestrians are present",
-              "Proceed only if the crossing is completely clear of pedestrians",
-              "Treat it as a green light and proceed normally",
-              "Sound your horn to alert pedestrians",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "During flashing amber at a pelican crossing, you may proceed only if the crossing is completely clear. If pedestrians are still crossing, you must wait for them to finish.",
-          },
-          {
-            id: "q-hc-8",
-            questionText:
-              "On a multi-lane roundabout, which lane should you use to take the first exit (turning left)?",
-            options: [
-              "The right lane, signalling left",
-              "Either lane — it does not matter",
-              "The left lane, signalling left on approach",
-              "The right lane, then move left on the roundabout",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "For the first exit (turning left), use the left lane and signal left on approach. Maintain your signal as you exit the roundabout.",
-          },
-          {
-            id: "q-hc-9",
-            questionText:
-              "Why are motorcyclists particularly vulnerable at junctions?",
-            options: [
-              "Motorcycles cannot stop as quickly as cars",
-              "Motorcyclists always have to give way",
-              "Motorcycles are smaller and harder for other drivers to see",
-              "Motorcycle engines are louder, distracting other drivers",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Motorcycles are smaller and much harder for other road users to see, especially at junctions. This is why defensive riding and making yourself visible are so important during your CBT road ride.",
-          },
-          {
-            id: "q-hc-10",
-            questionText:
-              "What type of crossing uses sensors so there is no flashing amber phase?",
-            options: [
-              "Zebra crossing",
-              "Pelican crossing",
-              "Puffin crossing",
-              "Toucan crossing",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "A puffin crossing uses sensors to detect pedestrians on the crossing. The lights stay red until the crossing is clear, so there is no flashing amber phase — making them safer for pedestrians.",
-          },
-        ],
-      },
     },
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // MODULE 2: Traffic Signs & Signals
+    // SUBSECTION C: Traffic Signs & Signals
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       id: "mod-traffic-signs",
@@ -305,7 +653,7 @@ Beyond crossings, be alert for hazards involving vulnerable road users. Cyclists
       title: "Traffic Signs & Signals",
       description:
         "Visual, quiz-heavy module. Know your signs before you're on the road.",
-      order: 2,
+      order: 3,
       estimatedTime: "~20 min",
       icon: "TriangleAlert",
       lessons: [
@@ -378,544 +726,10 @@ Yellow lines along the kerb indicate parking restrictions. A single yellow line 
 Road arrows guide your lane choice at junctions and roundabouts. Follow the arrows that match your intended direction. If you find yourself in the wrong lane, do not swerve across — continue in the direction your lane dictates and find a safe place to turn around.`,
         },
       ],
-      quiz: {
-        id: "quiz-traffic-signs",
-        title: "Traffic Signs Quiz",
-        description:
-          "Test your knowledge of warning signs, regulatory signs, traffic lights, and road markings.",
-        passingScore: 70,
-        questions: [
-          {
-            id: "q-ts-1",
-            questionText: "What shape are warning signs in the UK?",
-            options: [
-              "Circular with a red border",
-              "Rectangular with a blue background",
-              "Triangular with a red border",
-              "Diamond-shaped with a yellow background",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Warning signs are triangular with a red border on a white background. They alert you to hazards ahead such as sharp bends, junctions, pedestrian crossings, or slippery roads.",
-          },
-          {
-            id: "q-ts-2",
-            questionText:
-              "What does a red circular sign with a number inside it indicate?",
-            options: [
-              "A recommended speed",
-              "A maximum speed limit",
-              "A minimum speed limit",
-              "A speed camera zone",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A red-bordered circle with a number indicates the maximum speed limit. You must not exceed this speed. A blue circle with a number inside indicates a minimum speed limit.",
-          },
-          {
-            id: "q-ts-3",
-            questionText:
-              "What does a red circle containing a horizontal white bar mean?",
-            options: [
-              "No U-turns",
-              "No entry",
-              "Give way to oncoming traffic",
-              "No through road",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A red circle with a horizontal white bar is the no entry sign. You will often see it at one-way streets or restricted access roads. Entering a road displaying this sign is illegal and dangerous.",
-          },
-          {
-            id: "q-ts-4",
-            questionText:
-              "What shape and colour are direction signs on a motorway?",
-            options: [
-              "Green and rectangular",
-              "White and rectangular",
-              "Blue and rectangular",
-              "Yellow and rectangular",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Motorway signs are blue and rectangular. Primary A-road signs are green, and local direction signs are white. Knowing the colours helps you navigate quickly at speed.",
-          },
-          {
-            id: "q-ts-5",
-            questionText:
-              "What does a solid white centre line along the middle of the road mean?",
-            options: [
-              "You may overtake if it is safe to do so",
-              "No parking on either side of the road",
-              "You must not cross or straddle the line",
-              "The road narrows ahead",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "A solid white centre line means you must not cross or straddle it. It appears on bends, hills, or near junctions where overtaking is particularly dangerous.",
-          },
-          {
-            id: "q-ts-6",
-            questionText: "What do double yellow lines along the kerb indicate?",
-            options: [
-              "No stopping at any time",
-              "No parking at any time",
-              "No parking during certain hours",
-              "Permit holders only",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Double yellow lines mean no parking at any time. Single yellow lines indicate parking restrictions during certain hours, shown on nearby signs. Double red lines mean no stopping at any time.",
-          },
-          {
-            id: "q-ts-7",
-            questionText:
-              "During the standard traffic light sequence, what does red and amber showing together mean?",
-            options: [
-              "Go — the light is about to turn green",
-              "Stop — the light is about to turn red",
-              "Prepare to go but do not move until the light turns green",
-              "Proceed with caution if the road is clear",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Red and amber together means the light is about to change to green. Prepare to go — engage first gear and find your clutch biting point — but do not move until the light turns green.",
-          },
-          {
-            id: "q-ts-8",
-            questionText:
-              "What does a yellow criss-cross box junction marked on the road mean?",
-            options: [
-              "No parking at any time",
-              "Give way to traffic from the right",
-              "You must not enter unless your exit is clear",
-              "Priority for buses and cyclists only",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "You must not enter a box junction unless your exit road or lane is clear. The only exception is when turning right — you may wait in the box if held up by oncoming traffic.",
-          },
-          {
-            id: "q-ts-9",
-            questionText:
-              "What does the national speed limit sign look like?",
-            options: [
-              "A blue circle with a white number",
-              "A white circle with a diagonal grey stripe",
-              "A red circle with no number inside",
-              "A green rectangular sign with white text",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "The national speed limit sign is a white circle with a diagonal grey stripe. The actual limit depends on the road type: 30mph in built-up areas, 60mph on single carriageways, 70mph on dual carriageways.",
-          },
-          {
-            id: "q-ts-10",
-            questionText:
-              "A green filter arrow is showing but the main traffic light is red. What should you do?",
-            options: [
-              "Stop — the red light takes priority",
-              "Proceed in the direction of the filter arrow if the road is clear",
-              "Proceed in any direction",
-              "Flash your headlights and proceed with caution",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A green filter arrow allows you to proceed in the direction shown, even when the main light is red. Only move in the direction indicated by the arrow, and make sure the road ahead is clear.",
-          },
-        ],
-      },
     },
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // MODULE 3: Your CBT Day — What to Expect
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    {
-      id: "mod-cbt-day",
-      slug: "cbt-day",
-      title: "Your CBT Day — What to Expect",
-      description:
-        "Walk through each stage of your Compulsory Basic Training, step by step.",
-      order: 3,
-      estimatedTime: "~15 min",
-      icon: "ClipboardList",
-      lessons: [
-        {
-          id: "les-cd-1",
-          slug: "five-elements-of-cbt",
-          title: "The 5 Elements of CBT",
-          order: 1,
-          estimatedReadTime: "10 min",
-          youtubeVideoId: "z2e37kjPW-E",
-          keyTakeaway:
-            "CBT is training, not a test — your instructor's job is to get you road-ready, and most people complete everything in a single day.",
-          content: `Here's the thing most people get wrong about CBT: it's not a test. You can't "fail" your CBT the way you fail a driving test. It's Compulsory Basic Training — a structured day of learning that takes you from complete beginner to safe enough to ride on the road. Your instructor wants you to succeed, and they'll work with you until you're ready.
-
-The day typically takes 6 to 8 hours and follows five elements, labelled A through E. You work through them in order, and you move to the next one when your instructor is satisfied you've got the skills down. Most people complete everything in one day, but if you need a bit more time, that's completely normal — you just come back for another session.
-
-Here's what each element looks like.
-
-**Element A — Introduction & Eyesight Test**
-
-This is the gentle start. Your instructor will introduce themselves, go through the paperwork, and explain how the day works. You'll meet the other learners in your group — there can be up to four of you with one instructor for the on-site parts.
-
-The one thing you do need to pass here is the **eyesight test**. You'll be asked to read a number plate from 20 metres away (roughly five car lengths). If you wear glasses or contact lenses, that's fine — just make sure you bring them. If you can't read the plate, you won't be able to continue that day.
-
-That's it for Element A. No riding yet, just getting settled in.
-
-**Element B — Getting to Know the Controls**
-
-Now you'll get hands-on with the motorcycle or scooter. Your instructor will walk you through every control on the bike:
-
-On the **handlebars**: throttle (right hand), front brake lever (right hand), clutch lever (left hand, if you're on a geared bike). On the **foot controls**: rear brake pedal (right foot), gear lever (left foot, geared bikes only). Plus the **switches**: indicators, horn, lights, and the kill switch.
-
-You don't need to memorise any of this beforehand — the instructor will show you everything and give you time to practise with the engine off. The goal is to feel comfortable with where everything is before you start riding.
-
-**Element C — Off-Road Riding**
-
-This is where it starts to get exciting. You'll ride the bike around the training area — a car park or purpose-built compound — and practise the basics:
-
-Starting and stopping smoothly. Riding in a straight line. Slow-speed manoeuvres like the **figure of 8** and **U-turns**. Using your indicators. An **emergency stop** — your instructor will explain the technique and you'll practise it a few times.
-
-If you're on a geared bike, this is where you'll get used to the clutch and changing gears. If you're on an automatic, you'll focus on throttle control and braking.
-
-Don't worry if you wobble at first — everyone does. Slow-speed riding is actually harder than going faster, because the bike has less natural balance. Your instructor knows this and will give you plenty of time to practise.
-
-**Element D — Road Safety Briefing**
-
-Before heading onto real roads, your instructor will sit down with you and cover the theory you need for safe riding. This includes:
-
-Basic **Highway Code rules** relevant to your ride — junctions, roundabouts, road signs. **Hazard awareness** — what to look out for and how to ride defensively. How the on-road session will work — they'll communicate with you via a **radio earpiece**, telling you where to go and giving feedback as you ride.
-
-This element is a conversation, not a classroom exam. Your instructor will check you understand the basics, and if anything needs brushing up, they'll explain it there and then. Having reviewed the Highway Code beforehand (which is exactly what the other modules on RideTo Learn are for) will make this part feel easy.
-
-**Element E — On-Road Riding**
-
-This is the big one — and honestly, for most people, the best part of the day. You'll head out onto real roads with your instructor following behind on their own bike, connected to you by radio. You'll ride for a **minimum of 2 hours**.
-
-During Element E, the group size drops to just **2 learners per instructor**. Your instructor will guide you through the ride, telling you which way to turn and giving you real-time feedback through the earpiece. You'll encounter real junctions, roundabouts, traffic lights, and other road users.
-
-**What your instructor is looking for:** safe riding, not perfection. They want to see that you can check your mirrors, signal properly, position yourself on the road, and deal with junctions and roundabouts without putting yourself or others at risk. Nobody expects you to ride like you've been doing it for years.
-
-If your instructor feels you need more time on any element — including Element E — they'll let you know. Some people need a second session, and that's absolutely fine. It doesn't mean you've "failed." It just means you need a bit more practice to be safe on your own.
-
-**What Happens When You're Done**
-
-Once your instructor is satisfied you've completed all five elements to a safe standard, you'll receive your **DL196 certificate**. This is your CBT completion certificate, and it means you can legally ride on the road.
-
-With your DL196, you can ride a **125cc motorcycle** (or 50cc moped if you're 16) on public roads with **L plates displayed**. Your certificate is valid for **2 years**. During that time, you can practise on the road, take your theory test, and work towards your full motorcycle licence.
-
-Two restrictions to remember: you **cannot carry passengers**, and you **cannot ride on motorways** with just a CBT certificate.`,
-        },
-      ],
-      quiz: {
-        id: "quiz-cbt-day",
-        title: "CBT Day Quiz",
-        description:
-          "Test your understanding of what happens during CBT — the 5 elements, requirements, and what to expect.",
-        passingScore: 70,
-        questions: [
-          {
-            id: "q-cd-1",
-            questionText: "What is CBT?",
-            options: [
-              "A motorcycle driving test",
-              "A day of structured training to prepare you for road riding",
-              "An online theory exam",
-              "A one-hour introduction to motorcycles",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "CBT stands for Compulsory Basic Training. It's a training course, not a test — you can't technically fail, but you must complete all five elements to your instructor's satisfaction.",
-          },
-          {
-            id: "q-cd-2",
-            questionText:
-              "How far away must you be able to read a number plate during the eyesight test?",
-            options: [
-              "10 metres",
-              "15 metres",
-              "20 metres",
-              "25 metres",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "You need to read a number plate from 20 metres (about 5 car lengths). You can wear glasses or contact lenses for this.",
-          },
-          {
-            id: "q-cd-3",
-            questionText:
-              "What is the maximum number of learners per instructor during the on-road riding element?",
-            options: ["1", "2", "3", "4"],
-            correctAnswerIndex: 1,
-            explanation:
-              "During the on-road element (Element E), the ratio drops to a maximum of 2 learners per instructor. For on-site elements, it can be up to 4.",
-          },
-          {
-            id: "q-cd-4",
-            questionText:
-              "What is the minimum amount of on-road riding time required during CBT?",
-            options: [
-              "30 minutes",
-              "1 hour",
-              "2 hours",
-              "3 hours",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Element E requires a minimum of 2 hours of on-road riding. Some schools do more, but 2 hours is the legal minimum set by the DVSA.",
-          },
-          {
-            id: "q-cd-5",
-            questionText:
-              "How does your instructor communicate with you during the on-road ride?",
-            options: [
-              "Hand signals only",
-              "They ride next to you and shout instructions",
-              "A radio earpiece",
-              "They don't — you ride independently",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Your instructor follows behind on their own motorcycle and guides you via a radio earpiece. They'll tell you where to turn and give you feedback as you ride.",
-          },
-          {
-            id: "q-cd-6",
-            questionText:
-              "What certificate do you receive when you complete CBT?",
-            options: [
-              "A full motorcycle licence",
-              "A DL196 certificate",
-              "A theory test pass certificate",
-              "A provisional licence upgrade",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "You receive a DL196 certificate, which is valid for 2 years. It allows you to ride on public roads with L plates while you work towards your full licence.",
-          },
-          {
-            id: "q-cd-7",
-            questionText: "How long is a CBT certificate valid for?",
-            options: [
-              "6 months",
-              "1 year",
-              "2 years",
-              "5 years",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Your DL196 is valid for 2 years. If you haven't passed your full motorcycle test by then, you'll need to complete CBT again to continue riding.",
-          },
-          {
-            id: "q-cd-8",
-            questionText:
-              "If you don't complete all five elements in one day, what happens?",
-            options: [
-              "You fail your CBT and have to start again from scratch",
-              "You receive a partial certificate",
-              "You come back for another session to continue where you left off",
-              "You are banned from retaking CBT for 6 months",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "If you need more time, you simply book another session to continue. This is completely normal and doesn't mean you've failed — some people just need a bit more practice.",
-          },
-        ],
-      },
-    },
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // MODULE 4: Common Mistakes & How to Avoid Them
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    {
-      id: "mod-common-mistakes",
-      slug: "common-mistakes",
-      title: "Common Mistakes & How to Avoid Them",
-      description:
-        "Practical tips from real CBT experience. What actually trips people up — and how to avoid it.",
-      order: 4,
-      estimatedTime: "~15 min",
-      icon: "ShieldAlert",
-      lessons: [
-        {
-          id: "les-cm-1",
-          slug: "top-cbt-fail-points",
-          title: "Top CBT Fail Points",
-          order: 1,
-          estimatedReadTime: "6 min",
-          keyTakeaway:
-            "The most common CBT problems are target fixation (looking at what you want to avoid), tense arms, and rushing the clutch. All are fixable with awareness.",
-          content: `CBT is not a test you can fail, but there are common issues that prevent riders from completing all five elements in a single day. Knowing what these are — and how to avoid them — gives you a significant advantage.
-
-The number one issue is target fixation: looking at what you want to avoid rather than where you want to go. Where you look is where you steer — this is a fundamental principle of motorcycle riding. During on-site manoeuvres, if you look at a cone, you will ride into it. If you look at the kerb, you will head towards it. Actively practise directing your gaze to where you want the bike to end up, not at obstacles.
-
-Gripping the handlebars too tightly is the second most common problem. Tense arms prevent you from steering smoothly and absorb no road vibration, making the bike feel unstable. Think of it like holding a bird — firm enough to keep control, but not so tight that you are rigid. Consciously drop your shoulders and relax your elbows. If you notice yourself going stiff, take a breath and loosen your grip.
-
-Rushing through the clutch friction point is the main cause of stalls. Many beginners release the clutch too quickly, killing the engine before the bike has enough momentum. The fix is to find the biting point, hold it there for a moment, open the throttle slightly, and then release the clutch slowly and progressively. Stalling is completely normal during CBT — every rider does it at some point. The important thing is understanding why it happened so you can correct it.
-
-Finally, some riders struggle with confidence rather than skill. Anxiety about being judged or making mistakes in front of others can make everything harder. Remember: your instructor has seen thousands of complete beginners. Nothing you do will surprise them, and their entire job is to help you succeed.`,
-        },
-        {
-          id: "les-cm-2",
-          slug: "observation-mirror-checks",
-          title: "Observation & Mirror Checks",
-          order: 2,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "Lifesaver checks (looking over your shoulder before turning) and regular mirror use are the #1 things instructors look for. Make them a habit before your CBT.",
-          content: `Observation is the single most important skill your CBT instructor will assess during the on-road element. Good observation means you are aware of what is happening around you at all times — and you demonstrate this awareness through regular mirror checks and lifesaver glances.
-
-Mirrors should be checked every few seconds as a matter of habit, not just before you do something. Before changing speed, changing direction, or approaching any hazard, you must check your mirrors to know what is behind and beside you. The sequence is always: mirrors first, then signal, then manoeuvre.
-
-Lifesaver checks are the quick glance over your shoulder immediately before you turn, change lane, or pull away. They cover the blind spot that mirrors cannot reach — the area just behind and to the side of you where a vehicle could be without appearing in your mirrors. Your instructor will be watching specifically for these. Failure to carry out lifesaver checks is one of the most common reasons riders are asked to repeat parts of the on-road element.
-
-A good observation routine at a junction looks like this: check mirrors on approach, signal your intention, position correctly, check mirrors again, look left and right (and left again), carry out a lifesaver check in the direction you are turning, then proceed when safe. It sounds like a lot of steps, but with practice it becomes a single flowing sequence.
-
-The golden rule is: if you are not sure whether something is there, look. Looking costs you nothing. Not looking could cost you everything.`,
-        },
-        {
-          id: "les-cm-3",
-          slug: "slow-speed-control",
-          title: "Slow Speed Control & Manoeuvres",
-          order: 3,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "Slow speed control is all about clutch and throttle coordination. Use more throttle than feels natural, slip the clutch, and look where you want to go.",
-          content: `Slow speed control is the skill that separates a nervous beginner from a confident new rider. During Element C of your CBT, you will practise manoeuvres that require you to ride at walking pace or slower — and this is where many riders struggle most.
-
-The key to slow speed control is the relationship between throttle and clutch. At very low speeds, you need more engine power than you think — a slightly higher throttle setting provides the gyroscopic stability that keeps the bike upright. The clutch controls your actual speed: by "slipping" the clutch (holding it at or near the biting point), you can maintain a constant crawling speed regardless of how much throttle you are applying.
-
-For U-turns, the technique is: look over your shoulder to where you want to end up, apply a little more throttle, slip the clutch to control speed, and lean the bike while keeping your body relatively upright. Counter-intuitively, the tighter the turn, the more throttle you need — because the bike needs to maintain stability through the turn. Dragging the rear brake lightly can also help smooth out your speed control.
-
-Figure-of-eight exercises combine everything: clutch control, throttle management, steering input, and head movement. The most common mistake is trying to do it too slowly — a slightly faster pace makes balancing much easier. Start wider and gradually tighten your circles as your confidence builds.
-
-For the emergency stop, the technique is to apply both brakes firmly and progressively (front brake provides about 70% of stopping power) while pulling in the clutch to prevent stalling. Do not grab the front brake suddenly, especially on a wet surface — progressive application prevents the front wheel from locking.`,
-        },
-      ],
-      quiz: {
-        id: "quiz-common-mistakes",
-        title: "Common Mistakes Quiz",
-        description:
-          "Test your understanding of common CBT mistakes, observation technique, and manoeuvre skills.",
-        passingScore: 70,
-        questions: [
-          {
-            id: "q-cm-1",
-            questionText:
-              "What is 'target fixation' and why does it matter for CBT?",
-            options: [
-              "The tendency to ride faster than you intend",
-              "The tendency to steer towards whatever you are looking at",
-              "Focusing too much on the bike's instruments while riding",
-              "Braking too hard when approaching a hazard",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Target fixation is the instinct to steer towards what you are looking at. During on-site manoeuvres, looking at cones means you are likely to ride into them. Always look to where you want to go.",
-          },
-          {
-            id: "q-cm-2",
-            questionText:
-              "If your motorcycle wobbles at slow speed during CBT, what is the best response?",
-            options: [
-              "Apply both brakes immediately to regain control",
-              "Put both feet down straight away",
-              "Slightly increase throttle and look ahead",
-              "Lean heavily to the opposite side to correct",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "A small increase in throttle creates gyroscopic stability that calms a slow-speed wobble. Counter-intuitively, a little more speed helps. Braking or tensing up makes a wobble worse.",
-          },
-          {
-            id: "q-cm-3",
-            questionText:
-              "What is the 'friction point' (biting point) on a motorcycle clutch?",
-            options: [
-              "The point where the rear brake fully engages",
-              "The point where the clutch begins transferring power to the rear wheel",
-              "The maximum lean angle before losing tyre grip",
-              "The point where the throttle becomes fully responsive",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "The friction point is where the clutch plates begin to engage and drive transfers to the wheel. Mastering slow feathering at this point is the most important skill for low-speed control.",
-          },
-          {
-            id: "q-cm-4",
-            questionText:
-              "What is the most common reason learner riders stall during CBT?",
-            options: [
-              "Selecting the wrong gear",
-              "Releasing the clutch too quickly",
-              "Applying too much throttle",
-              "Forgetting to turn the ignition on",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Releasing the clutch too quickly before sufficient revs have built is the most common cause. The fix: find the friction point, hold it, open the throttle slightly, then release slowly.",
-          },
-          {
-            id: "q-cm-5",
-            questionText: "What is a 'lifesaver check' in motorcycle riding?",
-            options: [
-              "Checking your mirrors every 30 seconds",
-              "A quick glance over your shoulder before turning or changing lane",
-              "Testing both brakes before setting off",
-              "Checking your tyre pressure before every ride",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A lifesaver check is the quick shoulder glance that covers your blind spot immediately before you turn, change lane, or pull away. Instructors watch specifically for these during the road ride.",
-          },
-          {
-            id: "q-cm-6",
-            questionText:
-              "During an emergency stop on a motorcycle, which brake provides the most stopping power?",
-            options: [
-              "The rear brake (right foot)",
-              "The front brake (right hand)",
-              "Both brakes provide equal stopping power",
-              "It depends on the speed you are travelling",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "The front brake provides approximately 70% of your total stopping power. Apply both brakes firmly and progressively — never grab the front brake suddenly, as this can lock the front wheel.",
-          },
-          {
-            id: "q-cm-7",
-            questionText:
-              "What is the correct observation routine when approaching a junction?",
-            options: [
-              "Signal, then check mirrors, then look right",
-              "Mirrors, signal, position, mirrors again, look both ways, lifesaver check, then proceed",
-              "Look left, look right, then proceed quickly",
-              "Check mirrors once and signal at the last moment",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "The full routine is: mirrors on approach, signal, position correctly, mirrors again, look left-right-left, lifesaver check in your turning direction, then proceed when safe.",
-          },
-          {
-            id: "q-cm-8",
-            questionText:
-              "When performing a U-turn at slow speed, what should you be looking at?",
-            options: [
-              "The front wheel to check your line",
-              "The ground directly ahead of you",
-              "Over your shoulder to where you want to end up",
-              "Your mirrors to check for traffic behind",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Look over your shoulder to where you want the bike to end up. The bike follows your gaze. Looking down at the ground or front wheel causes the bike to go wide or lose balance.",
-          },
-        ],
-      },
-    },
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // MODULE 5: Gear, Documents & Checklist
+    // SUBSECTION D: Gear, Documents & Checklist
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     {
       id: "mod-gear-docs",
@@ -923,7 +737,7 @@ For the emergency stop, the technique is to apply both brakes firmly and progres
       title: "Gear, Documents & Checklist",
       description:
         "Know exactly what to bring and wear on the day — no last-minute surprises. Directly reduces support tickets.",
-      order: 5,
+      order: 4,
       estimatedTime: "~15 min",
       icon: "CheckSquare",
       lessons: [
@@ -982,98 +796,76 @@ Leave your phone in your bag during riding sessions. You will need your full att
 Finally: arrive with a positive mindset. Everyone is a beginner on their CBT day. Your instructor is there to help you succeed, not to catch you out. The more relaxed and open you are, the faster you will learn.`,
         },
       ],
-      quiz: {
-        id: "quiz-gear-docs",
-        title: "Gear & Documents Quiz",
-        description:
-          "Test your knowledge of gear requirements, documentation, and preparation.",
-        passingScore: 70,
-        questions: [
-          {
-            id: "q-gd-1",
-            questionText:
-              "Which standard must a motorcycle helmet meet to be legal in the UK?",
-            options: [
-              "Only the latest ECE 22.06 standard",
-              "Any helmet displaying a CE mark",
-              "BS 6658:1985, ECE 22.06, or an equivalent approved standard",
-              "Only full-face helmets are legal in the UK",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Your helmet must meet BS 6658:1985, ECE 22.06, or NTA 8776. Look for the BSI Kitemark or UNECE mark. Both open-face and full-face helmets are legal provided they meet the standard.",
-          },
-          {
-            id: "q-gd-2",
-            questionText:
-              "What is the minimum acceptable footwear for motorcycle CBT?",
-            options: [
-              "Any closed-toe shoe",
-              "Ankle-covering sturdy boots or shoes",
-              "Trainers with thick socks",
-              "Any footwear the training school approves",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Your ankles must be covered. Motorcycle boots offer the best protection, but sturdy leather work boots are generally accepted. Trainers and regular shoes provide no ankle protection.",
-          },
-          {
-            id: "q-gd-3",
-            questionText:
-              "Which document is essential — without it your CBT cannot legally go ahead?",
-            options: [
-              "Proof of insurance",
-              "Your photocard provisional driving licence",
-              "A letter from a GP confirming fitness to ride",
-              "Proof of your current home address",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "Your physical provisional licence photocard is required by law. Without it, the training provider cannot legally verify you are permitted to ride.",
-          },
-          {
-            id: "q-gd-4",
-            questionText: "How long is a CBT certificate (DL196) valid for?",
-            options: [
-              "1 year",
-              "2 years",
-              "3 years",
-              "Until you pass your full motorcycle test",
-            ],
-            correctAnswerIndex: 1,
-            explanation:
-              "A CBT certificate is valid for exactly two years. If it expires before you obtain a full licence, you must complete CBT again before you can legally continue riding.",
-          },
-          {
-            id: "q-gd-5",
-            questionText:
-              "Are learner riders permitted to use motorways after completing CBT?",
-            options: [
-              "Yes, as long as L-plates are displayed",
-              "Yes, after six months of riding experience",
-              "No — motorways are not permitted on a provisional licence",
-              "Yes, if accompanied by a qualified motorcyclist",
-            ],
-            correctAnswerIndex: 2,
-            explanation:
-              "Learner riders on provisional licences cannot use motorways. This restriction applies until you hold a full licence.",
-          },
-          {
-            id: "q-gd-6",
-            questionText:
-              "What is the minimum recommended CE armour level for a motorcycle jacket?",
-            options: [
-              "CE Level 1 armour at shoulders and elbows",
-              "CE Level 2 at every joint",
-              "Any motorcycle-branded jacket is sufficient",
-              "CE armour is optional if the jacket is genuine leather",
-            ],
-            correctAnswerIndex: 0,
-            explanation:
-              "CE Level 1 armour at the shoulders and elbows is the minimum recommendation. CE Level 2 offers greater impact absorption. Back protectors are also strongly advisable.",
-          },
-        ],
-      },
+    },
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SUBSECTION E: Common Mistakes & How to Avoid Them
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    {
+      id: "mod-common-mistakes",
+      slug: "common-mistakes",
+      title: "Common Mistakes & How to Avoid Them",
+      description:
+        "Practical tips from real CBT experience. What actually trips people up — and how to avoid it.",
+      order: 5,
+      estimatedTime: "~15 min",
+      icon: "ShieldAlert",
+      lessons: [
+        {
+          id: "les-cm-1",
+          slug: "top-cbt-fail-points",
+          title: "Top CBT Fail Points",
+          order: 1,
+          estimatedReadTime: "6 min",
+          keyTakeaway:
+            "The most common CBT problems are target fixation (looking at what you want to avoid), tense arms, and rushing the clutch. All are fixable with awareness.",
+          content: `CBT is not a test you can fail, but there are common issues that prevent riders from completing all five elements in a single day. Knowing what these are — and how to avoid them — gives you a significant advantage.
+
+The number one issue is target fixation: looking at what you want to avoid rather than where you want to go. Where you look is where you steer — this is a fundamental principle of motorcycle riding. During on-site manoeuvres, if you look at a cone, you will ride into it. If you look at the kerb, you will head towards it. Actively practise directing your gaze to where you want the bike to end up, not at obstacles.
+
+Gripping the handlebars too tightly is the second most common problem. Tense arms prevent you from steering smoothly and absorb no road vibration, making the bike feel unstable. Think of it like holding a bird — firm enough to keep control, but not so tight that you are rigid. Consciously drop your shoulders and relax your elbows. If you notice yourself going stiff, take a breath and loosen your grip.
+
+Rushing through the clutch friction point is the main cause of stalls. Many beginners release the clutch too quickly, killing the engine before the bike has enough momentum. The fix is to find the biting point, hold it there for a moment, open the throttle slightly, and then release the clutch slowly and progressively. Stalling is completely normal during CBT — every rider does it at some point. The important thing is understanding why it happened so you can correct it.
+
+Finally, some riders struggle with confidence rather than skill. Anxiety about being judged or making mistakes in front of others can make everything harder. Remember: your instructor has seen thousands of complete beginners. Nothing you do will surprise them, and their entire job is to help you succeed.`,
+        },
+        {
+          id: "les-cm-2",
+          slug: "observation-mirror-checks",
+          title: "Observation & Mirror Checks",
+          order: 2,
+          estimatedReadTime: "5 min",
+          keyTakeaway:
+            "Lifesaver checks (looking over your shoulder before turning) and regular mirror use are the #1 things instructors look for. Make them a habit before your CBT.",
+          content: `Observation is the single most important skill your CBT instructor will assess during the on-road element. Good observation means you are aware of what is happening around you at all times — and you demonstrate this awareness through regular mirror checks and lifesaver glances.
+
+Mirrors should be checked every few seconds as a matter of habit, not just before you do something. Before changing speed, changing direction, or approaching any hazard, you must check your mirrors to know what is behind and beside you. The sequence is always: mirrors first, then signal, then manoeuvre.
+
+Lifesaver checks are the quick glance over your shoulder immediately before you turn, change lane, or pull away. They cover the blind spot that mirrors cannot reach — the area just behind and to the side of you where a vehicle could be without appearing in your mirrors. Your instructor will be watching specifically for these. Failure to carry out lifesaver checks is one of the most common reasons riders are asked to repeat parts of the on-road element.
+
+A good observation routine at a junction looks like this: check mirrors on approach, signal your intention, position correctly, check mirrors again, look left and right (and left again), carry out a lifesaver check in the direction you are turning, then proceed when safe. It sounds like a lot of steps, but with practice it becomes a single flowing sequence.
+
+The golden rule is: if you are not sure whether something is there, look. Looking costs you nothing. Not looking could cost you everything.`,
+        },
+        {
+          id: "les-cm-3",
+          slug: "slow-speed-control",
+          title: "Slow Speed Control & Manoeuvres",
+          order: 3,
+          estimatedReadTime: "5 min",
+          keyTakeaway:
+            "Slow speed control is all about clutch and throttle coordination. Use more throttle than feels natural, slip the clutch, and look where you want to go.",
+          content: `Slow speed control is the skill that separates a nervous beginner from a confident new rider. During Element C of your CBT, you will practise manoeuvres that require you to ride at walking pace or slower — and this is where many riders struggle most.
+
+The key to slow speed control is the relationship between throttle and clutch. At very low speeds, you need more engine power than you think — a slightly higher throttle setting provides the gyroscopic stability that keeps the bike upright. The clutch controls your actual speed: by "slipping" the clutch (holding it at or near the biting point), you can maintain a constant crawling speed regardless of how much throttle you are applying.
+
+For U-turns, the technique is: look over your shoulder to where you want to end up, apply a little more throttle, slip the clutch to control speed, and lean the bike while keeping your body relatively upright. Counter-intuitively, the tighter the turn, the more throttle you need — because the bike needs to maintain stability through the turn. Dragging the rear brake lightly can also help smooth out your speed control.
+
+Figure-of-eight exercises combine everything: clutch control, throttle management, steering input, and head movement. The most common mistake is trying to do it too slowly — a slightly faster pace makes balancing much easier. Start wider and gradually tighten your circles as your confidence builds.
+
+For the emergency stop, the technique is to apply both brakes firmly and progressively (front brake provides about 70% of stopping power) while pulling in the clutch to prevent stalling. Do not grab the front brake suddenly, especially on a wet surface — progressive application prevents the front wheel from locking.`,
+        },
+      ],
     },
   ],
 };
