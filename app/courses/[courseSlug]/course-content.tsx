@@ -42,38 +42,38 @@ export default function CourseContent() {
         className="bg-[#434343] rounded-2xl px-6 pt-8 pb-8 mb-8 text-white"
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}
       >
-        <h1 className="text-2xl sm:text-[28px] font-bold leading-tight mb-2">
+        <h1 className="font-heading text-type-h3 uppercase mb-2">
           {course.title}
         </h1>
-        <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-[480px]">
+        <p className="font-body text-type-body text-gray-300 mb-6 max-w-[480px]">
           {course.description}
         </p>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 text-sm text-gray-400">
-            <span className="font-semibold text-white">{modules.length}</span> subsections
+          <div className="flex items-center gap-1.5 font-body text-type-small text-gray-400">
+            <span className="font-bold text-white">{modules.length}</span> subsections
           </div>
           <div className="w-1 h-1 rounded-full bg-gray-600" />
-          <div className="flex items-center gap-1.5 text-sm text-gray-400">
-            <span className="font-semibold text-white">{totalLessons}</span> lessons
+          <div className="flex items-center gap-1.5 font-body text-type-small text-gray-400">
+            <span className="font-bold text-white">{totalLessons}</span> lessons
           </div>
           <div className="w-1 h-1 rounded-full bg-gray-600" />
-          <div className="flex items-center gap-1.5 text-sm text-gray-400">
-            <span className="font-semibold text-white">{course.estimatedTime}</span> total
+          <div className="flex items-center gap-1.5 font-body text-type-small text-gray-400">
+            <span className="font-bold text-white">{course.estimatedTime}</span> total
           </div>
         </div>
       </section>
 
       {/* ── SECTION 1: Learning ─────────────────────────────────────────── */}
       <section className="mb-8">
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-1">
+        <p className="font-body text-type-tag font-bold text-gray-400 uppercase tracking-[0.06em] mb-1 px-1">
           Section 1
         </p>
         <div className="flex items-center justify-between mb-4 px-1">
           <div className="flex items-center gap-2">
             <BookOpen size={18} className="text-[#434343]" />
-            <h2 className="text-lg font-bold text-[#434343]">Learning</h2>
+            <h2 className="font-heading text-type-h5 uppercase text-[#434343]">Learning</h2>
           </div>
-          <span className="text-xs text-gray-400">
+          <span className="font-body text-type-caption text-gray-400">
             {completedLessons} / {totalLessons} lessons
           </span>
         </div>
@@ -115,12 +115,12 @@ export default function CourseContent() {
 
       {/* ── SECTION 2: Pre-CBT Quiz ──────────────────────────────────────── */}
       <section>
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 px-1">
+        <p className="font-body text-type-tag font-bold text-gray-400 uppercase tracking-[0.06em] mb-1 px-1">
           Section 2
         </p>
         <div className="flex items-center gap-2 mb-4 px-1">
           <HelpCircle size={18} className="text-[#434343]" />
-          <h2 className="text-lg font-bold text-[#434343]">Pre-CBT Quiz</h2>
+          <h2 className="font-heading text-type-h5 uppercase text-[#434343]">Pre-CBT Quiz</h2>
         </div>
 
         <div
@@ -137,19 +137,19 @@ export default function CourseContent() {
                   {quizPassed ? <Trophy size={18} /> : <HelpCircle size={18} />}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[15px] font-semibold text-gray-800 leading-snug">
+                  <p className="font-heading text-type-h6 uppercase text-gray-800">
                     Pre-CBT Quiz
                   </p>
                   {quizScore !== null ? (
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="font-body text-type-caption text-gray-500 mt-0.5">
                       Best score:{" "}
-                      <span className={`font-semibold ${quizPassed ? "text-[#2CCEAC]" : "text-amber-500"}`}>
+                      <span className={`font-bold ${quizPassed ? "text-[#2CCEAC]" : "text-amber-500"}`}>
                         {quizScore}%
                       </span>
                       {quizPassed ? " · Passed ✓" : ` — need ${course.quiz!.passingScore}% to pass`}
                     </p>
                   ) : (
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="font-body text-type-caption text-gray-500 mt-0.5">
                       {course.quiz!.questions.length} questions · Test your knowledge across all topics
                     </p>
                   )}
@@ -157,7 +157,7 @@ export default function CourseContent() {
               </div>
               <Link
                 href={`/courses/${COURSE_SLUG}/quiz`}
-                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors duration-200"
+                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-heading text-type-button uppercase tracking-[0.05em] px-4 py-2.5 rounded-lg transition-colors duration-200"
               >
                 {quizScore !== null ? "Retake" : "Start Quiz"}
                 <ChevronRight size={15} />

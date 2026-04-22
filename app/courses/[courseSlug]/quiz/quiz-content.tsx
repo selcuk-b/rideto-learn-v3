@@ -239,14 +239,14 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleRetake}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-semibold text-sm py-3 rounded-xl transition-colors duration-200 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-heading text-type-button uppercase tracking-[0.05em] py-3 rounded-xl transition-colors duration-200 cursor-pointer"
               >
                 <RotateCcw size={16} />
                 Retake Quiz
               </button>
               <Link
                 href={basePath}
-                className="w-full inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold text-sm py-3 rounded-xl transition-colors duration-200"
+                className="w-full inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-heading text-type-button uppercase tracking-[0.05em] py-3 rounded-xl transition-colors duration-200"
               >
                 <ChevronLeft size={16} />
                 Back to Course
@@ -273,10 +273,10 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
 
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-xs font-semibold text-[#2CCEAC] uppercase tracking-wider">
+          <span className="font-body text-type-tag font-bold text-[#2CCEAC] uppercase tracking-[0.06em]">
             Pre-CBT Quiz
           </span>
-          <span className="text-xs font-semibold text-gray-500 tabular-nums">
+          <span className="font-body text-type-tag font-bold text-gray-500 tabular-nums tracking-[0.06em]">
             {questionIndex + 1} / {questions.length}
           </span>
         </div>
@@ -290,8 +290,8 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
           />
         </div>
         {bestScore !== null && (
-          <p className="text-xs text-gray-400 mt-1.5">
-            Best score: <span className="font-semibold text-gray-500">{bestScore}%</span>
+          <p className="font-body text-type-caption text-gray-400 mt-1.5">
+            Best score: <span className="font-bold text-gray-500">{bestScore}%</span>
           </p>
         )}
       </div>
@@ -306,7 +306,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
           style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
         >
           <div className="px-6 py-6 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+            <p className="font-body text-type-tag font-bold text-gray-400 uppercase tracking-[0.06em] mb-2">
               Question {questionIndex + 1}
             </p>
             {currentQuestion.image && (
@@ -327,7 +327,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
                 </div>
               )
             )}
-            <h2 className="text-[17px] font-bold text-[#434343] leading-snug">
+            <h2 className="font-body font-bold text-type-sub text-[#434343]">
               {currentQuestion.questionText}
             </h2>
           </div>
@@ -349,7 +349,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
                     LETTERS[i]
                   )}
                 </span>
-                <span className="flex-1 text-sm font-medium leading-snug">{option}</span>
+                <span className="flex-1 font-body text-type-body font-medium leading-snug">{option}</span>
                 {isAnswered && i === currentQuestion.correctAnswerIndex && (
                   <CheckCircle2 size={18} className="flex-shrink-0 text-[#2CCEAC] animate-pop" />
                 )}
@@ -369,14 +369,14 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
                 : 'bg-amber-50 border-amber-200'
             }`}
           >
-            <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${
+            <p className={`font-body text-type-tag font-bold uppercase tracking-[0.06em] mb-1 ${
               selectedIndex === currentQuestion.correctAnswerIndex
                 ? 'text-[#2CCEAC]'
                 : 'text-amber-600'
             }`}>
               {selectedIndex === currentQuestion.correctAnswerIndex ? 'Correct!' : 'Not quite'}
             </p>
-            <p className="text-sm text-gray-700 leading-relaxed">
+            <p className="font-body text-type-small text-gray-700">
               {currentQuestion.explanation}
             </p>
           </div>
@@ -385,7 +385,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
         {isAnswered && (
           <button
             onClick={handleNext}
-            className="animate-fade-in w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 cursor-pointer"
+            className="animate-fade-in w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-heading text-type-button uppercase tracking-[0.05em] py-3.5 rounded-xl transition-colors duration-200 cursor-pointer"
           >
             {isLastQuestion ? 'See Results' : 'Next Question'}
             <ChevronRight size={17} />

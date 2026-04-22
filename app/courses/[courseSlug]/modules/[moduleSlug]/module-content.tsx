@@ -49,13 +49,13 @@ export default function ModuleContent({ courseModule }: Props) {
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <p className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wider mb-2">
+            <p className="font-body text-type-tag font-bold text-[#2CCEAC] uppercase tracking-[0.06em] mb-2">
               Subsection · {courseModule.lessons.length} {courseModule.lessons.length === 1 ? 'lesson' : 'lessons'}
             </p>
-            <h1 className="text-xl sm:text-2xl font-bold mb-2 leading-snug">
+            <h1 className="font-heading text-type-h3 uppercase mb-2">
               {courseModule.title}
             </h1>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="font-body text-type-body text-gray-300">
               {courseModule.description}
             </p>
           </div>
@@ -69,10 +69,10 @@ export default function ModuleContent({ courseModule }: Props) {
         {/* Progress */}
         <div className="mt-6 pt-5 border-t border-white/10">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-400 font-medium">
+            <span className="font-body text-type-caption text-gray-400">
               {completedCount} of {courseModule.lessons.length} completed
             </span>
-            <span className="text-sm font-bold text-[#2CCEAC]">{progressPct}%</span>
+            <span className="font-body text-type-small font-bold text-[#2CCEAC]">{progressPct}%</span>
           </div>
           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
             <div
@@ -88,7 +88,7 @@ export default function ModuleContent({ courseModule }: Props) {
           ) : (
             <Link
               href={`${basePath}/lessons/${ctaLesson.slug}`}
-              className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+              className="mt-4 inline-flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] text-white font-heading text-type-button uppercase tracking-[0.05em] px-4 py-2 rounded-lg transition-colors"
             >
               {completedCount === 0 ? "Start Module" : "Continue"}
               <ChevronRight size={15} />
@@ -98,7 +98,7 @@ export default function ModuleContent({ courseModule }: Props) {
       </div>
 
       {/* Lessons list */}
-      <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3 px-1">
+      <h2 className="font-body text-type-tag font-bold text-gray-400 uppercase tracking-[0.06em] mb-3 px-1">
         Lessons
       </h2>
       <div className="flex flex-col gap-2 mb-6">
@@ -123,7 +123,7 @@ export default function ModuleContent({ courseModule }: Props) {
 
               <div className="flex-1 min-w-0">
                 <p
-                  className={`text-sm font-semibold leading-snug transition-colors ${
+                  className={`font-body text-type-small font-semibold leading-snug transition-colors ${
                     done
                       ? "text-gray-400 line-through decoration-gray-300"
                       : "text-gray-800 group-hover:text-[#2CCEAC]"
@@ -131,7 +131,7 @@ export default function ModuleContent({ courseModule }: Props) {
                 >
                   {lesson.title}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
+                <p className="font-body text-type-caption text-gray-400 mt-0.5 flex items-center gap-1">
                   <Clock size={11} />
                   {lesson.estimatedReadTime} read
                 </p>

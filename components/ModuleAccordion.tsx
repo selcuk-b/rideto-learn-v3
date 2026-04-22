@@ -71,15 +71,15 @@ export default function ModuleAccordion({
 
         {/* Title + meta */}
         <div className="flex-1 min-w-0">
-          <h2 className="text-[15px] font-semibold text-gray-800 leading-snug">
+          <h2 className="font-heading text-type-h6 uppercase text-gray-800 leading-none">
             {showQuiz && (
-              <span className="text-[#2CCEAC] text-xs font-semibold uppercase tracking-wide mr-2">
+              <span className="text-[#2CCEAC] mr-2">
                 Module {module.order}:
               </span>
             )}
             {module.title}
           </h2>
-          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+          <div className="flex items-center gap-3 mt-1 font-body text-type-caption text-gray-400">
             <span>
               {completedCount} / {total}
               {isModuleComplete && (
@@ -143,7 +143,7 @@ export default function ModuleAccordion({
                 {/* Lesson info */}
                 <div className="flex-1 min-w-0">
                   <p
-                    className={`text-sm leading-snug transition-colors ${
+                    className={`font-body text-type-small leading-snug transition-colors ${
                       done
                         ? 'text-gray-400 line-through decoration-gray-300'
                         : 'text-gray-700 group-hover:text-[#2CCEAC] font-medium'
