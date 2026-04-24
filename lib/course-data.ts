@@ -789,6 +789,7 @@ Road arrows guide your lane choice at junctions and roundabouts. Follow the arro
           title: "Common Mistakes & How to Avoid Them",
           order: 1,
           estimatedReadTime: "12 min",
+          youtubeVideoId: "O4dTbtUR8KU",
           keyTakeaway:
             "The three most common CBT problems are target fixation, tense arms, and rushing the clutch. Pair these with consistent mirror checks and lifesaver glances, and you will be well ahead of most first-time riders.",
           content: `CBT is not a test you can fail, but certain habits trip up the same riders time and again. This lesson covers every significant mistake — on the bike, in manoeuvres, and on the road — so you can recognise and correct them before your training day.
