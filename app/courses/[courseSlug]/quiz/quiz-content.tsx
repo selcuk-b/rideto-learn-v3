@@ -63,6 +63,8 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
   const { questions, passingScore } = quiz;
   const QUIZ_KEY = COURSE_SLUG;
 
+  const [activeQuestions, setActiveQuestions] = useState(() => questions);
+  const [isSubsetMode, setIsSubsetMode] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
     () => new Array(questions.length).fill(null)
@@ -78,13 +80,13 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
 
   const selectedIndex = answers[questionIndex];
   const isAnswered = selectedIndex !== null;
-  const currentQuestion = questions[questionIndex];
-  const isLastQuestion = questionIndex === questions.length - 1;
+  const currentQuestion = activeQuestions[questionIndex];
+  const isLastQuestion = questionIndex === activeQuestions.length - 1;
 
   const correctCount = answers.filter(
-    (a, i) => a !== null && a === questions[i].correctAnswerIndex
+    (a, i) => a !== null && a === activeQuestions[i].correctAnswerIndex
   ).length;
-  const scorePct = Math.round((correctCount / questions.length) * 100);
+  const scorePct = Math.round((correctCount / activeQuestions.length) * 100);
   const passed = scorePct >= passingScore;
 
   const LETTERS = 'ABCDEFGH'.split('');
@@ -99,14 +101,16 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
   }
 
   const goToResults = useCallback(() => {
-    const prev = getBestScore(QUIZ_KEY);
-    saveQuizScore(QUIZ_KEY, scorePct);
-    if (prev === null || scorePct > prev) {
-      setIsNewBest(true);
-      setBestScore(scorePct);
+    if (!isSubsetMode) {
+      const prev = getBestScore(QUIZ_KEY);
+      saveQuizScore(QUIZ_KEY, scorePct);
+      if (prev === null || scorePct > prev) {
+        setIsNewBest(true);
+        setBestScore(scorePct);
+      }
     }
     setPhase('results');
-  }, [QUIZ_KEY, scorePct]);
+  }, [QUIZ_KEY, scorePct, isSubsetMode]);
 
   function handleNext() {
     setVisible(false);
@@ -123,7 +127,23 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
   function handleRetake() {
     setVisible(false);
     setTimeout(() => {
+      setActiveQuestions(questions);
+      setIsSubsetMode(false);
       setAnswers(new Array(questions.length).fill(null));
+      setQuestionIndex(0);
+      setPhase('quiz');
+      setIsNewBest(false);
+      setVisible(true);
+    }, 180);
+  }
+
+  function handleRetryIncorrect() {
+    const incorrectQs = activeQuestions.filter((q, i) => answers[i] !== q.correctAnswerIndex);
+    setVisible(false);
+    setTimeout(() => {
+      setActiveQuestions(incorrectQs);
+      setIsSubsetMode(true);
+      setAnswers(new Array(incorrectQs.length).fill(null));
       setQuestionIndex(0);
       setPhase('quiz');
       setIsNewBest(false);
@@ -175,7 +195,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
               {scorePct}%
             </div>
             <p className="text-white font-semibold text-lg">
-              {correctCount} of {questions.length} correct
+              {correctCount} of {activeQuestions.length} correct
             </p>
             {isNewBest && (
               <p className="text-[#2CCEAC] text-xs font-semibold mt-1 animate-fade-in">
@@ -215,7 +235,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
             )}
 
             <div className="flex flex-col gap-2 mb-6">
-              {questions.map((q, i) => {
+              {activeQuestions.map((q, i) => {
                 const userAnswer = answers[i];
                 const correct = userAnswer === q.correctAnswerIndex;
                 return (
@@ -237,12 +257,24 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
             </div>
 
             <div className="flex flex-col gap-3">
+              {(() => {
+                const incorrectCount = activeQuestions.filter((q, i) => answers[i] !== q.correctAnswerIndex).length;
+                return incorrectCount > 0 ? (
+                  <button
+                    onClick={handleRetryIncorrect}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-[#2CCEAC] hover:bg-[#1fb896] text-white font-heading text-type-button uppercase tracking-[0.05em] py-3 rounded-xl transition-colors duration-200 cursor-pointer"
+                  >
+                    <RotateCcw size={16} />
+                    Retry {incorrectCount} Incorrect
+                  </button>
+                ) : null;
+              })()}
               <button
                 onClick={handleRetake}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-heading text-type-button uppercase tracking-[0.05em] py-3 rounded-xl transition-colors duration-200 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#434343] hover:bg-[#555] text-white font-heading text-type-button uppercase tracking-[0.05em] py-3 rounded-xl transition-colors duration-200 cursor-pointer"
               >
                 <RotateCcw size={16} />
-                Retake Quiz
+                Retake Full Quiz
               </button>
               <Link
                 href={basePath}
@@ -259,7 +291,7 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
   }
 
   // ─── Quiz screen ─────────────────────────────────────────────────────────
-  const progressPct = ((questionIndex + (isAnswered ? 1 : 0)) / questions.length) * 100;
+  const progressPct = ((questionIndex + (isAnswered ? 1 : 0)) / activeQuestions.length) * 100;
 
   return (
     <div className="mx-auto max-w-[600px] px-4 py-8">
@@ -274,10 +306,10 @@ function ActiveQuiz({ quiz, basePath }: { quiz: Quiz; basePath: string }) {
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <span className="font-body text-type-tag font-bold text-[#2CCEAC] uppercase tracking-[0.06em]">
-            Pre-CBT Quiz
+            {isSubsetMode ? 'Reviewing Incorrect' : 'Pre-CBT Quiz'}
           </span>
           <span className="font-body text-type-tag font-bold text-gray-500 tabular-nums tracking-[0.06em]">
-            {questionIndex + 1} / {questions.length}
+            {questionIndex + 1} / {activeQuestions.length}
           </span>
         </div>
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">

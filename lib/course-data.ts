@@ -743,57 +743,29 @@ Road arrows guide your lane choice at junctions and roundabouts. Follow the arro
       lessons: [
         {
           id: "les-gd-1",
-          slug: "what-to-wear",
-          title: "What to Wear (Head to Toe)",
+          slug: "cbt-day-prep",
+          title: "What to Wear, Bring & Do",
           order: 1,
-          estimatedReadTime: "5 min",
+          estimatedReadTime: "10 min",
           keyTakeaway:
-            "Helmet (most schools provide one), gloves, sturdy jacket, ankle-covering boots, and trousers that protect your knees. Check with your training provider in advance.",
-          content: `A helmet is legally required and must meet the British Standard BS 6658:1985, ECE 22.06, or an equivalent approved standard (look for the BSI Kitemark or UNECE mark). Your training provider will usually supply a helmet if you don't have your own, but check in advance. If you're buying your own, a full-face helmet gives the best protection; a jet (open-face) helmet is also acceptable but leaves your chin exposed.
+            "Bring your provisional licence photocard (non-negotiable), dress head to toe in protective gear, prepare everything the evening before, and arrive 10–15 minutes early with a full stomach.",
+          content: `Your CBT day covers everything from classroom theory to riding on public roads — so arriving prepared makes a real difference. This lesson covers exactly what to wear, what to bring, and how to set yourself up the night before so nothing catches you off guard on the day.
 
-Gloves are strongly recommended — your hands are one of the first things to hit the ground in a fall. Motorcycle-specific gloves with palm sliders and knuckle protection are ideal. At minimum, use sturdy leather gloves that cover your fingers and wrists completely. Avoid thin fabric gloves that would offer no abrasion protection.
+**Helmet.** A helmet is legally required and must carry a BSI Kitemark (BS 6658:1985), ECE 22.06 mark, or equivalent approved standard. Most training schools provide helmets if you don't own one — confirm this when you book. If you buy your own, a full-face helmet gives the best all-round protection; a jet (open-face) helmet is also accepted but leaves your chin exposed.
 
-For your jacket, a motorcycle jacket with CE-rated armour at the shoulders and elbows is best, but most training schools will accept a sturdy denim or leather jacket as a minimum. Avoid hoodies, thin waterproofs, or anything loose that could catch on the bike controls. If buying motorcycle-specific gear, look for CE Level 1 armour as a minimum — Level 2 provides even better impact absorption.
+**Gloves.** Your hands are almost always the first thing to hit the ground in a fall. Motorcycle-specific gloves with palm sliders and knuckle protection are ideal, but sturdy leather gloves that fully cover your fingers and wrists are acceptable. Avoid thin fabric gloves — they offer almost no abrasion resistance.
 
-On your feet, wear ankle-covering boots — ideally motorcycle boots, but sturdy leather boots or work boots are usually acceptable. The key requirement is ankle protection and a sole that grips the foot pegs without slipping. Avoid trainers, sandals, or shoes that do not cover the ankle. For trousers, motorcycle trousers with CE-rated knee armour are recommended. Standard jeans offer minimal protection in a slide but are usually accepted. Avoid shorts or thin leggings.
+**Jacket.** A motorcycle jacket with CE-rated armour at the shoulders and elbows is the best option, but most schools accept a sturdy denim or leather jacket as a minimum. Avoid hoodies, thin waterproofs, or anything loose that could snag on the controls. If you're buying gear specifically for CBT, look for CE Level 1 armour at minimum — Level 2 gives better impact absorption.
 
-Your training provider's website or confirmation email will list exactly what they require — check this the week before so you have time to source anything missing.`,
-        },
-        {
-          id: "les-gd-2",
-          slug: "documents-to-bring",
-          title: "Documents You Must Bring",
-          order: 2,
-          estimatedReadTime: "4 min",
-          keyTakeaway:
-            "Your provisional licence photocard is essential — without it, training cannot go ahead. Check the address matches your current address and the card is not expired.",
-          content: `The most important document is your provisional driving licence — specifically the photocard version. Without it, your training cannot legally proceed. The old paper-only provisional licences are no longer valid for this purpose; you need the credit-card-sized photocard. If you do not have one, apply through the DVLA well in advance of your training date.
+**Boots and trousers.** Wear ankle-covering boots with a sole that grips the foot pegs — ideally motorcycle boots, but sturdy leather or work boots are usually fine. Trainers, sandals, and anything that doesn't cover the ankle are not acceptable. For trousers, motorcycle trousers with CE-rated knee armour are recommended; standard jeans are typically accepted but offer minimal protection in a slide. Never wear shorts or thin leggings. Check your provider's confirmation email for their exact requirements — do this the week before so you have time to sort anything missing.
 
-Check two things on your licence before your CBT day. First, the address must match your current home address. If it doesn't, update it via the DVLA (this is free and can be done online at gov.uk). Riding with an incorrect address on your licence is technically an offence. Second, check the expiry date — provisional licences must be renewed every 10 years. If yours is close to expiry or recently applied for and not yet arrived, contact the DVLA as early as possible.
+**Your provisional licence photocard.** This is the one document you cannot forget. Without the credit-card-sized photocard version, your training cannot legally go ahead — the old paper-only provisional is no longer valid. Before CBT day, check two things: first, the address on the card must match your current home address (update it free via gov.uk if needed); second, check the expiry date — provisional licences require renewal every 10 years. Apply for replacements through the DVLA as early as possible if anything is out of order.
 
-If you already hold a full car licence, bring that too — it can affect what you're permitted to ride after CBT. Some training providers also ask for proof of booking or a booking confirmation email. If you're bringing your own motorcycle (uncommon for first-time CBT), you may need proof of third-party insurance.
+**Other documents.** If you already hold a full car licence, bring it — it can affect what you're permitted to ride after CBT. Some providers ask for your booking confirmation email; a few require proof of insurance if you're bringing your own bike. Take a phone photo of your licence as a backup, but the physical card is what your instructor needs. Keep it somewhere accessible on the day, not buried at the bottom of a bag.
 
-It's worth taking a photo of your licence on your phone as a backup, but your provider will need to see the physical card. On the day, keep it somewhere safe and easily accessible — not at the bottom of a bag buried under your gear.
+**The evening before.** Spend 15 minutes getting everything ready. Lay out your full kit: helmet (or note that the school is providing one), gloves, jacket, boots, and trousers. Check the weather forecast and pack a waterproof layer — CBT is not cancelled for rain and you will be outside most of the day. Get your documents together. Set an alarm that gives you time to eat a proper breakfast; set a second if you need it. Look up the journey to the training centre and plan to arrive 10–15 minutes early.
 
-In summary: your provisional licence photocard is the only document that is absolutely essential. Everything else is a bonus. But without that card, your training day will not happen.`,
-        },
-        {
-          id: "les-gd-3",
-          slug: "pre-cbt-checklist",
-          title: "Your Pre-CBT Checklist",
-          order: 3,
-          estimatedReadTime: "4 min",
-          keyTakeaway:
-            "Prepare the evening before: lay out gear, confirm documents, check weather, plan your journey. On the morning: eat well, stay hydrated, arrive early.",
-          content: `The evening before your CBT, spend 15 minutes going through everything you need. Lay out your gear: helmet (or confirm the school is providing one), gloves, jacket with armour or a sturdy alternative, ankle-covering boots, and riding trousers or tough jeans. Check the weather forecast and pack a waterproof layer — you will be outside all day, and wet conditions will not cancel your training.
-
-Get your documents ready: provisional licence photocard and anything else your training provider has requested. Set an alarm that gives you enough time to eat a proper breakfast — you will be concentrating hard all day and energy levels matter. Check your journey to the training centre; plan to arrive 10–15 minutes early. Being late causes stress before you have even started.
-
-On the morning, eat a solid breakfast and stay hydrated. Avoid alcohol the night before (this should be obvious, but it bears repeating). Get a good night's sleep — tiredness affects concentration and reaction time. If you wear glasses or contact lenses, make sure you have them with you. Bring a packed lunch and water if the school does not provide food — most training days are 6–8 hours with only short breaks.
-
-Leave your phone in your bag during riding sessions. You will need your full attention on the road, and a phone in your pocket is a distraction and a hazard if you fall. Most instructors will ask you to put it away.
-
-Finally: arrive with a positive mindset. Everyone is a beginner on their CBT day. Your instructor is there to help you succeed, not to catch you out. The more relaxed and open you are, the faster you will learn.`,
+**On the morning.** Eat a solid breakfast and stay hydrated — CBT days run 6–8 hours with only short breaks, and low energy affects concentration. Avoid alcohol the night before. Get a decent night's sleep; tiredness slows reaction time noticeably. If you wear glasses or contacts, make sure you have them — you will need to pass a 20-metre eyesight test before you can start riding. Bring a packed lunch and water if the school does not provide food. When you arrive, put your phone away — your instructor will ask you to, and your full attention on the road is what gets you through the day.`,
         },
       ],
     },
@@ -813,57 +785,29 @@ Finally: arrive with a positive mindset. Everyone is a beginner on their CBT day
       lessons: [
         {
           id: "les-cm-1",
-          slug: "top-cbt-fail-points",
-          title: "Top CBT Fail Points",
+          slug: "cbt-mistakes",
+          title: "Common Mistakes & How to Avoid Them",
           order: 1,
-          estimatedReadTime: "6 min",
+          estimatedReadTime: "12 min",
           keyTakeaway:
-            "The most common CBT problems are target fixation (looking at what you want to avoid), tense arms, and rushing the clutch. All are fixable with awareness.",
-          content: `CBT is not a test you can fail, but there are common issues that prevent riders from completing all five elements in a single day. Knowing what these are — and how to avoid them — gives you a significant advantage.
+            "The three most common CBT problems are target fixation, tense arms, and rushing the clutch. Pair these with consistent mirror checks and lifesaver glances, and you will be well ahead of most first-time riders.",
+          content: `CBT is not a test you can fail, but certain habits trip up the same riders time and again. This lesson covers every significant mistake — on the bike, in manoeuvres, and on the road — so you can recognise and correct them before your training day.
 
-The number one issue is target fixation: looking at what you want to avoid rather than where you want to go. Where you look is where you steer — this is a fundamental principle of motorcycle riding. During on-site manoeuvres, if you look at a cone, you will ride into it. If you look at the kerb, you will head towards it. Actively practise directing your gaze to where you want the bike to end up, not at obstacles.
+**Target fixation.** Where you look is where you steer — this is the single most important principle in motorcycle riding. If you stare at a cone you want to avoid, you will ride straight into it. If you look at the kerb, the bike will drift towards it. During on-site manoeuvres, train yourself to look through the turn to where you want to end up, not at the obstacle in front of you. It feels unnatural at first, but your steering will follow your eyes automatically.
 
-Gripping the handlebars too tightly is the second most common problem. Tense arms prevent you from steering smoothly and absorb no road vibration, making the bike feel unstable. Think of it like holding a bird — firm enough to keep control, but not so tight that you are rigid. Consciously drop your shoulders and relax your elbows. If you notice yourself going stiff, take a breath and loosen your grip.
+**Tense arms and grip.** Gripping the handlebars too tightly prevents you from steering smoothly and makes the bike feel unstable. Think of holding a bird — firm enough for control, not so tight you are rigid. Consciously drop your shoulders, relax your elbows, and breathe. If you notice yourself tensing up, that tension is usually a sign that something else is wrong — slow down, relax your grip, and reset.
 
-Rushing through the clutch friction point is the main cause of stalls. Many beginners release the clutch too quickly, killing the engine before the bike has enough momentum. The fix is to find the biting point, hold it there for a moment, open the throttle slightly, and then release the clutch slowly and progressively. Stalling is completely normal during CBT — every rider does it at some point. The important thing is understanding why it happened so you can correct it.
+**Stalling and clutch control.** Rushing through the clutch friction point is the main cause of stalls. Find the biting point, hold it there for a second, add a small amount of throttle, then release the clutch slowly and progressively. Stalling is completely normal during CBT — every rider does it. What matters is understanding why: either the throttle was too low, or the clutch came up too fast. Identify which, correct it, and move on.
 
-Finally, some riders struggle with confidence rather than skill. Anxiety about being judged or making mistakes in front of others can make everything harder. Remember: your instructor has seen thousands of complete beginners. Nothing you do will surprise them, and their entire job is to help you succeed.`,
-        },
-        {
-          id: "les-cm-2",
-          slug: "observation-mirror-checks",
-          title: "Observation & Mirror Checks",
-          order: 2,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "Lifesaver checks (looking over your shoulder before turning) and regular mirror use are the #1 things instructors look for. Make them a habit before your CBT.",
-          content: `Observation is the single most important skill your CBT instructor will assess during the on-road element. Good observation means you are aware of what is happening around you at all times — and you demonstrate this awareness through regular mirror checks and lifesaver glances.
+**Slow speed and manoeuvres.** At walking pace, the throttle and clutch work together differently than at normal speed. You need more throttle than feels natural — the engine revs provide gyroscopic stability that keeps the bike upright. Use the clutch to control your actual speed by holding it at or near the biting point (slipping the clutch). For U-turns, look over your shoulder to where you want to end up before you start turning — the bike will follow your head. Counter-intuitively, tighter turns need slightly more throttle, not less, to stay stable. For figure-of-eights, going fractionally faster actually makes balancing easier; resist the urge to go as slowly as possible.
 
-Mirrors should be checked every few seconds as a matter of habit, not just before you do something. Before changing speed, changing direction, or approaching any hazard, you must check your mirrors to know what is behind and beside you. The sequence is always: mirrors first, then signal, then manoeuvre.
+**Emergency stop.** Apply both brakes firmly and progressively — the front brake provides around 70% of stopping power, so do not neglect it, but do not grab it suddenly either. Squeeze progressively to avoid locking the front wheel, and pull the clutch in at the same time to prevent stalling. On a wet surface, progressive application is even more critical.
 
-Lifesaver checks are the quick glance over your shoulder immediately before you turn, change lane, or pull away. They cover the blind spot that mirrors cannot reach — the area just behind and to the side of you where a vehicle could be without appearing in your mirrors. Your instructor will be watching specifically for these. Failure to carry out lifesaver checks is one of the most common reasons riders are asked to repeat parts of the on-road element.
+**Mirrors and observation.** Mirrors should be a constant habit, not a one-off check before a manoeuvre. Check them every few seconds as you ride — before any change of speed, change of direction, or approach to a hazard. The sequence your instructor expects is always: **mirrors first, signal, then manoeuvre**. Missing mirror checks is one of the most common reasons the on-road element takes longer than expected.
 
-A good observation routine at a junction looks like this: check mirrors on approach, signal your intention, position correctly, check mirrors again, look left and right (and left again), carry out a lifesaver check in the direction you are turning, then proceed when safe. It sounds like a lot of steps, but with practice it becomes a single flowing sequence.
+**Lifesaver checks.** Mirrors do not cover your full blind spot — the zone just behind and to the side of you where a vehicle can sit without appearing in the mirror. A lifesaver check is a quick, deliberate glance over your shoulder immediately before turning, changing lane, or pulling away from a junction. Your instructor will be watching specifically for these. At a junction, the full sequence is: check mirrors on approach → signal → position → check mirrors again → look right, left, right → lifesaver glance in the direction of your turn → proceed when safe. It sounds like a lot, but it becomes one fluid movement with practice.
 
-The golden rule is: if you are not sure whether something is there, look. Looking costs you nothing. Not looking could cost you everything.`,
-        },
-        {
-          id: "les-cm-3",
-          slug: "slow-speed-control",
-          title: "Slow Speed Control & Manoeuvres",
-          order: 3,
-          estimatedReadTime: "5 min",
-          keyTakeaway:
-            "Slow speed control is all about clutch and throttle coordination. Use more throttle than feels natural, slip the clutch, and look where you want to go.",
-          content: `Slow speed control is the skill that separates a nervous beginner from a confident new rider. During Element C of your CBT, you will practise manoeuvres that require you to ride at walking pace or slower — and this is where many riders struggle most.
-
-The key to slow speed control is the relationship between throttle and clutch. At very low speeds, you need more engine power than you think — a slightly higher throttle setting provides the gyroscopic stability that keeps the bike upright. The clutch controls your actual speed: by "slipping" the clutch (holding it at or near the biting point), you can maintain a constant crawling speed regardless of how much throttle you are applying.
-
-For U-turns, the technique is: look over your shoulder to where you want to end up, apply a little more throttle, slip the clutch to control speed, and lean the bike while keeping your body relatively upright. Counter-intuitively, the tighter the turn, the more throttle you need — because the bike needs to maintain stability through the turn. Dragging the rear brake lightly can also help smooth out your speed control.
-
-Figure-of-eight exercises combine everything: clutch control, throttle management, steering input, and head movement. The most common mistake is trying to do it too slowly — a slightly faster pace makes balancing much easier. Start wider and gradually tighten your circles as your confidence builds.
-
-For the emergency stop, the technique is to apply both brakes firmly and progressively (front brake provides about 70% of stopping power) while pulling in the clutch to prevent stalling. Do not grab the front brake suddenly, especially on a wet surface — progressive application prevents the front wheel from locking.`,
+**Confidence and mindset.** Some riders struggle not with skill but with anxiety — the fear of being watched, of making mistakes, of not being good enough. Your instructor has trained thousands of complete beginners. Nothing you do will surprise them, and catching you out is not their job. The more relaxed and open you are to feedback, the faster the day will go. If something goes wrong, say so — your instructor would rather you flag it than push through and repeat the same error.`,
         },
       ],
     },

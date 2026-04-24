@@ -53,7 +53,7 @@ export default function CourseCard({ course, progress }: Props) {
           </div>
           <div>
             <h3 className="font-heading text-type-h6 uppercase text-gray-700 leading-none">{course.title}</h3>
-            <p className="font-body text-type-caption text-gray-400 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
+            <p className="font-body text-type-caption text-gray-400 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
           </div>
         </div>
 
@@ -62,8 +62,6 @@ export default function CourseCard({ course, progress }: Props) {
         {/* Meta */}
         <div className="flex items-center gap-3 mt-3 font-body text-type-caption text-gray-400">
           <span>{course.moduleCount} modules</span>
-          <span className="w-0.5 h-0.5 rounded-full bg-gray-300" />
-          <span>{course.phase}</span>
         </div>
       </div>
     );
@@ -94,7 +92,7 @@ export default function CourseCard({ course, progress }: Props) {
           <h3 className="font-heading text-type-h6 uppercase text-gray-800 leading-none group-hover:text-[#2CCEAC] transition-colors">
             {course.title}
           </h3>
-          <p className="font-body text-type-caption text-gray-500 italic mt-0.5">&ldquo;{course.tagline}&rdquo;</p>
+          <p className="font-body text-type-caption text-gray-500 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
         </div>
       </div>
 
