@@ -904,7 +904,7 @@ export const catalogue: CatalogueCourse[] = [
   },
   {
     slug: "gear-guide",
-    title: "Gear Guide",
+    title: "Motorcycle Gear Guide",
     tagline: "I've got my licence/CBT. What should I buy?",
     description:
       "Choose your first bike, understand essential riding gear, sort insurance and tax, and learn basic maintenance checks.",
