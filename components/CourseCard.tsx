@@ -52,12 +52,12 @@ export default function CourseCard({ course, progress }: Props) {
             <Icon size={18} strokeWidth={1.75} className="text-gray-400" />
           </div>
           <div>
-            <h3 className="font-heading text-type-h6 uppercase text-gray-700 leading-none">{course.title}</h3>
-            <p className="font-body text-type-caption text-gray-400 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
+            <h3 className="font-heading text-type-h5 uppercase text-gray-700 leading-none">{course.title}</h3>
+            <p className="font-body text-type-small text-gray-400 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
           </div>
         </div>
 
-        <p className="font-body text-type-caption text-gray-400 mt-2 line-clamp-2">{course.description}</p>
+        <p className="font-body text-type-body text-gray-400 mt-2 line-clamp-2">{course.description}</p>
 
         {/* Meta */}
         <div className="flex items-center gap-3 mt-3 font-body text-type-caption text-gray-400">
@@ -89,14 +89,14 @@ export default function CourseCard({ course, progress }: Props) {
           <Icon size={18} strokeWidth={1.75} className="text-[#2CCEAC]" />
         </div>
         <div>
-          <h3 className="font-heading text-type-h6 uppercase text-gray-800 leading-none group-hover:text-[#2CCEAC] transition-colors">
+          <h3 className="font-heading text-type-h5 uppercase text-gray-800 leading-none group-hover:text-[#2CCEAC] transition-colors">
             {course.title}
           </h3>
-          <p className="font-body text-type-caption text-gray-500 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
+          <p className="font-body text-type-small text-gray-500 italic mt-1.5">&ldquo;{course.tagline}&rdquo;</p>
         </div>
       </div>
 
-      <p className="font-body text-type-caption text-gray-500 mt-2 line-clamp-2">{course.description}</p>
+      <p className="font-body text-type-body text-gray-500 mt-2 line-clamp-2">{course.description}</p>
 
       {/* Meta */}
       <div className="flex items-center gap-3 mt-3 font-body text-type-caption text-gray-500">
