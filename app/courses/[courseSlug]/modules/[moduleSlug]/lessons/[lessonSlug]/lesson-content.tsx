@@ -52,13 +52,6 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           Learning
         </Link>
         <ChevronRight size={13} className="text-gray-300" />
-        <Link
-          href={basePath}
-          className="text-gray-400 hover:text-[#2CCEAC] transition-colors truncate max-w-[160px] sm:max-w-none"
-        >
-          {courseModule.title}
-        </Link>
-        <ChevronRight size={13} className="text-gray-300" />
         <span className="text-gray-600 font-medium">Lesson {lessonIndex + 1}</span>
       </nav>
 
@@ -217,7 +210,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           </Link>
         ) : (
           <Link
-            href={basePath}
+            href={`/courses/${COURSE_SLUG}`}
             className="group flex items-center gap-2 bg-white border border-gray-200/80 rounded-xl px-4 py-3 hover:border-gray-300 transition-all duration-200"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}
           >
@@ -227,7 +220,7 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
             />
             <div>
               <p className="text-xs text-gray-400 mb-0.5">Back to</p>
-              <p className="text-sm font-semibold text-gray-700">Module overview</p>
+              <p className="text-sm font-semibold text-gray-700">Course</p>
             </div>
           </Link>
         )}
@@ -254,13 +247,13 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
           </Link>
         ) : (
           <Link
-            href={basePath}
+            href={`/courses/${COURSE_SLUG}`}
             className="group flex items-center gap-2 bg-[#2CCEAC] hover:bg-[#25b899] rounded-xl px-5 py-3 transition-all duration-200 justify-end"
             style={{ boxShadow: "0 1px 3px rgba(44,206,172,0.3)" }}
           >
             <div className="text-right">
               <p className="text-xs text-white/70 mb-0.5">You&apos;re done!</p>
-              <p className="text-sm font-bold text-white">Module Complete</p>
+              <p className="text-sm font-bold text-white">Back to Course</p>
             </div>
             <ChevronRight
               size={16}
