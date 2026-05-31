@@ -1,24 +1,24 @@
 import { notFound } from "next/navigation";
-import { course } from "@/lib/course-data";
+import { getCourseBySlug } from "@/lib/db";
 import QuizContent from "./quiz-content";
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: { courseSlug: string };
 }
 
-export function generateStaticParams() {
-  return [{ courseSlug: course.slug }];
-}
-
-export function generateMetadata({ params }: Props) {
-  if (params.courseSlug !== course.slug) return {};
+export async function generateMetadata({ params }: Props) {
+  const course = await getCourseBySlug(params.courseSlug);
+  if (!course) return {};
   return {
     title: `Pre-CBT Quiz — ${course.title} — RideTo Learn`,
     description: "Test your knowledge across all Pre-CBT topics.",
   };
 }
 
-export default function QuizPage({ params }: Props) {
-  if (params.courseSlug !== course.slug) notFound();
+export default async function QuizPage({ params }: Props) {
+  const course = await getCourseBySlug(params.courseSlug);
+  if (!course) notFound();
   return <QuizContent quiz={course.quiz} />;
 }

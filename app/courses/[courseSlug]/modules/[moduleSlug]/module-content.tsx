@@ -20,7 +20,7 @@ export default function ModuleContent({ courseModule }: Props) {
       status[lesson.slug] = isLessonComplete(courseModule.slug, lesson.slug);
     }
     setLessonStatus(status);
-    setProgressPct(getModuleProgress(courseModule.slug));
+    setProgressPct(getModuleProgress(courseModule.slug, courseModule.lessons));
   }, [courseModule]);
 
   const completedCount = Object.values(lessonStatus).filter(Boolean).length;

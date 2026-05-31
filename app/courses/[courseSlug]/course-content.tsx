@@ -2,22 +2,29 @@
 
 import { useEffect, useState } from 'react';
 import ModuleAccordion from "@/components/ModuleAccordion";
-import { course, modules, totalLessons, COURSE_SLUG } from "@/lib/course-data";
+import type { Course } from "@/lib/course-data";
 import { getCourseCompletedCount, getLessonCompletionMap } from "@/lib/progress";
 import { getBestScore } from "@/lib/quiz-progress";
 import { Trophy, ChevronRight, ArrowLeft, BookOpen, HelpCircle, Clock } from "lucide-react";
 import Link from "next/link";
 
-export default function CourseContent() {
+interface Props {
+  course: Course;
+}
+
+export default function CourseContent({ course }: Props) {
+  const modules = course.modules;
+  const totalLessons = modules.reduce((sum, m) => sum + m.lessons.length, 0);
+
   const [completedLessons, setCompletedLessons] = useState(0);
   const [lessonMap, setLessonMap] = useState<Record<string, Record<string, boolean>>>({});
   const [quizScore, setQuizScore] = useState<number | null>(null);
 
   useEffect(() => {
-    setCompletedLessons(getCourseCompletedCount());
-    setLessonMap(getLessonCompletionMap());
-    setQuizScore(getBestScore(COURSE_SLUG));
-  }, []);
+    setCompletedLessons(getCourseCompletedCount(modules));
+    setLessonMap(getLessonCompletionMap(modules));
+    setQuizScore(getBestScore(course.slug));
+  }, [course.slug, modules]);
 
   const progressPct = Math.round((completedLessons / totalLessons) * 100);
   const allLessonsComplete = completedLessons === totalLessons && totalLessons > 0;
@@ -48,7 +55,7 @@ export default function CourseContent() {
         </p>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 font-body text-type-small text-gray-400">
-            <span className="font-bold text-white">{modules.length}</span> subsections
+            <span className="font-bold text-white">{modules.length}</span> {modules.length === 1 ? 'module' : 'modules'}
           </div>
           <div className="w-1 h-1 rounded-full bg-gray-600" />
           <div className="flex items-center gap-1.5 font-body text-type-small text-gray-400">
@@ -154,7 +161,7 @@ export default function CourseContent() {
                 </div>
               </div>
               <Link
-                href={`/courses/${COURSE_SLUG}/quiz`}
+                href={`/courses/${course.slug}/quiz`}
                 className="flex-shrink-0 inline-flex items-center gap-2 bg-[#434343] hover:bg-[#2CCEAC] text-white font-heading text-type-button uppercase tracking-[0.05em] px-4 py-2.5 rounded-lg transition-colors duration-200"
               >
                 {quizScore !== null ? "Retake" : "Start Quiz"}

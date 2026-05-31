@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { BookOpen, ChevronRight, Plus } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
   const courses = await prisma.course.findMany({
     orderBy: { order: 'asc' },
