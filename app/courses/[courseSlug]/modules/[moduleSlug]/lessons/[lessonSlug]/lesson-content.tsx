@@ -11,15 +11,22 @@ interface Props {
   lessonIndex: number;
 }
 
-/** Render text with **bold** markdown as <strong> elements */
-function renderMarkdown(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
-    }
-    return part;
-  });
+/** Convert old **bold** markdown to HTML (for legacy content) */
+function legacyMarkdownToHtml(text: string): string {
+  return text
+    .split('\n\n')
+    .map(para => {
+      const html = para.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      return `<p>${html}</p>`;
+    })
+    .join('');
+}
+
+/** Returns HTML string — handles both rich HTML and old markdown */
+function getContentHtml(content: string): string {
+  if (!content) return '';
+  if (content.trim().startsWith('<')) return content; // already HTML from Tiptap
+  return legacyMarkdownToHtml(content); // convert old markdown
 }
 
 export default function LessonContent({ courseModule, lessonIndex }: Props) {
@@ -128,16 +135,10 @@ export default function LessonContent({ courseModule, lessonIndex }: Props) {
 
         {/* Content */}
         <div className="px-6 py-6">
-          <article>
-            {lesson.content.split('\n\n').map((paragraph, i) => (
-              <p
-                key={i}
-                className="font-body text-type-body text-gray-700 mb-5 last:mb-0"
-              >
-                {renderMarkdown(paragraph)}
-              </p>
-            ))}
-          </article>
+          <article
+            className="lesson-content prose prose-sm max-w-none text-gray-700"
+            dangerouslySetInnerHTML={{ __html: getContentHtml(lesson.content) }}
+          />
 
           {/* Key Takeaway */}
           <div className="mt-6 bg-[#2CCEAC]/8 border border-[#2CCEAC]/20 rounded-xl p-4 flex items-start gap-3">
