@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Trash2 } from 'lucide-react'
 import type { Course } from '@/lib/generated/prisma/client'
 
 const inputCls = 'w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2CCEAC]/30 focus:border-[#2CCEAC] transition-colors'
@@ -20,6 +21,7 @@ export default function CourseForm({ course }: { course: Course }) {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState({
     title: course.title,
@@ -28,6 +30,21 @@ export default function CourseForm({ course }: { course: Course }) {
     status: course.status,
     trainingType: course.trainingType,
   })
+
+  async function handleDelete() {
+    if (!confirm(`Delete "${course.title}"? This will permanently remove the course and ALL its modules and lessons. This cannot be undone.`)) return
+    setDeleting(true)
+    setError('')
+    try {
+      const res = await fetch(`/api/admin/courses/${course.id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Failed to delete')
+      router.push('/admin')
+      router.refresh()
+    } catch {
+      setError('Failed to delete course')
+      setDeleting(false)
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -75,6 +92,23 @@ export default function CourseForm({ course }: { course: Course }) {
       <button type="submit" disabled={saving} className="bg-[#2CCEAC] hover:bg-[#25b899] disabled:opacity-50 text-white font-heading text-xs uppercase tracking-widest px-5 py-2.5 rounded-lg transition-colors">
         {saving ? 'Saving…' : saved ? '✓ Saved' : 'Save Changes'}
       </button>
+
+      {/* Danger zone */}
+      <div className="pt-6 mt-6 border-t border-gray-100">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Danger Zone</p>
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="inline-flex items-center gap-2 border border-red-200 text-red-500 hover:bg-red-50 disabled:opacity-50 text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors cursor-pointer"
+        >
+          <Trash2 size={13} />
+          {deleting ? 'Deleting…' : 'Delete this course'}
+        </button>
+        <p className="text-xs text-gray-400 mt-2">
+          Permanently removes this course, all its modules and lessons. Cannot be undone.
+        </p>
+      </div>
     </form>
   )
 }
