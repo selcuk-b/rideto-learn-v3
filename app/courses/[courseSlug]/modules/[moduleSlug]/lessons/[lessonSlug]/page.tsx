@@ -2,22 +2,10 @@ import { notFound } from "next/navigation";
 import { course } from "@/lib/course-data";
 import LessonContent from "./lesson-content";
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: { courseSlug: string; moduleSlug: string; lessonSlug: string };
-}
-
-export function generateStaticParams() {
-  const params: { courseSlug: string; moduleSlug: string; lessonSlug: string }[] = [];
-  for (const mod of course.modules) {
-    for (const lesson of mod.lessons) {
-      params.push({
-        courseSlug: course.slug,
-        moduleSlug: mod.slug,
-        lessonSlug: lesson.slug,
-      });
-    }
-  }
-  return params;
 }
 
 export function generateMetadata({ params }: Props) {
