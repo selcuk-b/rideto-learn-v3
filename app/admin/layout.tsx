@@ -1,11 +1,8 @@
-import { isAuthenticated } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
 export const metadata = { title: 'Admin — RideTo Learn' }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  if (!isAuthenticated()) redirect('/admin/login')
 
   return (
     <div className="min-h-screen bg-gray-50">
