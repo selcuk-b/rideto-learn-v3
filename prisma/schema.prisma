@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum CourseStatus {
+  draft
+  published
+  archived
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model Course {
+  id            String       @id @default(cuid())
+  slug          String       @unique
+  title         String
+  description   String
+  trainingType  String
+  estimatedTime String
+  status        CourseStatus @default(draft)
+  order         Int          @default(0)
+  modules       Module[]
+  quiz          Quiz?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Module {
+  id            String   @id @default(cuid())
+  slug          String
+  title         String
+  description   String
+  order         Int
+  estimatedTime String
+  icon          String?
+  courseId      String
+  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons       Lesson[]
+  quiz          Quiz?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([courseId, slug])
+  @@index([courseId, order])
+}
+
+model Lesson {
+  id                String   @id @default(cuid())
+  slug              String
+  title             String
+  order             Int
+  content           String
+  estimatedReadTime String
+  youtubeVideoId    String?
+  keyTakeaway       String
+  moduleId          String
+  module            Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([moduleId, slug])
+  @@index([moduleId, order])
+}
+
+model Quiz {
+  id           String     @id @default(cuid())
+  title        String
+  description  String
+  passingScore Int
+  courseId     String?    @unique
+  moduleId     String?    @unique
+  course       Course?    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  module       Module?    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  questions    Question[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Question {
+  id                 String   @id @default(cuid())
+  questionText       String
+  options            String[]
+  correctAnswerIndex Int
+  explanation        String
+  image              String?
+  order              Int      @default(0)
+  quizId             String
+  quiz               Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
