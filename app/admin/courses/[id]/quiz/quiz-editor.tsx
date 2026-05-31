@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   ChevronUp, ChevronDown, Trash2, Plus, CheckCircle2,
-  ChevronRight, Image as ImageIcon, Loader2,
+  ChevronRight, Image as ImageIcon, Loader2, Upload,
 } from 'lucide-react'
 
 const inputCls = 'w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2CCEAC]/30 focus:border-[#2CCEAC] transition-colors'
@@ -106,7 +106,28 @@ function QuestionRow({
   const [expanded, setExpanded] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [form, setForm] = useState({ ...question, image: question.image ?? '' })
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+      if (!res.ok) throw new Error('Upload failed')
+      const { url } = await res.json()
+      setForm(f => ({ ...f, image: url }))
+    } catch {
+      alert('Image upload failed. Please try again.')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
 
   async function handleSave() {
     setSaving(true)
@@ -216,14 +237,63 @@ function QuestionRow({
 
           {/* Image */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Image Path <span className="text-gray-400 font-normal normal-case tracking-normal">— optional, e.g. /images/quiz/q07-no-motor-vehicles.png</span></label>
-            <input type="text" value={form.image} onChange={e => setForm(f => ({ ...f, image: e.target.value }))} className={inputCls} placeholder="Leave blank for no image" />
-            {form.image && (
-              <div className="mt-2 flex items-start gap-3">
-                <img src={form.image} alt="preview" className="max-h-24 max-w-[120px] object-contain rounded border border-gray-100 bg-gray-50 p-1" onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
-                <p className="text-xs text-gray-400 mt-1">Preview — if image doesn&apos;t appear, check the path.</p>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+              Image <span className="text-gray-400 font-normal normal-case tracking-normal">— optional</span>
+            </label>
+
+            {/* Upload button + current image */}
+            <div className="flex items-start gap-3">
+              {form.image ? (
+                <div className="relative flex-shrink-0">
+                  <img
+                    src={form.image}
+                    alt="preview"
+                    className="h-24 w-24 object-contain rounded-lg border border-gray-200 bg-gray-50 p-1"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setForm(f => ({ ...f, image: '' }))}
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-600 cursor-pointer"
+                  >
+                    ×
+                  </button>
+                </div>
+              ) : (
+                <div className="h-24 w-24 flex-shrink-0 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-300">
+                  <ImageIcon size={24} />
+                </div>
+              )}
+
+              <div className="flex-1 space-y-2">
+                {/* Upload from computer */}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="inline-flex items-center gap-2 border border-gray-200 hover:border-[#2CCEAC] text-gray-600 hover:text-[#2CCEAC] text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer disabled:opacity-50 w-full justify-center"
+                >
+                  {uploading ? <Loader2 size={13} className="animate-spin" /> : <Upload size={13} />}
+                  {uploading ? 'Uploading…' : 'Upload from computer'}
+                </button>
+
+                {/* Or paste URL */}
+                <input
+                  type="text"
+                  value={form.image}
+                  onChange={e => setForm(f => ({ ...f, image: e.target.value }))}
+                  className={inputCls}
+                  placeholder="Or paste an image URL…"
+                />
               </div>
-            )}
+            </div>
           </div>
 
           <div className="flex gap-3 pt-1">
